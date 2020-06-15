@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class='book-archive'>
+  <!-- Title -->
+  
+    <h1>Tags</h1>
+  
+
+  
+    <!-- Split post by year -->
+    
+  
+
+  
+      <div class="years">
+          <h2>2019</h2>
+          <ul class="archive-list-item">
+          
+              <li>
+                <span>2019-12-13</span>
+                <a href="/contents/mysql-fileread/">
+                  mysql客户端读取漏洞
+                </a>
+              </li>
+          
+              <li>
+                <span>2019-08-12</span>
+                <a href="/home/">
+                  Hello-world
+                </a>
+              </li>
+          
+          </ul>
+      </div>
+  
+      <div class="years">
+          <h2>2018</h2>
+          <ul class="archive-list-item">
+          
+              <li>
+                <span>2018-11-19</span>
+                <a href="/contents/tools/">
+                  一些工具的使用命令
+                </a>
+              </li>
+          
+          </ul>
+      </div>
+  
+
+  
+</div>
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div></div>
+    </div>
+  </div>
+
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

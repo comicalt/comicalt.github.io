@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          WebSecurity-upload - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>仅以此文系统的学习一下文件上传漏洞，包括其原理，分类，绕过方式，防御方式<a id="more"></a> </p>
+<h2 id="0x01-概念"><a href="#0x01-概念" class="headerlink" title="0x01 概念"></a>0x01 概念</h2><p>文件上传最普通的前面uploads-labs已经归纳，此处不再阐述</p>
+<p>文件解析漏洞,是指Web容器（Apache、nginx、iis等）在解析文件时出现了漏洞,以其他格式执行出脚本格式的效果。从而,黑客可以利用该漏洞实现非法文件的解析。</p>
+<p><img src="/img/upload_1.jpg" alt=""></p>
+<h2 id="0x02-实例"><a href="#0x02-实例" class="headerlink" title="0x02 实例"></a>0x02 实例</h2><h3 id="a、Apache解析漏洞"><a href="#a、Apache解析漏洞" class="headerlink" title="a、Apache解析漏洞"></a>a、Apache解析漏洞</h3><ol>
+<li><h4 id="多后缀"><a href="#多后缀" class="headerlink" title="多后缀"></a><strong>多后缀</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在Apache1.x，2.x中Apache 解析文件的规则是从右到左开始判断解析,如果后缀名为不可识别文件解析,就再往左判断。</span><br><span class="line">因此我们可以上传一个test.php.comical 而其仍然会解析成为php文件</span><br></pre></td></tr></table></figure>
+
+<p>修复方式：后缀验证尽量使用白名单，这样即使使用不存在的后缀名也无法绕过</p>
+</li>
+<li><h4 id="配置问题导致漏洞"><a href="#配置问题导致漏洞" class="headerlink" title="配置问题导致漏洞"></a><strong>配置问题导致漏洞</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、Apache的conf配置为 AddHandler php5-script  .php 那么这时只要文件名里包含.php则会当成php来执行 例如：test.php.jpg可直接当成php执行</span><br><span class="line">2、Apache的conf配置为 AddType application&#x2F;x-httpd-php .jpg  那么即使后缀是jpg也会当成php执行 例如： test.jpg解析成php文件</span><br></pre></td></tr></table></figure>
+
+<p>修复方式：</p>
+<ul>
+<li><p>修改Apache的配置为正确的配置</p>
+</li>
+<li><p>修改apache配置文件，禁止.php.这样的文件执行，配置文件里面加入</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Files ~ <span class="string">".php."</span>&gt;</span><br><span class="line">	Order Allow,Deny</span><br><span class="line">	Deny from all</span><br><span class="line">&lt;/Files&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重写.php.<em>这类文件，将httpd.conf中的*</em>LoadModule rewrite_module modules/mod_rewrite.so**前的#号去掉，重启apache，在网站更目录下建立.htaccess文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule mod_rewrite.c&gt;</span><br><span class="line">RewriteEngine On</span><br><span class="line">RewriteRule .(php.|php3.) /index.php</span><br><span class="line">RewriteRule .(pHp.|pHp3.) /index.php</span><br><span class="line">RewriteRule .(phP.|phP3.) /index.php</span><br><span class="line">RewriteRule .(Php.|Php3.) /index.php</span><br><span class="line">RewriteRule .(PHp.|PHp3.) /index.php</span><br><span class="line">RewriteRule .(PhP.|PhP3.) /index.php</span><br><span class="line">RewriteRule .(pHP.|pHP3.) /index.php</span><br><span class="line">RewriteRule .(PHP.|PHP3.) /index.php</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="罕见后缀"><a href="#罕见后缀" class="headerlink" title="罕见后缀"></a><strong>罕见后缀</strong></h4><p>打ctf的都知道，php无法解析时会去fuzz一些类似于php5，php7一类的文件，产生这一现象的原因是因为Apache配置文件中会有个表达式，可以将这一类文件当成php程序，同类的文件还有<code>php3，php4，php5，pht，phtml</code></p>
+</li>
+<li><h4 id="htaccess"><a href="#htaccess" class="headerlink" title=".htaccess"></a><strong>.htaccess</strong></h4><p>准确来说这个文件可以算文件上传的洞了，下面我们来了解一下这个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.htaccess文件可以配置很多事情，如是否开启站点的图片缓存、自定义错误页面、自定义默认文档、设置WWW域名重定向、设置网页重定向、设置图片防盗链和访问权限控制。但我们这里只关心.htaccess文件的一个作用——MIME类型修改。</span><br></pre></td></tr></table></figure>
+
+<p>你比如说我们在.htaccess中写入如下内容，即可使该文件所在目录及其子目录中的后缀为.xxx文件被apache解析成为php文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php xxx</span><br></pre></td></tr></table></figure>
+
+<p>另一种写法，也可使shell.jpg解析成php文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;shell.jpg&quot;&gt;</span><br><span class="line">  SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="b、Nginx解析漏洞"><a href="#b、Nginx解析漏洞" class="headerlink" title="b、Nginx解析漏洞"></a>b、Nginx解析漏洞</h3><ol>
+<li><h4 id="PHP-CGI解析漏洞"><a href="#PHP-CGI解析漏洞" class="headerlink" title="PHP CGI解析漏洞"></a><strong>PHP CGI解析漏洞</strong></h4><p>漏洞原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Nginx默认是以CGI的方式支持PHP解析的，普遍的做法是在Nginx配置文件中通过正则匹配设置SCRIPT_FILENAME。当访问www.xx.com&#x2F;phpinfo.jpg&#x2F;1.php这个URL时，$fastcgi_script_name会被设置为“phpinfo.jpg&#x2F;1.php”，然后构造成SCRIPT_FILENAME传递给PHP CGI，但是PHP为什么会接受这样的参数，并将phpinfo.jpg作为PHP文件解析呢?这就要说到fix_pathinfo这个选项了。 如果开启了这个选项，那么就会触发在PHP中的如下逻辑：</span><br><span class="line">PHP会认为SCRIPT_FILENAME是phpinfo.jpg，而1.php是PATH_INFO，所以就会将phpinfo.jpg作为PHP文件来解析了</span><br></pre></td></tr></table></figure>
+
+<p>漏洞形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">www.xxxx.com&#x2F;UploadFiles&#x2F;image&#x2F;1.jpg&#x2F;1.php</span><br><span class="line">www.xxxx.com&#x2F;UploadFiles&#x2F;image&#x2F;1.jpg&#x2F;%20\0.php</span><br><span class="line"></span><br><span class="line">上传一个内容为 &lt;?PHP fputs(fopen(&#39;shell.php&#39;,&#39;w&#39;),&#39;&lt;?php eval($_POST[cmd])?&gt;&#39;);?&gt;</span><br><span class="line">的jpg文件  然后访问test.jpg&#x2F;.php 执行此文件 生成shell文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="空字节代码执行漏洞"><a href="#空字节代码执行漏洞" class="headerlink" title="空字节代码执行漏洞"></a><strong>空字节代码执行漏洞</strong></h4><p>漏洞原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果一个攻击者可以控制文件的内容（即：使用头像上传形式）其结果是执行任意代码。Ngnix在遇到%00空字节时与后端FastCGI处理不一致，导致可以在图片中嵌入PHP代码然后通过访问xxx.jpg%00.php来执行其中的代码。</span><br></pre></td></tr></table></figure>
+
+<p>漏洞形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;example.com&#x2F;file.ext％00.php就会将file.ext作为PHP文件解析。</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="修复方式"><a href="#修复方式" class="headerlink" title="修复方式"></a><strong>修复方式</strong></h4><p>1.修改php.ini文件，将cgi.fix_pathinfo的值设置为0;<br>2.在Nginx配置文件中添加以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ( $fastcgi_script_name ~ ..*&#x2F;.*php ) &#123;</span><br><span class="line">return 403;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这行代码的意思是当匹配到类似test.jpg/a.php的URL时，将返回403错误代码。</p>
+<p>3.升级Nginx版本</p>
+</li>
+</ol>
+<h3 id="c、IIS解析漏洞"><a href="#c、IIS解析漏洞" class="headerlink" title="c、IIS解析漏洞"></a>c、IIS解析漏洞</h3><ol>
+<li><p>IIS 5.x/6.0</p>
+<ol>
+<li>目录解析  /xx.asp/xx.jpg (服务器会把.asp和.asp目录下的文件都解析成asp文件)</li>
+<li>文件解析  /xx.asp;jpg  (服务器默认不解析;号后面的内容，因此xx.asp;.jpg被解析成asp文件)</li>
+<li>解析文件类型  .asa  .cer  .cdx都会当成asp解析</li>
+</ol>
+</li>
+<li><p>IIS 7.5</p>
+<p>和nginx的漏洞类似</p>
+</li>
+</ol>
+<h3 id="d、-user-ini解析"><a href="#d、-user-ini解析" class="headerlink" title="d、.user.ini解析"></a>d、.user.ini解析</h3><p>当上传的目录中存在php文件时，可以上传一个.user.ini  内容为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file=<span class="number">1.</span>jpg</span><br></pre></td></tr></table></figure>
+
+<p>和包含一句话的图片</p>
+<p>让这个.user.ini指定图片，再访问存在的这个php文件即会变成一句话木马</p>
+<p><img src="/img/upload_1.png" alt=""></p>
+<p>再访问这个文件就执行了</p>
+<p><img src="/img/upload_2.png" alt=""></p>
+<p>利用条件：</p>
+<ol>
+<li>服务器脚本语言为PHP</li>
+<li>服务器使用CGI／FastCGI模式</li>
+<li>上传目录下要有可执行的php文件</li>
+</ol>
+<h2 id="0x03-bypass"><a href="#0x03-bypass" class="headerlink" title="0x03 bypass"></a>0x03 bypass</h2><p><img src="/img/upload_3.png" alt=""></p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2019-04-29</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/web/">web</a>
+
+      <a class="tag-link" href="/tags/upload/" rel="tag">#upload</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

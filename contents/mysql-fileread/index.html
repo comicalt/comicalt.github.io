@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          mysql客户端读取漏洞 - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>很早phpmyadmin就爆出了有这个漏洞了.</p>
+<p>最近公司的大佬也在分享这个  先知上看见也有大佬拿这个漏洞挖到个严重.</p>
+<p>遂自己复现一下.<a id="more"></a> </p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>mysql客户端读取漏洞可以说是mysql的一个漏洞.</p>
+<p>因此phpmyadmin  adminer等都存在这个漏洞.</p>
+<p><code>LOAD DATA INFILE</code></p>
+<p>Mysql可以使用LOAD DATA INFILE来读取文件，通常有两种用法，分别是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">load data infile &quot;&#x2F;data&#x2F;data.csv&quot; into table test;</span><br><span class="line">load data local infile &quot;&#x2F;data&#x2F;data.csv&quot; into table test;</span><br></pre></td></tr></table></figure>
+
+<p>第一种用法是从mysql自己的服务器上读取data.csv文件.</p>
+<p>第二种用法是客户端把客户端电脑上的data.csv发给mysql服务器的表中.</p>
+<p>而mysql客户端读取漏洞利用的语句即第二条语句.</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>正常流程来说当客户端向服务端发起load data infile “/etc/passwd”的时候.</p>
+<p>1、客户端会对服务器说：我要把我的etc/passwd文件插入到你的表中</p>
+<p> (客户端-&gt;&gt;服务端: Load data infile ‘/etc/passwd’… )  借用<a href="https://www.anquanke.com/post/id/173039" target="_blank" rel="noopener">这位大佬</a>的图</p>
+<p><img src="/img/mysql-readfile1.png" alt=""></p>
+<p>2、服务器对客户端说：好啊，读取你本地的/etc/passwd文件  (服务端-&gt;&gt;客户端: Response TABULAR)</p>
+<p><img src="/img/mysql-readfile2.png" alt=""></p>
+<p>3、客户端将data文件的内容发给服务器     (客户端-&gt;&gt;服务端: etc/passwd的内容)</p>
+<p><img src="/img/mysql-readfile3.png" alt=""></p>
+<p>而这里存在逻辑错误，即服务端可以不管客户端的请求，直接向客户端发送一个Response TABULAR，</p>
+<p>这样逻辑就变成了：</p>
+<p>1、客户端会对服务端说：NULL</p>
+<p>2、服务端对客户端说：好啊，读取你本地的/etc/passwd文件  (服务端-&gt;&gt;客户端: Response TABULAR)</p>
+<p>3、客户端将/etc/passwd文件的内容发给服务器     (客户端-&gt;&gt;服务端: testtest)</p>
+<p>那么设想一种场景：</p>
+<p>这样服务端就可以读取客户端机器上的任意文件.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">有一台靶机存在PHPmyadmin或者adminer(可以远程连接其他服务器)</span><br><span class="line">攻击者在攻击机器上假装一个mysql服务器包含读取任意文件的poc</span><br><span class="line">靶机上的任意文件被攻击机读取</span><br></pre></td></tr></table></figure>
+
+<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><ol>
+<li><p>phpmyadmin 开启了远程连接选项，adminer是默认开启的.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$cfg[&#39;AllowArbitraryServer&#39;] &#x3D; true; &#x2F;&#x2F;false改为true libraries下面的config.default.php</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql中secure_file_priv为空，即支持load infile的使用.</p>
+</li>
+<li><p>未开启open_basedir(开启情况需要拿shell，否则只能读到指定目录下的文件).</p>
+</li>
+</ol>
+<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><p>这里用到的脚本是<a href="https://github.com/allyshka/Rogue-MySql-Server" target="_blank" rel="noopener">这个</a>：</p>
+<p><img src="/img/mysql-readfile4.png" alt=""></p>
+<p>这里我们将端口改成了3308 读取目标机器上的test.php.</p>
+<p>注意这里文件一定要按照他给的格式写，然后后面要有逗号，不然会读取失败.</p>
+<p>然后在服务器上运行这个脚本，最坑的地方来了。。</p>
+<p>这个脚本运行后会一直在后台运行，如果要读其他的文件需要把进程杀掉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -tln | grep 3308</span><br><span class="line">lsof -i:3308</span><br><span class="line">kill</span><br></pre></td></tr></table></figure>
+
+<p>监听后会生成一个mysql.log文件 </p>
+<p><img src="/img/mysql-readfile5.png" alt=""></p>
+<p>接着我们用phpmyadmin和adminer访问一下</p>
+<p><img src="/img/mysql-readfile6.png" alt=""></p>
+<p>登陆进去的状态，报错不用管</p>
+<p><img src="/img/mysql-readfile7.png" alt=""></p>
+<p>在log文件里可以读到test.php的文件内容</p>
+<p><img src="/img/mysql-readfile8.png" alt=""></p>
+<p>adminer也一样，不过adminer默认开启远程连接，所以挖src的时候碰到adminer就等于碰到金矿hh</p>
+<p><img src="/img/mysql-readfile9.png" alt=""></p>
+<p><img src="/img/mysql-readfile10.png" alt=""></p>
+<p><img src="/img/mysql-readfile11.png" alt=""></p>
+<p>明显发现adminer比phpmyadmin的数据量要少.</p>
+<p>再有就是拿到shell后绕过open_basedir读取文件可以用这个漏洞.</p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2019-12-13</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/other/">other</a>
+
+      <a class="tag-link" href="/tags/other/" rel="tag">#other</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

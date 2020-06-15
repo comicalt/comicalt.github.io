@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          骇极杯CTF Write up - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>周日打了一场上海市的比赛，做出了一些题目以及赛后复现了一些这里记录一下<a id="more"></a> </p>
+<h2 id="0x01-web1-ssrf"><a href="#0x01-web1-ssrf" class="headerlink" title="0x01 web1 ssrf"></a>0x01 web1 ssrf</h2><p><code>admin=1</code></p>
+<p><code>x-Client-ip:127.0.0.1</code></p>
+<p>绕过一二关</p>
+<p><code>url=http://www.ichunqiu.com</code></p>
+<p>来到<code>ssrf</code>的点</p>
+<p><code>fuzz</code>一波发现 <code>url=file://www.ichunqiu.com/etc/passwd</code>图片里面是有值的</p>
+<p><code>curl</code>后得到 记得要加双引号</p>
+<p><img src="/img/shanghai_5.png" alt=""></p>
+<p>因为<code>robots.txt</code>里面提示有<code>flag.php</code> <code>url=file://www.ichunqiu.com/var/www/html/flag.php</code></p>
+<p>尝试<code>curl flag</code> (智障的我们当时不知道curl用的迅雷下载…..)</p>
+<p><img src="/img/shanghai_6.png" alt=""></p>
+<p>顺手摸一下源码嘻嘻<code>source.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">include</span> <span class="string">"flag.php"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"you need to login as admin!"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;!-- post param  'admin' --&gt;"</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'admin'</span>]))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>($_POST[<span class="string">'admin'</span>]==<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="keyword">if</span>($_SERVER[<span class="string">'HTTP_X_CLIENT_IP'</span>])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'url'</span>]) &amp;&amp; parse_url($_POST[<span class="string">'url'</span>])[<span class="string">'host'</span>]==<span class="string">'www.ichunqiu.com'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                $curl = curl_init();</span><br><span class="line">                curl_setopt($curl, CURLOPT_URL, $_POST[<span class="string">'url'</span>]);</span><br><span class="line">                curl_setopt($curl, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</span><br><span class="line">                $content = curl_exec($curl);</span><br><span class="line">                curl_close($curl);</span><br><span class="line">                $filename=<span class="string">'download/'</span>.rand().<span class="string">';img1.jpg'</span>;</span><br><span class="line">                file_put_contents($filename,$content);</span><br><span class="line">                <span class="keyword">echo</span> $_POST[<span class="string">'url'</span>];</span><br><span class="line">                $img=<span class="string">"&lt;img src=\""</span>.$filename.<span class="string">"\"/&gt;"</span>;</span><br><span class="line">                <span class="keyword">echo</span> $img;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">echo</span> <span class="string">"you need post url: http://www.ichunqiu.com"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"only 127.0.0.1 can get the flag!!"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	$_POST[<span class="string">'admin'</span>]=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x02-web2-反序列化"><a href="#0x02-web2-反序列化" class="headerlink" title="0x02 web2 反序列化"></a>0x02 web2 反序列化</h2><p>源码扫描扫描出来<code>.index.php.swp</code></p>
+<p>打开是乱码</p>
+<p>Vim –r 修复后得到源码</p>
+<p>分析得到一个变量覆盖的点一个反序列化的点</p>
+<p>变量覆盖：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">$first=<span class="string">'hi'</span>;</span><br><span class="line">$var=<span class="string">'var'</span>;</span><br><span class="line">$bbb=<span class="string">'bbb'</span>;</span><br><span class="line">$ccc=<span class="string">'ccc'</span>;</span><br><span class="line">$i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">foreach</span>($_GET <span class="keyword">as</span> $key =&gt; $value) &#123;</span><br><span class="line">        <span class="keyword">if</span>($i===<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">			</span><br><span class="line">            $i++;</span><br><span class="line">            $$key = $value;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;<span class="keyword">break</span>;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>($first===<span class="string">"doller"</span>)</span><br><span class="line">&#123;</span><br><span class="line">    @parse_str($_GET[<span class="string">'a'</span>]);</span><br><span class="line">    <span class="keyword">if</span>($var===<span class="string">"give"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>($bbb===<span class="string">"me"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>($ccc===<span class="string">"flag"</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">echo</span> <span class="string">"&lt;br&gt;welcome!&lt;br&gt;"</span>;</span><br><span class="line">                $come=@$_POST[<span class="string">'come'</span>];</span><br><span class="line">                unserialize($come);</span><br><span class="line">            &#125;		</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;<span class="keyword">echo</span> <span class="string">"&lt;br&gt;think about it&lt;br&gt;"</span>;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"NO"</span>;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"Can you hack me?&lt;br&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>变量覆盖部分<code>i=1</code>给<code>first</code>赋值，其他变量用<code>parse_str</code> <code>&amp;</code>要<code>urlencode</code></p>
+<p><code>?first=doller&amp;a=var=give%26bbb=me%26ccc=flag</code>来到welcome页面</p>
+<p><img src="/img/shanghai_4.png" alt=""></p>
+<p>反序列化</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">come</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $method;</span><br><span class="line">    <span class="keyword">private</span> $args;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($method, $args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;method = $method;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;args = $args;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;args <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;args[$k] = <span class="keyword">$this</span>-&gt;waf(trim($v));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">waf</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">        $str=preg_replace(<span class="string">"/[&lt;&gt;*;|?\n ]/"</span>,<span class="string">""</span>,$str);</span><br><span class="line">        $str=str_replace(<span class="string">'flag'</span>,<span class="string">''</span>,$str);</span><br><span class="line">        <span class="keyword">return</span> $str;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">echo</span><span class="params">($host)</span></span>&#123;</span><br><span class="line">        system(<span class="string">"echo $host"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array(<span class="keyword">$this</span>-&gt;method, <span class="keyword">array</span>(<span class="string">"echo"</span>))) &#123;</span><br><span class="line">            call_user_func_array(<span class="keyword">array</span>(<span class="keyword">$this</span>, <span class="keyword">$this</span>-&gt;method), <span class="keyword">$this</span>-&gt;args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>反序列化部分<code>args</code>构造成数组，私有成员序列化后要加<code>%00</code></p>
+<p><code>Waf</code>部分<code>flag</code>用双写绕过，空格用<code>$IFS</code>绕过</p>
+<p>Post</p>
+<p><code>come=O:4:&quot;come&quot;:2:{s:12:&quot;%00come%00method&quot;;s:4:&quot;echo&quot;;s:10:&quot;%00come%00args&quot;;a:1:{i:0;s:27:&quot;44%26cat$IFS../../../flaflagg&quot;;}}</code></p>
+<p>即可得到flag</p>
+<p>但是这里在本地调试有个很坑的点 就是<code>echo</code>函数不能用 我改成<code>echo1</code>才可以</p>
+<h2 id="0x03-web3-upload"><a href="#0x03-web3-upload" class="headerlink" title="0x03 web3 upload"></a>0x03 web3 upload</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="comment">//error_reporting(0);</span></span><br><span class="line">    <span class="comment">//$dir=md5("icq" . $_SERVER['REMOTE_ADDR']);</span></span><br><span class="line">    $dir=md5(<span class="string">"icq"</span>);</span><br><span class="line">    $sandbox = <span class="string">'/var/sandbox/'</span> . $dir;</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>])&#123;</span><br><span class="line">        var_dump($_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">        $filename = !<span class="keyword">empty</span>($_POST[<span class="string">'file'</span>]) ? $_POST[<span class="string">'file'</span>] : $_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>];</span><br><span class="line">        <span class="keyword">if</span> (!is_array($filename)) &#123;</span><br><span class="line">            $filename = explode(<span class="string">'.'</span>, $filename);</span><br><span class="line">        &#125;</span><br><span class="line">        $ext = end($filename);</span><br><span class="line">        var_dump($ext);</span><br><span class="line">        <span class="keyword">if</span>($ext==$filename[count($filename) - <span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">"emmmm..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        $new_name = (string)rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">"."</span>.$ext;</span><br><span class="line">        var_dump($new_name);</span><br><span class="line">        move_uploaded_file($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>],$new_name);</span><br><span class="line">        $_ = $_POST[<span class="string">'hehe'</span>];</span><br><span class="line">        var_dump($_);</span><br><span class="line">        <span class="keyword">if</span>(@substr(file($_)[<span class="number">0</span>],<span class="number">0</span>,<span class="number">6</span>)===<span class="string">'@&lt;?php'</span> &amp;&amp; strpos($_,$new_name)===<span class="keyword">false</span>)&#123;</span><br><span class="line">            <span class="keyword">include</span>($_);</span><br><span class="line">        &#125;</span><br><span class="line">        unlink($new_name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>环境用的是<code>docker</code>需要在<code>var</code>目录下新建一个<code>sandbox</code></p>
+<p>原题是没有<code>vardump</code>的，我这里加是为了打印出变量方便调试和理解</p>
+<p>审计代码：</p>
+<p>在<code>/var/sandbox</code>下建立了一个名为<code>2765d621af8a58b78b4d528bd5ef7f6b</code>的文件夹，这个文件夹通过<code>url</code>是无法访问的。然后进入判断语句，如果<code>filename</code>不是数组就用<code>explode</code>分割成数组，然后把数组的最后一位赋值给<code>ext</code>，例如：如果传进去的<code>filename</code>是<code>1.php</code>，<code>ext</code>就是<code>php</code>然后接下来的判断这里会<code>die</code>。那么这样我们就只能传一个<code>file</code>数组了，我们可以构造<code>file[0]</code>和<code>file[2]</code>使得<code>filename[1]</code> 为空来跳过这个判断</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">move_uploaded_file($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>],$new_name);</span><br></pre></td></tr></table></figure>
+
+<p>这句代码的意思是把我们传上来的文件内容赋到<code>$new_name</code>里面而最后的<code>unlike</code>会将所有的<code>$new_name</code>删除</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=<span class="string">"http://192.168.86.143:5555/index.php"</span> method=<span class="string">"POST"</span> enctype=<span class="string">"multipart/form-data"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"hidden"</span> name=<span class="string">"file"</span> value=<span class="string">"123"</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">"file"</span> name=<span class="string">"file"</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">"submit"</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>构造的上传表单如上</p>
+<p><img src="/img/shanghai_1.png" alt=""></p>
+<p>可以看到会生成一个<code>439.php</code>至于为什么用<code>/.</code>结尾是因为这是<code>unlike</code>的一个小<code>trick</code>不会删除<code>/.</code>结尾的文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$_ = $_POST[<span class="string">'hehe'</span>];</span><br><span class="line"><span class="keyword">if</span>(@substr(file($_)[<span class="number">0</span>],<span class="number">0</span>,<span class="number">6</span>)===<span class="string">'@&lt;?php'</span> &amp;&amp; strpos($_,$new_name)===<span class="keyword">false</span>)&#123;</span><br><span class="line">    <span class="keyword">include</span>($_);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就只剩下两句代码了，可以看到文件包含，难么我们就可以把传进去的文件给包含出来访问</p>
+<p><code>file</code>命令告诉我们其第一行的内容必须为<code>@&lt;?php</code> ,而<code>strpos($_,$new_name)===false)</code>其实是没有的，和随机数相等的可能性几乎为0，那么我们就可以传入<code>hehe</code>进行爆破</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;var&#x2F;sandbox&#x2F;2765d621af8a58b78b4d528bd5ef7f6b&#x2F;xxx.php</span><br></pre></td></tr></table></figure>
+
+<p><code>xxx</code>是我们用来爆破的值，当<code>xxx</code>为000时会出现一个随机的数，当我们遍历到后面的时候一定会访问到这个文件</p>
+<p><img src="/img/shanghai_2.png" alt=""></p>
+<p>爆破的时候可以发现很多都是可以利用的  我这里随机取了一个<code>561.php</code> 可以看到执行了<code>echo</code>代码</p>
+<p>接下来利用远程命令读取就好啦</p>
+<p><img src="/img/shanghai_3.png" alt=""></p>
+<h2 id="0x04-misc1-签到"><a href="#0x04-misc1-签到" class="headerlink" title="0x04 misc1 签到"></a>0x04 misc1 签到</h2><p>base32解码即可</p>
+<h2 id="0x05-misc2-easy-py"><a href="#0x05-misc2-easy-py" class="headerlink" title="0x05 misc2 easy_py"></a>0x05 misc2 easy_py</h2><p>查看<code>bytecode</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">co_consts : (0, 10, 7, 1, 29, 14, 22, 31, 57, 30, 9, 52, 27, 102, -1, &#39;wrong&#39;, &#39;right&#39;, None, -103)</span><br><span class="line">co_names  (&#39;cmp&#39;, &#39;raw_input&#39;, &#39;flag&#39;, &#39;m&#39;, &#39;i&#39;, &#39;ord&#39;, &#39;exit&#39;)</span><br><span class="line">          0 JUMP_ABSOLUTE       6</span><br><span class="line">          3 LOAD_CONST      13091 (13091)</span><br><span class="line">    &gt;&gt;    6 JUMP_ABSOLUTE       9</span><br><span class="line">    &gt;&gt;    9 LOAD_CONST          0 (0)</span><br><span class="line">         12 LOAD_CONST          1 (1)</span><br><span class="line">         15 LOAD_CONST          2 (2)</span><br><span class="line">         18 LOAD_CONST          3 (3)</span><br><span class="line">         21 LOAD_CONST          4 (4)</span><br><span class="line">         24 LOAD_CONST          5 (5)</span><br><span class="line">         27 LOAD_CONST          2 (2)</span><br><span class="line">         30 LOAD_CONST          6 (6)</span><br><span class="line">         33 LOAD_CONST          6 (6)</span><br><span class="line">         36 LOAD_CONST          7 (7)</span><br><span class="line">         39 LOAD_CONST          8 (8)</span><br><span class="line">         42 LOAD_CONST          9 (9)</span><br><span class="line">         45 LOAD_CONST         10 (10)</span><br><span class="line">         48 LOAD_CONST         11 (11)</span><br><span class="line">         51 LOAD_CONST         12 (12)  </span><br><span class="line">         54 BUILD_LIST         15</span><br><span class="line">         57 STORE_NAME          0 (0)</span><br><span class="line"></span><br><span class="line">         创建一个list结构 cmp &#x3D; [0, 10, 7, 1, 29, 14, 22, 31, 57, 30, 9, 52, 27]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         60 LOAD_NAME           1 (1)</span><br><span class="line">         63 CALL_FUNCTION       0       raw_input函数执行</span><br><span class="line">         66 STORE_NAME          2 (2)   flag&#x3D;input的值</span><br><span class="line"></span><br><span class="line">         69 LOAD_CONST          0 (0)</span><br><span class="line">         72 STORE_NAME          3 (3)   m&#x3D;0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         75 SETUP_LOOP         91 (to 169)  开始循环</span><br><span class="line"></span><br><span class="line">         78 LOAD_NAME           2 (2)       循环起点flag while flag:</span><br><span class="line"></span><br><span class="line">         81 GET_ITER                        for i in flag</span><br><span class="line">         82 FOR_ITER           83 (to 168)</span><br><span class="line">         85 STORE_NAME          4 (4) i</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         88 LOAD_NAME           5 (5)  ord</span><br><span class="line">         91 LOAD_NAME           4 (4)  i</span><br><span class="line">         94 CALL_FUNCTION       1           ord(i)</span><br><span class="line">         97 UNARY_INVERT                    ~ord(i)    </span><br><span class="line">         98 LOAD_CONST         13 (13) 102     </span><br><span class="line">        101 BINARY_AND                       ~ord(i) &amp; 102</span><br><span class="line"></span><br><span class="line">        102 LOAD_NAME           5 (5)       ord</span><br><span class="line">        105 LOAD_NAME           4 (4)       i</span><br><span class="line">        108 CALL_FUNCTION       1           ord(i)</span><br><span class="line">        111 LOAD_CONST         18 (18)      -103</span><br><span class="line">        114 BINARY_AND                      ord(i) &amp; -103</span><br><span class="line"></span><br><span class="line">        115 BINARY_OR                       ~ord(i) &amp; 102 | ord(i) &amp; -103</span><br><span class="line"></span><br><span class="line">        116 STORE_NAME          4 (4)       i &#x3D; ~ord(i) &amp; 102 | ord(i) &amp; -103</span><br><span class="line">        119 LOAD_NAME           4 (4)       i</span><br><span class="line">        122 LOAD_NAME           0 (0)       cmp</span><br><span class="line">        125 LOAD_NAME           3 (3)       m</span><br><span class="line">        128 BINARY_SUBSCR                   m &#x3D; cmp[i]</span><br><span class="line">        129 COMPARE_OP          2 (&#x3D;&#x3D;)      m &#x3D;&#x3D; cmp[i]   &#x2F;&#x2F;i &#x3D;&#x3D; cmp[m]  </span><br><span class="line">        132 POP_JUMP_IF_FALSE   144</span><br><span class="line">        135 LOAD_NAME           3 (3)       读取满足条件的 m</span><br><span class="line">        138 UNARY_NEGATIVE                  m &#x3D; -m</span><br><span class="line">        139 LOAD_CONST         14 (14)      -1</span><br><span class="line">        142 BINARY_ADD                      m + (-1)</span><br><span class="line">        143 UNARY_NEGATIVE                  -(m + (-1))</span><br><span class="line">    &gt;&gt;  144 STORE_NAME          3 (3)       m &#x3D; -(m + (-1))</span><br><span class="line">        147 JUMP_ABSOLUTE      73</span><br><span class="line">        150 JUMP_ABSOLUTE      73</span><br><span class="line">        153 LOAD_CONST         15 (15)   </span><br><span class="line">        156 PRINT_ITEM                       print(&#39;wrong&#39;)</span><br><span class="line">        157 PRINT_NEWLINE  </span><br><span class="line">        158 LOAD_NAME           6 (6)         </span><br><span class="line">        161 CALL_FUNCTION       0             exit()</span><br><span class="line">        164 POP_TOP        </span><br><span class="line">        165 JUMP_ABSOLUTE      73</span><br><span class="line">    &gt;&gt;  168 POP_BLOCK      </span><br><span class="line"></span><br><span class="line">    &gt;&gt;  169 LOAD_CONST         16 (16)      &#39;right&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        172 PRINT_ITEM                    </span><br><span class="line">        173 PRINT_NEWLINE  </span><br><span class="line">        174 LOAD_CONST         17 (17)</span><br><span class="line">        177 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+<p>汇编的意思大概是创建一个名为cmp的list，将输入的flag的每一位进行<code>~ord(i) &amp; 102 | ord(i) &amp; -103</code>操作，与cmp的每一位逐一比较。并且要相等即可</p>
+<p>爆破脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cmp &#x3D; [0, 10, 7, 1, 29, 14, 22, 31, 57, 30, 9, 52, 27]</span><br><span class="line">t &#x3D; &#39;&#39;</span><br><span class="line">for i in range(13):</span><br><span class="line">	for j in range(1,200):</span><br><span class="line">		if ( (~j &amp; 102) | (j &amp; -103) ) &#x3D;&#x3D; cmp[i] :</span><br><span class="line">			print(j)</span><br><span class="line">			t +&#x3D; chr(j)</span><br><span class="line">			break</span><br><span class="line">print(t)</span><br></pre></td></tr></table></figure>
+
+<p>但是<code>flag</code>交上去并不对，一脸懵逼，询问技术支持，说少了几位，原来爆出的<code>flag</code>为<code>flag{hpy_xoR}</code>，试了试<code>flag{happy_xoR}</code>发现对了！后来技术支持说做了混淆，所以有几位不见了。</p>
+<h2 id="0x06-misc3-92"><a href="#0x06-misc3-92" class="headerlink" title="0x06 misc3 92"></a>0x06 misc3 92</h2><p>纯纯纯脑洞题</p>
+<p>给了一个文档</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">25448494D0000000A0A1A0D074E40598</span><br><span class="line">E7CE8000000020808110000081100000</span><br><span class="line">BDE615DDDEC9874514449431500000BD</span><br><span class="line">94F50708590AE5C9FADF8E8B1C004103</span><br><span class="line">F5FDFDFDF552A7F1286F552118FB339D</span><br><span class="line">209080804202020918ED00F6BBF5A90C</span><br><span class="line">BEFE0C28242090808042020209082824</span><br><span class="line">839D362E7CC32E9DFFF137FFFAE5FBF1</span><br><span class="line">40210101840414221B58BFF17ED723D4</span><br><span class="line">14121040484021010184041412104048</span><br><span class="line">CDFF1CD7F126EBC8D3BF9CAD1E2B660E</span><br><span class="line">210101840414227B362EBDFD72B5981B</span><br><span class="line">12104048402101018404141210404840</span><br><span class="line">8077B1857EE4775BAB11A18501840414</span><br><span class="line">1040484021010184CAB5F774297F9793</span><br><span class="line">01840414121040484021010184041412</span><br><span class="line">8C7FEBF5F53AFDFA0EFE7B7587C6D989</span><br><span class="line">404840210101840414121040A86CE791</span><br><span class="line">。。。。。。。。</span><br><span class="line">。。。。。。。。</span><br><span class="line">68100000691000006A1000006B100000</span><br><span class="line">01000000FEFFFFFF0000000067100000</span><br><span class="line">891000000000000000100000891B0000</span><br><span class="line">06000000000000000000000039000000</span><br><span class="line">00000000000000003E000300FEFF0900</span><br><span class="line">D0CF11E0A1B11AE10000000000000000</span><br></pre></td></tr></table></figure>
+
+<p>可以看到都是16进制，根据题目的描述是个doc文件可以发现把最后一行当成第一行逆序过来应该是一个<code>doc</code>文件</p>
+<p>然后观察发现第一行倒序过来是<code>89504E</code>开头，也就是说把每一行都逆序过后的文件可能是一个<code>png</code></p>
+<p>上python脚本，得到两个我们想要的<code>txt</code>，丢到<code>winhex</code>里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">open(&#39;1.txt&#39;,&#39;w&#39;).writelines(open(&#39;get.txt&#39;).readlines()[::-1])  &#x2F;&#x2F;doc</span><br><span class="line">f &#x3D; open(&#39;get.txt&#39;)</span><br><span class="line">o &#x3D; open(&#39;2.txt&#39;, &#39;w+&#39;)</span><br><span class="line">for line in f:</span><br><span class="line">	o.write(line[::-1])   &#x2F;&#x2F;png</span><br></pre></td></tr></table></figure>
+
+<p>提取出来一个二维码和一个有密码的文档，根据主办方的提示<code>base92</code>将扫码扫出来的值解码可得</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;:2?kEaX  ---&gt;  Passwd</span><br></pre></td></tr></table></figure>
+
+<p>这个应该是doc的密码</p>
+<p><img src="/img/shanghai_9.png" alt=""></p>
+<p>有个二维码和图片，图片挪开发现隐藏字体，扫描二维码得到一段话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;M1sc_</span><br><span class="line">image steganography</span><br><span class="line"></span><br><span class="line">Congratulations on getting the third string：stlganography</span><br></pre></td></tr></table></figure>
+
+<p>那么很清楚我们还要收集到第二段碎片，从<code>image steganography</code>下手，百度到一个工具，下载下来将左边的图片解密后得到第二段碎片<img src="shanghai/10.png" alt=""></p>
+<p>全部拼起来即是<code>flag</code></p>
+<h2 id="0x07misc4-N0find"><a href="#0x07misc4-N0find" class="headerlink" title="0x07misc4 N0find"></a>0x07misc4 N0find</h2><p>一个流量包，分解出来一大堆东西，找呀找，找到一个<code>example1(1).php</code>里面有一个<code>ctfisfun.zip</code></p>
+<p>用<code>binwalk -e</code>提取出来一个压缩包，但是压缩包里面的图片是提取不出来的很无语</p>
+<p>队友尝试用<code>winrar</code>修复(这里是巨坑，因为这个导致后面一直没解出)</p>
+<p>正确思路是用<code>7z</code>打开，里面有两个图片，有一个是可以提取出来的</p>
+<p><img src="/img/shanghai_7.jpeg" alt=""></p>
+<p>根据主办方的提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openpuff，图片中有提示CRC爆破的值，crc32爆破出的结果中包含f字符</span><br></pre></td></tr></table></figure>
+
+<p>继续去流量包找发现三个明显像<code>crc32</code>的值<code>C61B1F65，E74E142D，648BDAD5</code>拿去爆破得到一堆值，筛选出含<code>f</code>的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">verification checksum: 0xc61b1f65 (OK)</span><br><span class="line">alternative: 93fjhl (OK)</span><br><span class="line">alternative: fBWjIv (OK)</span><br><span class="line">verification checksum: 0xe74e142d (OK)</span><br><span class="line">alternative: Xez1fW (OK)</span><br><span class="line">alternative: mbof3k (OK)</span><br><span class="line">verification checksum: 0x648bdad5 (OK)</span><br><span class="line">alternative: 5fyJIo (OK)</span><br><span class="line">alternative: v4gfx1 (OK)</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们看看<code>openpuff</code>的使用，<a href="http://blog.sina.com.cn/s/blog_67493dad01018zd3.html" target="_blank" rel="noopener">参考链接</a></p>
+<p>很明显我们需要一个密码或者三个密码，那么一共就有<code>8+2*2*2</code>也就是16种可能</p>
+<p>那么就手动爆破吧，最后在<code>ctfBWjIv,ctmbof3k,ctv4gfx1</code>这一组密码的时候解密成功了</p>
+<p><img src="/img/shanghai_7.png" alt=""></p>
+<p>得到<code>f1ag.txt</code></p>
+<p><img src="/img/shanghai_8.png" alt=""></p>
+<p>然而这题是复现出来的，比赛的时候思路一直是正确的，但因为是<code>winrar</code>修复的图片改变了他原来的大小死活解密不出来，最后这题也只有3个人做出来，好气哦！！</p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2018-11-05</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/ctf-awd/">ctf+awd</a>
+
+      <a class="tag-link" href="/tags/ctf/" rel="tag">#ctf</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>

